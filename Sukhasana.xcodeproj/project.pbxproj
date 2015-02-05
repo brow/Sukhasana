@@ -393,6 +393,7 @@
 				EA037E6E1A834B9300F47B17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA037E6F1A834B9300F47B17 /* Build configuration list for PBXNativeTarget "SukhasanaTests" */ = {
 			isa = XCConfigurationList;
@@ -401,6 +402,7 @@
 				EA037E711A834B9300F47B17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

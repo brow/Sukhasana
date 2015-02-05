@@ -7,12 +7,9 @@
 //
 
 import Cocoa
-import AppKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-  @IBOutlet weak var window: NSWindow!
 
   override init() {
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1 /* NSVariableStatusItemLength */)
