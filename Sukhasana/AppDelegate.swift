@@ -12,8 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
   override init() {
-    statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1 /* NSVariableStatusItemLength */)
-    statusItem.title = "Asana"
+    statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSVariableStatusItemLength */)
+    statusItem.title = "a⋮"
     statusItem.highlightMode = true
   }
   
