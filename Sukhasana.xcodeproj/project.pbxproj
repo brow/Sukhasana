@@ -1,0 +1,408 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EA037E581A834B9300F47B17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA037E571A834B9300F47B17 /* AppDelegate.swift */; };
+		EA037E5A1A834B9300F47B17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA037E591A834B9300F47B17 /* Images.xcassets */; };
+		EA037E5D1A834B9300F47B17 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA037E5B1A834B9300F47B17 /* MainMenu.xib */; };
+		EA037E691A834B9300F47B17 /* SukhasanaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA037E681A834B9300F47B17 /* SukhasanaTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EA037E631A834B9300F47B17 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA037E4A1A834B9300F47B17 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA037E511A834B9300F47B17;
+			remoteInfo = Sukhasana;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EA037E521A834B9300F47B17 /* Sukhasana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sukhasana.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA037E561A834B9300F47B17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA037E571A834B9300F47B17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EA037E591A834B9300F47B17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EA037E5C1A834B9300F47B17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		EA037E621A834B9300F47B17 /* SukhasanaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SukhasanaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA037E671A834B9300F47B17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA037E681A834B9300F47B17 /* SukhasanaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SukhasanaTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EA037E4F1A834B9300F47B17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA037E5F1A834B9300F47B17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EA037E491A834B9300F47B17 = {
+			isa = PBXGroup;
+			children = (
+				EA037E541A834B9300F47B17 /* Sukhasana */,
+				EA037E651A834B9300F47B17 /* SukhasanaTests */,
+				EA037E531A834B9300F47B17 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EA037E531A834B9300F47B17 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA037E521A834B9300F47B17 /* Sukhasana.app */,
+				EA037E621A834B9300F47B17 /* SukhasanaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA037E541A834B9300F47B17 /* Sukhasana */ = {
+			isa = PBXGroup;
+			children = (
+				EA037E571A834B9300F47B17 /* AppDelegate.swift */,
+				EA037E591A834B9300F47B17 /* Images.xcassets */,
+				EA037E5B1A834B9300F47B17 /* MainMenu.xib */,
+				EA037E551A834B9300F47B17 /* Supporting Files */,
+			);
+			path = Sukhasana;
+			sourceTree = "<group>";
+		};
+		EA037E551A834B9300F47B17 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA037E561A834B9300F47B17 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EA037E651A834B9300F47B17 /* SukhasanaTests */ = {
+			isa = PBXGroup;
+			children = (
+				EA037E681A834B9300F47B17 /* SukhasanaTests.swift */,
+				EA037E661A834B9300F47B17 /* Supporting Files */,
+			);
+			path = SukhasanaTests;
+			sourceTree = "<group>";
+		};
+		EA037E661A834B9300F47B17 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA037E671A834B9300F47B17 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA037E511A834B9300F47B17 /* Sukhasana */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA037E6C1A834B9300F47B17 /* Build configuration list for PBXNativeTarget "Sukhasana" */;
+			buildPhases = (
+				EA037E4E1A834B9300F47B17 /* Sources */,
+				EA037E4F1A834B9300F47B17 /* Frameworks */,
+				EA037E501A834B9300F47B17 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sukhasana;
+			productName = Sukhasana;
+			productReference = EA037E521A834B9300F47B17 /* Sukhasana.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EA037E611A834B9300F47B17 /* SukhasanaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA037E6F1A834B9300F47B17 /* Build configuration list for PBXNativeTarget "SukhasanaTests" */;
+			buildPhases = (
+				EA037E5E1A834B9300F47B17 /* Sources */,
+				EA037E5F1A834B9300F47B17 /* Frameworks */,
+				EA037E601A834B9300F47B17 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA037E641A834B9300F47B17 /* PBXTargetDependency */,
+			);
+			name = SukhasanaTests;
+			productName = SukhasanaTests;
+			productReference = EA037E621A834B9300F47B17 /* SukhasanaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EA037E4A1A834B9300F47B17 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Tom Brow";
+				TargetAttributes = {
+					EA037E511A834B9300F47B17 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					EA037E611A834B9300F47B17 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = EA037E511A834B9300F47B17;
+					};
+				};
+			};
+			buildConfigurationList = EA037E4D1A834B9300F47B17 /* Build configuration list for PBXProject "Sukhasana" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EA037E491A834B9300F47B17;
+			productRefGroup = EA037E531A834B9300F47B17 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA037E511A834B9300F47B17 /* Sukhasana */,
+				EA037E611A834B9300F47B17 /* SukhasanaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA037E501A834B9300F47B17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA037E5A1A834B9300F47B17 /* Images.xcassets in Resources */,
+				EA037E5D1A834B9300F47B17 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA037E601A834B9300F47B17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EA037E4E1A834B9300F47B17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA037E581A834B9300F47B17 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA037E5E1A834B9300F47B17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA037E691A834B9300F47B17 /* SukhasanaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA037E641A834B9300F47B17 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA037E511A834B9300F47B17 /* Sukhasana */;
+			targetProxy = EA037E631A834B9300F47B17 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EA037E5B1A834B9300F47B17 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA037E5C1A834B9300F47B17 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EA037E6A1A834B9300F47B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EA037E6B1A834B9300F47B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		EA037E6D1A834B9300F47B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sukhasana/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EA037E6E1A834B9300F47B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sukhasana/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EA037E701A834B9300F47B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SukhasanaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sukhasana.app/Contents/MacOS/Sukhasana";
+			};
+			name = Debug;
+		};
+		EA037E711A834B9300F47B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SukhasanaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sukhasana.app/Contents/MacOS/Sukhasana";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA037E4D1A834B9300F47B17 /* Build configuration list for PBXProject "Sukhasana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA037E6A1A834B9300F47B17 /* Debug */,
+				EA037E6B1A834B9300F47B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA037E6C1A834B9300F47B17 /* Build configuration list for PBXNativeTarget "Sukhasana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA037E6D1A834B9300F47B17 /* Debug */,
+				EA037E6E1A834B9300F47B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EA037E6F1A834B9300F47B17 /* Build configuration list for PBXNativeTarget "SukhasanaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA037E701A834B9300F47B17 /* Debug */,
+				EA037E711A834B9300F47B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EA037E4A1A834B9300F47B17 /* Project object */;
+}
