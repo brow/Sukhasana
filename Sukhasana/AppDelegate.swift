@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   override init() {
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
-    panel = NSPanel(
+    panel = Panel(
       contentRect: NSMakeRect(0, 0, 300, 50),
       styleMask: NSBorderlessWindowMask | NSNonactivatingPanelMask,
       backing: .Buffered,
@@ -28,6 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     panel.floatingPanel = true
     panel.collectionBehavior = .CanJoinAllSpaces
+    panel.contentView = InputView(frame: NSZeroRect)
   }
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
