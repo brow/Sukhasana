@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem.action = "didClickStatusItem:"
     
     panel.floatingPanel = true
+    panel.collectionBehavior = .CanJoinAllSpaces
   }
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
