@@ -9,7 +9,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
   override init() {
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
@@ -27,8 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem.action = "didClickStatusItem:"
     
     panel.floatingPanel = true
-    panel.collectionBehavior = .CanJoinAllSpaces
     panel.contentView = InputView(frame: NSZeroRect)
+    panel.delegate = self
   }
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
@@ -44,5 +44,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   let statusItem: NSStatusItem
   let panel: NSPanel
+  
+  // MARK: NSWindowDelegate
+  
+  func windowDidResignKey(notification: NSNotification) {
+    panel.close()
+  }
 }
 
