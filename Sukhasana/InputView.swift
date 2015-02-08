@@ -9,7 +9,7 @@
 import Cocoa
 import Cartography
 
-class InputView: NSView {
+class InputView: NSView, NSTextFieldDelegate {
   override init(frame frameRect: NSRect) {
     super.init(frame: frameRect)
     
@@ -18,6 +18,7 @@ class InputView: NSView {
     textField.drawsBackground = false
     textField.bezeled = false
     textField.wantsLayer = true
+    textField.delegate = self
     self.addSubview(textField)
     
     self.needsUpdateConstraints = true
@@ -30,7 +31,14 @@ class InputView: NSView {
   
   // MARK: private
   
+  let model = InputViewModel()
   let textField = NSTextField()
+
+  // MARK: NSTextFieldDelegate
+  
+  override func controlTextDidChange(obj: NSNotification) {
+    model.textFieldText.put(textField.stringValue)
+  }
   
   // MARK: NSView
   

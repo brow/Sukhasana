@@ -19,6 +19,7 @@
 		EA037E851A847CF800F47B17 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */; };
 		EA037E861A847CF800F47B17 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA307A5B1A8730F10008A566 /* Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA307A5A1A8730F10008A566 /* Panel.swift */; };
+		EA307A5D1A8756710008A566 /* InputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA307A5C1A8756710008A566 /* InputViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		EA037E791A847CF800F47B17 /* LlamaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LlamaKit.framework; path = Carthage/Build/Mac/LlamaKit.framework; sourceTree = "<group>"; };
 		EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		EA307A5A1A8730F10008A566 /* Panel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Panel.swift; sourceTree = "<group>"; };
+		EA307A5C1A8756710008A566 /* InputViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,10 +112,11 @@
 			children = (
 				EA037E571A834B9300F47B17 /* AppDelegate.swift */,
 				EA037E591A834B9300F47B17 /* Images.xcassets */,
-				EA037E5B1A834B9300F47B17 /* MainMenu.xib */,
-				EA037E551A834B9300F47B17 /* Supporting Files */,
 				EA037E761A8478F900F47B17 /* InputView.swift */,
+				EA307A5C1A8756710008A566 /* InputViewModel.swift */,
+				EA037E5B1A834B9300F47B17 /* MainMenu.xib */,
 				EA307A5A1A8730F10008A566 /* Panel.swift */,
+				EA037E551A834B9300F47B17 /* Supporting Files */,
 			);
 			path = Sukhasana;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				EA037E581A834B9300F47B17 /* AppDelegate.swift in Sources */,
 				EA037E771A8478F900F47B17 /* InputView.swift in Sources */,
 				EA307A5B1A8730F10008A566 /* Panel.swift in Sources */,
+				EA307A5D1A8756710008A566 /* InputViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
