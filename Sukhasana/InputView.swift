@@ -14,6 +14,9 @@ class InputView: NSView {
     super.init(frame: frameRect)
     
 //    textField.drawsBackground = false
+    textField.drawsBackground = false
+    textField.bezeled = false
+    textField.wantsLayer = true
     self.addSubview(textField)
     
     self.needsUpdateConstraints = true
