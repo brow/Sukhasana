@@ -13,7 +13,8 @@ class InputView: NSView {
   override init(frame frameRect: NSRect) {
     super.init(frame: frameRect)
     
-//    textField.drawsBackground = false
+    textField.font = NSFont.systemFontOfSize(20)
+    textField.focusRingType = NSFocusRingType.None
     textField.drawsBackground = false
     textField.bezeled = false
     textField.wantsLayer = true
@@ -34,13 +35,12 @@ class InputView: NSView {
   // MARK: NSView
   
   override func updateConstraints() {
-    constrain(textField, self) { textField, view in
-      view.height == 50
-      view.width == 300
-      textField.edges == view.edges
+    constrain(self, textField) { view, textField in
+      textField.edges == inset(view.edges, 10)
       return
     }
     
     super.updateConstraints()
   }
+
 }
