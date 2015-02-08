@@ -15,7 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
     panel = NSPanel(
       contentRect: NSMakeRect(0, 0, 300, 50),
-      styleMask: NSBorderlessWindowMask | NSUtilityWindowMask | NSNonactivatingPanelMask,
+      styleMask: NSBorderlessWindowMask | NSNonactivatingPanelMask,
       backing: .Buffered,
       defer: true)
 
@@ -25,6 +25,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem.highlightMode = true
     statusItem.target = self
     statusItem.action = "didClickStatusItem:"
+    
+    panel.floatingPanel = true
   }
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
@@ -35,16 +37,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       statusItemFrame.origin.y + statusItemFrame.size.height))
     panel.makeKeyAndOrderFront(self)
   }
-  
-  func applicationDidFinishLaunching(aNotification: NSNotification) {
-    // Insert code here to initialize your application
-  }
 
-  func applicationWillTerminate(aNotification: NSNotification) {
-    // Insert code here to tear down your application
-  }
-
-  // MARK: priavte
+  // MARK: private
   
   let statusItem: NSStatusItem
   let panel: NSPanel
