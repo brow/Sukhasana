@@ -12,9 +12,28 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
   override init() {
-    statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSVariableStatusItemLength */)
+    statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
+    panel = NSPanel(
+      contentRect: NSMakeRect(0, 0, 300, 50),
+      styleMask: NSBorderlessWindowMask | NSUtilityWindowMask | NSNonactivatingPanelMask,
+      backing: .Buffered,
+      defer: true)
+
+    super.init()
+    
     statusItem.title = "a⋮"
     statusItem.highlightMode = true
+    statusItem.target = self
+    statusItem.action = "didClickStatusItem:"
+  }
+  
+  @IBAction func didClickStatusItem(sender: AnyObject) {
+    let statusItemFrame = sender.window.frame
+    
+    panel.setFrameTopLeftPoint(NSMakePoint(
+      statusItemFrame.origin.x,
+      statusItemFrame.origin.y + statusItemFrame.size.height))
+    panel.makeKeyAndOrderFront(self)
   }
   
   func applicationDidFinishLaunching(aNotification: NSNotification) {
@@ -28,5 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   // MARK: priavte
   
   let statusItem: NSStatusItem
+  let panel: NSPanel
 }
 
