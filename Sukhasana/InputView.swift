@@ -22,6 +22,9 @@ class InputView: NSView, NSTextFieldDelegate, NSTableViewDataSource, NSTableView
     textField.delegate = self
     self.addSubview(textField)
     
+    searchResultsTableView.rowHeight = 40
+    searchResultsTableView.addTableColumn(
+      NSTableColumn(identifier: "1"))
     searchResultsTableView.setDataSource(self)
     searchResultsTableView.setDelegate(self)
     self.addSubview(searchResultsTableView)
@@ -44,11 +47,7 @@ class InputView: NSView, NSTextFieldDelegate, NSTableViewDataSource, NSTableView
   // MARK: NSTableViewDataSource
   
   func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-    return 20
-  }
-  
-  func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
-    return nil
+    return 5
   }
   
   // MARK: NSTableViewDelegate
@@ -66,7 +65,7 @@ class InputView: NSView, NSTextFieldDelegate, NSTableViewDataSource, NSTableView
       }
     }()
     
-    view.setValue("Hi there")
+    view.stringValue = "Hi there"
     return view
   }
 
