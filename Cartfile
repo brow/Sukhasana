@@ -1,4 +1,5 @@
 github "robb/Cartography" == 0.1
+github "Alamofire/Alamofire" == 1.1.4
 
 # A particular commit in swift-development
 github "ReactiveCocoa/ReactiveCocoa" "68f4a84eee8844cb1def1b0c3448fbdcd8394acd"
