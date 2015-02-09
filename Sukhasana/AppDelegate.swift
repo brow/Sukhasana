@@ -14,7 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
   override init() {
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
     panel = Panel(
-      contentRect: NSMakeRect(0, 0, 300, 50),
+      contentRect: NSMakeRect(0, 0, 300, 100),
       styleMask: NSBorderlessWindowMask | NSNonactivatingPanelMask,
       backing: .Buffered,
       defer: true)
@@ -29,6 +29,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     panel.floatingPanel = true
     panel.contentView = InputView(frame: NSZeroRect)
     panel.delegate = self
+    
+    panel.updateConstraintsIfNeeded()
   }
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
@@ -37,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     panel.setFrameTopLeftPoint(NSMakePoint(
       statusItemFrame.origin.x,
       statusItemFrame.origin.y + statusItemFrame.size.height))
-    panel.makeKeyAndOrderFront(self)
+    panel.makeKeyAndOrderFront(self)    
   }
 
   // MARK: private

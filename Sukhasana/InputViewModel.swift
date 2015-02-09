@@ -23,6 +23,14 @@ class InputViewModel {
       return
     }
   }
+  
+  func numberOfRows() -> Int {
+    return 1
+  }
+  
+  func stringForRow(row: Int) -> String {
+    return "Hello"
+  }
 }
 
 private let requestManager: Alamofire.Manager = {
