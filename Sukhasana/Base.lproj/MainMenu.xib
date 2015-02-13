@@ -26,15 +26,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <scrollView borderType="none" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLu-Xb-nMY">
+                    <scrollView borderType="none" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLu-Xb-nMY">
                         <rect key="frame" x="0.0" y="0.0" width="276" height="334"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="a7E-vQ-XOL">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="K0z-Fb-dee">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="K0z-Fb-dee">
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
