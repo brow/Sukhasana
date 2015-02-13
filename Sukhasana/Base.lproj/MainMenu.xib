@@ -26,13 +26,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <scrollView borderType="none" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLu-Xb-nMY">
+                    <scrollView borderType="none" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLu-Xb-nMY" customClass="TableScrollView" customModule="Sukhasana" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="276" height="334"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="a7E-vQ-XOL">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="K0z-Fb-dee">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="K0z-Fb-dee" customClass="TableView" customModule="Sukhasana" customModuleProvider="target">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="0.0" height="1"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -87,6 +87,9 @@
                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
+                        <connections>
+                            <outlet property="tableView" destination="K0z-Fb-dee" id="xWv-LE-KHD"/>
+                        </connections>
                     </scrollView>
                     <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QRO-2n-b46">
                         <rect key="frame" x="10" y="344" width="256" height="24"/>
@@ -95,6 +98,9 @@
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="6qX-02-XfG" id="C3A-ls-CPW"/>
+                        </connections>
                     </textField>
                 </subviews>
                 <constraints>
@@ -106,6 +112,11 @@
                     <constraint firstItem="xLu-Xb-nMY" firstAttribute="leading" secondItem="6qX-02-XfG" secondAttribute="leading" id="kQy-UV-tdm"/>
                     <constraint firstItem="QRO-2n-b46" firstAttribute="top" secondItem="6qX-02-XfG" secondAttribute="top" constant="10" id="vy7-8Y-TLS"/>
                 </constraints>
+                <connections>
+                    <outlet property="resultsScrollView" destination="xLu-Xb-nMY" id="eed-6Q-Xmc"/>
+                    <outlet property="resultsTableView" destination="K0z-Fb-dee" id="tMg-qr-JZk"/>
+                    <outlet property="textField" destination="QRO-2n-b46" id="X5t-yP-rBM"/>
+                </connections>
             </view>
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="fd0-iI-xn5"/>

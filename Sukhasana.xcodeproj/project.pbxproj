@@ -24,6 +24,7 @@
 		EA307A611A87FC780008A566 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA307A631A8852680008A566 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA307A621A8852680008A566 /* TableView.swift */; };
 		EA670FFB1A8DCCE1008DA8F7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFA1A8DCCE1008DA8F7 /* MainView.swift */; };
+		EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		EA307A5F1A87FC780008A566 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		EA307A621A8852680008A566 /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		EA670FFA1A8DCCE1008DA8F7 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				EA307A5A1A8730F10008A566 /* Panel.swift */,
 				EA037E551A834B9300F47B17 /* Supporting Files */,
 				EA307A621A8852680008A566 /* TableView.swift */,
+				EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */,
 			);
 			path = Sukhasana;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA037E581A834B9300F47B17 /* AppDelegate.swift in Sources */,
+				EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */,
 				EA670FFB1A8DCCE1008DA8F7 /* MainView.swift in Sources */,
 				EA307A631A8852680008A566 /* TableView.swift in Sources */,
 				EA037E771A8478F900F47B17 /* InputView.swift in Sources */,

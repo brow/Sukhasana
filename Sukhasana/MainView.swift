@@ -8,11 +8,24 @@
 
 import Cocoa
 
-class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate {
+class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+  
+  @IBOutlet var resultsTableView: NSTableView!
+  @IBOutlet var resultsScrollView: NSScrollView!
+  @IBOutlet var textField: NSTextField!
+  
+  // MARK: NSTextFieldDelegate
+  
+  override func controlTextDidChange(obj: NSNotification) {
+    resultsTableView.reloadData()
+    resultsScrollView.invalidateIntrinsicContentSize()
+    self.window?.setContentSize(self.fittingSize)
+  }
+  
   // MARK: NSTableViewDataSource
   
   func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-    return 5
+    return 10 - countElements(textField.stringValue)
   }
   
   // MARK: NSTableViewDelegate
@@ -33,4 +46,5 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate {
     view.stringValue = "Hi there"
     return view
   }
+  
 }

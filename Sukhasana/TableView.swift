@@ -10,6 +10,6 @@ import Cocoa
 
 class TableView: NSTableView {
   override var intrinsicContentSize: NSSize {
-    return NSMakeSize(0, CGFloat(numberOfRows) * rowHeight)
+    return NSMakeSize(300, CGFloat(numberOfRows) * (rowHeight + intercellSpacing.height))
   }
 }
