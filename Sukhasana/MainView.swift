@@ -19,7 +19,18 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
   override func controlTextDidChange(obj: NSNotification) {
     resultsTableView.reloadData()
     resultsScrollView.invalidateIntrinsicContentSize()
-    self.window?.setContentSize(self.fittingSize)
+    if let window = self.window {
+      let topLeft = CGPointMake(
+        window.frame.origin.x,
+        window.frame.origin.y + window.frame.size.height)
+      let newSize = self.fittingSize
+      let newFrame = NSMakeRect(
+        topLeft.x,
+        topLeft.y - newSize.height,
+        newSize.width,
+        newSize.height)
+      window.setFrame(newFrame, display: true)
+    }
   }
   
   // MARK: NSTableViewDataSource
@@ -43,7 +54,7 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
       }
       }()
     
-    view.stringValue = "Hi there"
+    view.stringValue = "Hi there \(row)"
     return view
   }
   
