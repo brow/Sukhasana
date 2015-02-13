@@ -9,7 +9,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTableViewDelegate {
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
     let statusItemFrame = sender.window.frame
@@ -40,6 +40,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     statusItem.highlightMode = true
     statusItem.target = self
     statusItem.action = "didClickStatusItem:"
+  }
+  
+  // MARK: NSTableViewDataSource
+  
+  func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    return 5
+  }
+  
+  // MARK: NSTableViewDelegate
+  
+  func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    let identifier = "View"
+    let view: NSTextField = {
+      if let view = tableView.makeViewWithIdentifier(identifier, owner: self) as? NSTextField {
+        return view
+      } else {
+        let view = NSTextField()
+        view.editable = false
+        view.identifier = identifier
+        return view
+      }
+      }()
+    
+    view.stringValue = "Hi there"
+    return view
   }
 }
 

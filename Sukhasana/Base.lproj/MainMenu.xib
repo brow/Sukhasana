@@ -26,14 +26,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <scrollView hidden="YES" borderType="none" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLu-Xb-nMY">
-                        <rect key="frame" x="0.0" y="0.0" width="276" height="329"/>
+                    <scrollView borderType="none" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLu-Xb-nMY">
+                        <rect key="frame" x="0.0" y="0.0" width="276" height="334"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="a7E-vQ-XOL">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="K0z-Fb-dee">
-                                    <rect key="frame" x="0.0" y="0.0" width="238" height="134"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -72,12 +71,16 @@
                                             </prototypeCellViews>
                                         </tableColumn>
                                     </tableColumns>
+                                    <connections>
+                                        <outlet property="dataSource" destination="Voe-Tx-rLC" id="FFB-oM-ftJ"/>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="Wzi-Yc-Qa8"/>
+                                    </connections>
                                 </tableView>
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="DDs-Gp-Prp">
-                            <rect key="frame" x="1" y="117.88576114177704" width="237.74788665771484" height="16"/>
+                            <rect key="frame" x="1" y="117.88576114177704" width="237.5" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="WEL-OW-FdX">
@@ -86,7 +89,7 @@
                         </scroller>
                     </scrollView>
                     <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QRO-2n-b46">
-                        <rect key="frame" x="10" y="339" width="256" height="29"/>
+                        <rect key="frame" x="10" y="344" width="256" height="24"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="" drawsBackground="YES" id="mhk-AQ-3jh">
                             <font key="font" metaFont="system" size="20"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
