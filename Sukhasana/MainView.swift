@@ -12,16 +12,13 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
   
   @IBOutlet var textField: NSTextField!
   @IBOutlet var resultsTableScrollView: TableScrollView!
-  
-  override func awakeFromNib() {
-    self.updateWindowFrame()
-  }
-  
+  weak var delegate: MainViewDelegate?
+
   // MARK: NSTextFieldDelegate
   
   override func controlTextDidChange(obj: NSNotification) {
     resultsTableScrollView.reloadData()
-    self.updateWindowFrame()
+    delegate?.mainViewDidChangeFittingSize(self)
   }
   
   // MARK: NSTableViewDataSource
@@ -49,20 +46,8 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
     return view
   }
   
-  // MARK: private
-  
-  private func updateWindowFrame() {
-    if let window = self.window {
-      let topLeft = CGPointMake(
-        window.frame.origin.x,
-        window.frame.origin.y + window.frame.size.height)
-      let newSize = self.fittingSize
-      let newFrame = NSMakeRect(
-        topLeft.x,
-        topLeft.y - newSize.height,
-        newSize.width,
-        newSize.height)
-      window.setFrame(newFrame, display: true)
-    }
-  }
+}
+
+protocol MainViewDelegate: NSObjectProtocol {
+  func mainViewDidChangeFittingSize(mainView: MainView)
 }

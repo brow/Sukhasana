@@ -13,6 +13,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Sukhasana" customModuleProvider="target">
             <connections>
+                <outlet property="mainView" destination="6qX-02-XfG" id="bEc-zb-lap"/>
                 <outlet property="panel" destination="NO0-7B-IDl" id="zbO-EJ-4A9"/>
             </connections>
         </customObject>
