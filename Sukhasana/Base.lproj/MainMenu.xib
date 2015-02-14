@@ -32,13 +32,13 @@
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="K0z-Fb-dee" customClass="TableView" customModule="Sukhasana" customModuleProvider="target">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="K0z-Fb-dee">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="0.0" height="1"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn width="273" minWidth="40" maxWidth="1000" id="5bR-Tw-IWS">
+                                        <tableColumn width="276" minWidth="40" maxWidth="1000" id="5bR-Tw-IWS">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -113,8 +113,7 @@
                     <constraint firstItem="QRO-2n-b46" firstAttribute="top" secondItem="6qX-02-XfG" secondAttribute="top" constant="10" id="vy7-8Y-TLS"/>
                 </constraints>
                 <connections>
-                    <outlet property="resultsScrollView" destination="xLu-Xb-nMY" id="eed-6Q-Xmc"/>
-                    <outlet property="resultsTableView" destination="K0z-Fb-dee" id="tMg-qr-JZk"/>
+                    <outlet property="resultsTableScrollView" destination="xLu-Xb-nMY" id="vhd-sA-E3k"/>
                     <outlet property="textField" destination="QRO-2n-b46" id="X5t-yP-rBM"/>
                 </connections>
             </view>

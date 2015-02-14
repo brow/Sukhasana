@@ -10,9 +10,8 @@ import Cocoa
 
 class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
   
-  @IBOutlet var resultsTableView: NSTableView!
-  @IBOutlet var resultsScrollView: NSScrollView!
   @IBOutlet var textField: NSTextField!
+  @IBOutlet var resultsTableScrollView: TableScrollView!
   
   override func awakeFromNib() {
     self.updateWindowFrame()
@@ -21,8 +20,7 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
   // MARK: NSTextFieldDelegate
   
   override func controlTextDidChange(obj: NSNotification) {
-    resultsTableView.reloadData()
-    resultsScrollView.invalidateIntrinsicContentSize()
+    resultsTableScrollView.reloadData()
     self.updateWindowFrame()
   }
   
