@@ -14,29 +14,22 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
   @IBOutlet var resultsScrollView: NSScrollView!
   @IBOutlet var textField: NSTextField!
   
+  override func awakeFromNib() {
+    self.updateWindowFrame()
+  }
+  
   // MARK: NSTextFieldDelegate
   
   override func controlTextDidChange(obj: NSNotification) {
     resultsTableView.reloadData()
     resultsScrollView.invalidateIntrinsicContentSize()
-    if let window = self.window {
-      let topLeft = CGPointMake(
-        window.frame.origin.x,
-        window.frame.origin.y + window.frame.size.height)
-      let newSize = self.fittingSize
-      let newFrame = NSMakeRect(
-        topLeft.x,
-        topLeft.y - newSize.height,
-        newSize.width,
-        newSize.height)
-      window.setFrame(newFrame, display: true)
-    }
+    self.updateWindowFrame()
   }
   
   // MARK: NSTableViewDataSource
   
   func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-    return 10 - countElements(textField.stringValue)
+    return countElements(textField.stringValue)
   }
   
   // MARK: NSTableViewDelegate
@@ -58,4 +51,20 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
     return view
   }
   
+  // MARK: private
+  
+  private func updateWindowFrame() {
+    if let window = self.window {
+      let topLeft = CGPointMake(
+        window.frame.origin.x,
+        window.frame.origin.y + window.frame.size.height)
+      let newSize = self.fittingSize
+      let newFrame = NSMakeRect(
+        topLeft.x,
+        topLeft.y - newSize.height,
+        newSize.width,
+        newSize.height)
+      window.setFrame(newFrame, display: true)
+    }
+  }
 }
