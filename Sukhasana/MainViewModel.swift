@@ -1,5 +1,5 @@
 //
-//  InputViewModel.swift
+//  MainViewModel.swift
 //  Sukhasana
 //
 //  Created by Tom Brow on 2/8/15.
@@ -9,28 +9,40 @@
 import ReactiveCocoa
 import Alamofire
 
-class InputViewModel {
+class MainViewModel {
   let textFieldText = MutableProperty("")
+  let tableViewShouldReloadData: SignalProducer<(), NoError>
   
   init() {
-    let taskRequests: SignalProducer<SignalProducer<NSDictionary, NSError>, NoError> = textFieldText.producer
-      |> map { text in requestTasks(text) }
+    tableViewShouldReloadData = textFieldText.producer |> map { _ in () }
     
-    taskRequests.start { request in
-      request.start { dict in
-        println("\(dict)")
+    let resultsState: SignalProducer<SignalProducer<ResultsState, NSError>, NoError> = textFieldText.producer
+      |> map { requestTasks($0) }
+      |> map { $0 |> map(namesFromResultsJSON) }
+      |> map { requestSignal in
+        requestSignal
+          |> map { ResultsState.Fetched($0) }
+          |> startWith(ResultsState.Fetching)
       }
-      return
-    }
   }
   
   func numberOfRows() -> Int {
-    return 1
+    return countElements(textFieldText.value)
   }
   
   func stringForRow(row: Int) -> String {
-    return "Hello"
+    return "Row \(row)"
   }
+}
+
+private func startWith<T, E>(value: T)(producer: ReactiveCocoa.SignalProducer<T, E>) -> ReactiveCocoa.SignalProducer<T, E> {
+  return SignalProducer(value: value) |> concat(producer)
+}
+  
+private enum ResultsState {
+  case Fetching
+  case Fetched([String])
+  case Failed
 }
 
 private let requestManager: Alamofire.Manager = {
@@ -68,3 +80,14 @@ private func requestTasks(query: String) -> SignalProducer<NSDictionary, NSError
   }
 }
 
+private func namesFromResultsJSON(resultsJSON: NSDictionary) -> [String] {
+  var names = [String]()
+  if let data = resultsJSON["data"] as? Array<Dictionary<String, AnyObject>> {
+    for object in data {
+      if let name = object["name"] as? String {
+        names.append(name)
+      }
+    }
+  }
+  return names
+}

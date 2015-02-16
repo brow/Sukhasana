@@ -18,7 +18,7 @@
 		EA037E851A847CF800F47B17 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */; };
 		EA037E861A847CF800F47B17 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA307A5B1A8730F10008A566 /* Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA307A5A1A8730F10008A566 /* Panel.swift */; };
-		EA307A5D1A8756710008A566 /* InputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA307A5C1A8756710008A566 /* InputViewModel.swift */; };
+		EA307A5D1A8756710008A566 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA307A5C1A8756710008A566 /* MainViewModel.swift */; };
 		EA307A601A87FC780008A566 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; };
 		EA307A611A87FC780008A566 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA670FFB1A8DCCE1008DA8F7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFA1A8DCCE1008DA8F7 /* MainView.swift */; };
@@ -65,7 +65,7 @@
 		EA037E791A847CF800F47B17 /* LlamaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LlamaKit.framework; path = Carthage/Build/Mac/LlamaKit.framework; sourceTree = "<group>"; };
 		EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		EA307A5A1A8730F10008A566 /* Panel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Panel.swift; sourceTree = "<group>"; };
-		EA307A5C1A8756710008A566 /* InputViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewModel.swift; sourceTree = "<group>"; };
+		EA307A5C1A8756710008A566 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		EA307A5F1A87FC780008A566 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		EA670FFA1A8DCCE1008DA8F7 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableScrollView.swift; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 			children = (
 				EA037E571A834B9300F47B17 /* AppDelegate.swift */,
 				EA037E591A834B9300F47B17 /* Images.xcassets */,
-				EA307A5C1A8756710008A566 /* InputViewModel.swift */,
+				EA307A5C1A8756710008A566 /* MainViewModel.swift */,
 				EA037E5B1A834B9300F47B17 /* MainMenu.xib */,
 				EA670FFA1A8DCCE1008DA8F7 /* MainView.swift */,
 				EA307A5A1A8730F10008A566 /* Panel.swift */,
@@ -259,7 +259,7 @@
 				EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */,
 				EA670FFB1A8DCCE1008DA8F7 /* MainView.swift in Sources */,
 				EA307A5B1A8730F10008A566 /* Panel.swift in Sources */,
-				EA307A5D1A8756710008A566 /* InputViewModel.swift in Sources */,
+				EA307A5D1A8756710008A566 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

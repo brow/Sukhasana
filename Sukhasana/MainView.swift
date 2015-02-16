@@ -7,24 +7,34 @@
 //
 
 import Cocoa
+import ReactiveCocoa
 
 class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
   
-  @IBOutlet var textField: NSTextField!
-  @IBOutlet var resultsTableScrollView: TableScrollView!
+  @IBOutlet var textField: NSTextField?
+  @IBOutlet var resultsTableScrollView: TableScrollView?
   weak var delegate: MainViewDelegate?
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    
+    model.tableViewShouldReloadData.start { _ in
+      // FIXME: retain cycle
+      self.resultsTableScrollView?.reloadData()
+      self.delegate?.mainViewDidChangeFittingSize(self)
+    }
+  }
 
   // MARK: NSTextFieldDelegate
   
   override func controlTextDidChange(obj: NSNotification) {
-    resultsTableScrollView.reloadData()
-    delegate?.mainViewDidChangeFittingSize(self)
+    model.textFieldText.put(textField!.stringValue)
   }
   
   // MARK: NSTableViewDataSource
   
   func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-    return countElements(textField.stringValue)
+    return model.numberOfRows()
   }
   
   // MARK: NSTableViewDelegate
@@ -42,10 +52,13 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
       }
       }()
     
-    view.stringValue = "Hi there \(row)"
+    view.stringValue = model.stringForRow(row)
     return view
   }
   
+  // MARK: private
+  
+  let model = MainViewModel()
 }
 
 protocol MainViewDelegate: NSObjectProtocol {
