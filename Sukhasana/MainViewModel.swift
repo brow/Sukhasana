@@ -15,8 +15,9 @@ class MainViewModel {
   
   init() {
     tableViewShouldReloadData = textFieldText.producer |> map { _ in () }
-    
-    let resultsState: SignalProducer<SignalProducer<ResultsState, NoError>, NoError> = textFieldText.producer
+
+    let resultsState = MutableProperty(ResultsState.Initial)
+    resultsState <~ textFieldText.producer
       |> map { requestTasks($0) }
       |> map { $0 |> map(namesFromResultsJSON) }
       |> map { $0
@@ -24,6 +25,7 @@ class MainViewModel {
           |> catchTo(.Failed)
           |> startWith(.Fetching)
       }
+      |> latest
   }
   
   func numberOfRows() -> Int {
@@ -44,9 +46,10 @@ private func catchTo<T, E>(value: T)(producer: ReactiveCocoa.SignalProducer<T, E
 }
   
 private enum ResultsState {
+  case Initial
   case Fetching
-  case Fetched([String])
   case Failed
+  case Fetched([String])
 }
 
 private let requestManager: Alamofire.Manager = {
