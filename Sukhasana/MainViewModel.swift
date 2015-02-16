@@ -19,11 +19,10 @@ class MainViewModel {
     let resultsState: SignalProducer<SignalProducer<ResultsState, NoError>, NoError> = textFieldText.producer
       |> map { requestTasks($0) }
       |> map { $0 |> map(namesFromResultsJSON) }
-      |> map { requestSignal in
-        requestSignal
-          |> map { ResultsState.Fetched($0) }
-          |> catchTo(ResultsState.Failed)
-          |> startWith(ResultsState.Fetching)
+      |> map { $0
+          |> map { .Fetched($0) }
+          |> catchTo(.Failed)
+          |> startWith(.Fetching)
       }
   }
   
