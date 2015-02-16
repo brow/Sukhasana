@@ -14,9 +14,8 @@ class MainViewModel {
   let tableViewShouldReloadData: SignalProducer<(), NoError>
   
   init() {
-    tableViewShouldReloadData = textFieldText.producer |> map { _ in () }
+    tableViewShouldReloadData = resultsState.producer |> map { _ in () }
 
-    let resultsState = MutableProperty(ResultsState.Initial)
     resultsState <~ textFieldText.producer
       |> map { requestTasks($0) }
       |> map { $0 |> map(namesFromResultsJSON) }
@@ -29,12 +28,26 @@ class MainViewModel {
   }
   
   func numberOfRows() -> Int {
-    return countElements(textFieldText.value)
+    switch resultsState.value {
+    case .Fetched(let results):
+      return countElements(results)
+    case .Initial, .Fetching, .Failed:
+      return 0
+    }
   }
   
   func stringForRow(row: Int) -> String {
-    return "Row \(row)"
+    switch resultsState.value {
+    case .Fetched(let results):
+      return results[row]
+    case .Initial, .Fetching, .Failed:
+      fatalError("no rows should be displayed in this state")
+    }
   }
+  
+  // MARK: private
+  
+  private let resultsState = MutableProperty(ResultsState.Initial)
 }
 
 private func startWith<T, E>(value: T)(producer: ReactiveCocoa.SignalProducer<T, E>) -> ReactiveCocoa.SignalProducer<T, E> {
