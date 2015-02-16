@@ -16,12 +16,13 @@ class MainViewModel {
   init() {
     tableViewShouldReloadData = textFieldText.producer |> map { _ in () }
     
-    let resultsState: SignalProducer<SignalProducer<ResultsState, NSError>, NoError> = textFieldText.producer
+    let resultsState: SignalProducer<SignalProducer<ResultsState, NoError>, NoError> = textFieldText.producer
       |> map { requestTasks($0) }
       |> map { $0 |> map(namesFromResultsJSON) }
       |> map { requestSignal in
         requestSignal
           |> map { ResultsState.Fetched($0) }
+          |> catchTo(ResultsState.Failed)
           |> startWith(ResultsState.Fetching)
       }
   }
@@ -37,6 +38,10 @@ class MainViewModel {
 
 private func startWith<T, E>(value: T)(producer: ReactiveCocoa.SignalProducer<T, E>) -> ReactiveCocoa.SignalProducer<T, E> {
   return SignalProducer(value: value) |> concat(producer)
+}
+
+private func catchTo<T, E>(value: T)(producer: ReactiveCocoa.SignalProducer<T, E>) -> ReactiveCocoa.SignalProducer<T, NoError> {
+  return catch({ _ in SignalProducer<T, NoError>(value: value) })(producer: producer)
 }
   
 private enum ResultsState {
