@@ -14,8 +14,6 @@ class MainViewModel {
   let tableViewShouldReloadData: SignalProducer<(), NoError>
   
   init() {
-    tableViewShouldReloadData = resultsState.producer |> map { _ in () }
-
     resultsState <~ textFieldText.producer
       |> map { requestTasks($0) }
       |> map { $0 |> map(namesFromResultsJSON) }
@@ -25,6 +23,8 @@ class MainViewModel {
           |> startWith(.Fetching)
       }
       |> latest
+    
+    tableViewShouldReloadData = resultsState.producer |> map { _ in () }
   }
   
   func numberOfRows() -> Int {
