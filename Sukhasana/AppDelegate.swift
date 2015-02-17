@@ -9,11 +9,12 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, MainViewDelegate,  NSApplicationDelegate, NSWindowDelegate {
-  
+class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate, NSWindowDelegate {
   @IBOutlet var panel: NSPanel!
-  @IBOutlet var mainView: MainView!
-  @IBOutlet var settingsView: SettingsView!
+  
+  override init() {
+    settingsViewController = SettingsViewController(model: SettingsViewControllerModel())!
+  }
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
     let statusItemFrame = sender.window.frame
@@ -23,9 +24,9 @@ class AppDelegate: NSObject, MainViewDelegate,  NSApplicationDelegate, NSWindowD
     panel.makeKeyAndOrderFront(self)    
   }
   
-  // MARK: MainViewDelegate
+  // MARK: MainViewControllerDelegate
   
-  func mainViewDidChangeFittingSize(mainView: MainView) {
+  func mainViewControllerDidChangeFittingSize(mainViewController: MainViewController) {
     updatePanelFrame()
   }
   
@@ -38,17 +39,21 @@ class AppDelegate: NSObject, MainViewDelegate,  NSApplicationDelegate, NSWindowD
   // MARK: NSApplicationDelegate
   
   func applicationDidFinishLaunching(notification: NSNotification) {
-    panel.floatingPanel = true
+    let client = APIClient(APIKey: "4cAUaVhk.Vt70w5u6rOHQgsy3fsLoX9v")
     
-    mainView.delegate = self
-
+    let mainViewControllerModel = MainViewControllerModel(client: client)
+    let mainViewController = MainViewController(model: mainViewControllerModel)!
+    mainViewController.delegate = self
+    
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
     statusItem.title = "a⋮"
     statusItem.highlightMode = true
     statusItem.target = self
     statusItem.action = "didClickStatusItem:"
     
-    setContentView(settingsView)
+    panel.floatingPanel = true
+
+    setContentView(settingsViewController.view)
   }
   
   // MARK: private
@@ -74,5 +79,6 @@ class AppDelegate: NSObject, MainViewDelegate,  NSApplicationDelegate, NSWindowD
   // MARK: private
   
   private var statusItem: NSStatusItem!
+  private var settingsViewController: SettingsViewController
 }
 

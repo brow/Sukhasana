@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  MainViewControllerModel.swift
 //  Sukhasana
 //
 //  Created by Tom Brow on 2/8/15.
@@ -7,15 +7,14 @@
 //
 
 import ReactiveCocoa
-import Alamofire
 
-class MainViewModel {
+struct MainViewControllerModel {
   let textFieldText = MutableProperty("")
   let tableViewShouldReloadData: SignalProducer<(), NoError>
   
-  init() {
+  init(client: APIClient) {
     resultsState <~ textFieldText.producer
-      |> map { requestTasks($0) }
+      |> map { client.requestTasks($0) }
       |> map { $0 |> map(namesFromResultsJSON) }
       |> map { $0
           |> map { .Fetched($0) }
@@ -65,41 +64,6 @@ private enum ResultsState {
   case Fetched([String])
 }
 
-private let requestManager: Alamofire.Manager = {
-  let APIKey = "4cAUaVhk.Vt70w5u6rOHQgsy3fsLoX9v"
-  
-  let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-  config.HTTPAdditionalHeaders = ["Authorization": "Basic " + ("\(APIKey):" as NSString)
-    .dataUsingEncoding(NSUTF8StringEncoding)!
-    .base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros)]
-  
-  return Manager(configuration: config)
-}()
-
-private func requestTasks(query: String) -> SignalProducer<NSDictionary, NSError> {
-  let workspaceID = 14801884099708
-  let typeaheadType = "task"
-  
-  return SignalProducer { observer, _ in
-    requestManager
-      .request(
-        .GET,
-        "https://app.asana.com/api/1.0/workspaces/\(workspaceID)/typeahead",
-        parameters: ["type": typeaheadType, "query": query])
-      .responseJSON {_, _, JSON, error in
-        if let error = error {
-          sendError(observer, error)
-        } else {
-          if let dict = JSON as? NSDictionary {
-            sendNext(observer, dict)
-          }
-          sendCompleted(observer)
-        }
-    }
-    return
-  }
-}
-
 private func namesFromResultsJSON(resultsJSON: NSDictionary) -> [String] {
   var names = [String]()
   if let data = resultsJSON["data"] as? Array<Dictionary<String, AnyObject>> {
@@ -111,3 +75,4 @@ private func namesFromResultsJSON(resultsJSON: NSDictionary) -> [String] {
   }
   return names
 }
+

@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  MainViewController.swift
 //  Sukhasana
 //
 //  Created by Tom Brow on 2/12/15.
@@ -9,20 +9,25 @@
 import Cocoa
 import ReactiveCocoa
 
-class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
-  
+class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
   @IBOutlet var textField: NSTextField?
   @IBOutlet var resultsTableScrollView: TableScrollView?
-  weak var delegate: MainViewDelegate?
+  weak var delegate: MainViewControllerDelegate?
   
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
+  init?(model: MainViewControllerModel) {
+    self.model = model
+    
+    super.init(nibName: "MainViewController", bundle: nil)
     
     model.tableViewShouldReloadData.start { _ in
       // FIXME: retain cycle
       self.resultsTableScrollView?.reloadData()
-      self.delegate?.mainViewDidChangeFittingSize(self)
+      self.delegate?.mainViewControllerDidChangeFittingSize(self)
     }
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("not supported")
   }
 
   // MARK: NSTextFieldDelegate
@@ -58,9 +63,9 @@ class MainView: NSView, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldD
   
   // MARK: private
   
-  let model = MainViewModel()
+  private let model: MainViewControllerModel
 }
 
-protocol MainViewDelegate: NSObjectProtocol {
-  func mainViewDidChangeFittingSize(mainView: MainView)
+protocol MainViewControllerDelegate: NSObjectProtocol {
+  func mainViewControllerDidChangeFittingSize(mainViewController: MainViewController)
 }

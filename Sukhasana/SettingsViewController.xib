@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SettingsViewController" customModule="Sukhasana" customModuleProvider="target">
+            <connections>
+                <outlet property="APIKeyTextField" destination="WT4-Kr-gjN" id="Uf5-B5-hwL"/>
+                <outlet property="saveButton" destination="1Oy-J4-PPf" id="aIN-K0-9nX"/>
+                <outlet property="view" destination="UrZ-f9-6W3" id="ibJ-m0-0C9"/>
+                <outlet property="workspacePopUpButton" destination="vck-ri-e7G" id="nAQ-ss-LLB"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="UrZ-f9-6W3" userLabel="Settings View">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="123"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WT4-Kr-gjN">
+                    <rect key="frame" x="20" y="78" width="260" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="260" id="Emh-6q-pZO"/>
+                        <constraint firstAttribute="height" constant="25" id="TzL-78-vwa"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="API key" drawsBackground="YES" id="7cR-Rt-WbB">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="MrT-Y0-x6J"/>
+                    </connections>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vck-ri-e7G">
+                    <rect key="frame" x="18" y="46" width="265" height="26"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" inset="2" autoenablesItems="NO" id="rWn-IQ-n2w">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" autoenablesItems="NO" id="ZbJ-hn-MGd"/>
+                    </popUpButtonCell>
+                </popUpButton>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Oy-J4-PPf">
+                    <rect key="frame" x="215" y="13" width="71" height="32"/>
+                    <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gwO-Bc-R5B">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="CCA-5J-yuw">
+                    <rect key="frame" x="259" y="82" width="16" height="16"/>
+                </progressIndicator>
+            </subviews>
+            <constraints>
+                <constraint firstItem="WT4-Kr-gjN" firstAttribute="trailing" secondItem="CCA-5J-yuw" secondAttribute="trailing" constant="5" id="51c-P8-A7q"/>
+                <constraint firstItem="WT4-Kr-gjN" firstAttribute="centerY" secondItem="CCA-5J-yuw" secondAttribute="centerY" id="BOh-Ib-hyR"/>
+                <constraint firstItem="1Oy-J4-PPf" firstAttribute="top" secondItem="vck-ri-e7G" secondAttribute="bottom" constant="8" id="FO8-PO-eFq"/>
+                <constraint firstItem="vck-ri-e7G" firstAttribute="top" secondItem="WT4-Kr-gjN" secondAttribute="bottom" constant="8" id="Fa7-x0-ev8"/>
+                <constraint firstAttribute="bottom" secondItem="1Oy-J4-PPf" secondAttribute="bottom" constant="20" id="FlI-u5-56T"/>
+                <constraint firstItem="WT4-Kr-gjN" firstAttribute="top" secondItem="UrZ-f9-6W3" secondAttribute="top" constant="20" id="JPE-n3-Rm3"/>
+                <constraint firstItem="WT4-Kr-gjN" firstAttribute="leading" secondItem="UrZ-f9-6W3" secondAttribute="leading" constant="20" id="WkA-Qq-AfB"/>
+                <constraint firstAttribute="trailing" secondItem="WT4-Kr-gjN" secondAttribute="trailing" constant="20" id="Xje-1m-Nda"/>
+                <constraint firstItem="vck-ri-e7G" firstAttribute="trailing" secondItem="1Oy-J4-PPf" secondAttribute="trailing" id="gFP-V1-yQ1"/>
+                <constraint firstItem="vck-ri-e7G" firstAttribute="leading" secondItem="WT4-Kr-gjN" secondAttribute="leading" id="niH-oO-U5a"/>
+                <constraint firstItem="vck-ri-e7G" firstAttribute="trailing" secondItem="WT4-Kr-gjN" secondAttribute="trailing" id="tUq-vd-yFI"/>
+            </constraints>
+            <point key="canvasLocation" x="299" y="228.5"/>
+        </customView>
+    </objects>
+</document>
