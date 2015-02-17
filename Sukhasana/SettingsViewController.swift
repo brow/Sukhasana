@@ -18,6 +18,22 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
     self.model = model
     
     super.init(nibName: "SettingsViewController", bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("not supported")
+  }
+  
+  // MARK: NSTextFieldDelegate
+  
+  override func controlTextDidChange(obj: NSNotification) {
+    model.APIKeyTextFieldText.put(APIKeyTextField!.stringValue)
+  }
+  
+  // MARK: NSViewController
+  
+  override func loadView() {
+    super.loadView()
     
     // FIXME: retain cycles
     model.saveButtonEnabled.producer.start { self.saveButton?.enabled = $0; return}
@@ -33,16 +49,6 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
       self.workspacePopUpButton?.removeAllItems()
       self.workspacePopUpButton?.addItemsWithTitles(titles)
     }
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("not supported")
-  }
-  
-  // MARK: NSTextFieldDelegate
-  
-  override func controlTextDidChange(obj: NSNotification) {
-    model.APIKeyTextFieldText.put(APIKeyTextField!.stringValue)
   }
   
   // MARK: private

@@ -18,12 +18,6 @@ class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
     self.model = model
     
     super.init(nibName: "MainViewController", bundle: nil)
-    
-    model.tableViewShouldReloadData.start { _ in
-      // FIXME: retain cycle
-      self.resultsTableScrollView?.reloadData()
-      self.delegate?.mainViewControllerDidChangeFittingSize(self)
-    }
   }
   
   required init?(coder: NSCoder) {
@@ -59,6 +53,18 @@ class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
     
     view.stringValue = model.stringForRow(row)
     return view
+  }
+  
+  // MARK: NSViewController
+  
+  override func loadView() {
+    super.loadView()
+    
+    model.tableViewShouldReloadData.start { _ in
+      // FIXME: retain cycle
+      self.resultsTableScrollView?.reloadData()
+      self.delegate?.mainViewControllerDidChangeFittingSize(self)
+    }
   }
   
   // MARK: private
