@@ -23,6 +23,7 @@
 		EA307A611A87FC780008A566 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA670FFB1A8DCCE1008DA8F7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFA1A8DCCE1008DA8F7 /* MainView.swift */; };
 		EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */; };
+		EAE48ED41A92A42D009F0CFC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE48ED31A92A42D009F0CFC /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		EA307A5F1A87FC780008A566 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		EA670FFA1A8DCCE1008DA8F7 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableScrollView.swift; sourceTree = "<group>"; };
+		EAE48ED31A92A42D009F0CFC /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,10 +122,11 @@
 			children = (
 				EA037E571A834B9300F47B17 /* AppDelegate.swift */,
 				EA037E591A834B9300F47B17 /* Images.xcassets */,
-				EA307A5C1A8756710008A566 /* MainViewModel.swift */,
 				EA037E5B1A834B9300F47B17 /* MainMenu.xib */,
 				EA670FFA1A8DCCE1008DA8F7 /* MainView.swift */,
+				EA307A5C1A8756710008A566 /* MainViewModel.swift */,
 				EA307A5A1A8730F10008A566 /* Panel.swift */,
+				EAE48ED31A92A42D009F0CFC /* SettingsView.swift */,
 				EA037E551A834B9300F47B17 /* Supporting Files */,
 				EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */,
 			);
@@ -258,6 +261,7 @@
 				EA037E581A834B9300F47B17 /* AppDelegate.swift in Sources */,
 				EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */,
 				EA670FFB1A8DCCE1008DA8F7 /* MainView.swift in Sources */,
+				EAE48ED41A92A42D009F0CFC /* SettingsView.swift in Sources */,
 				EA307A5B1A8730F10008A566 /* Panel.swift in Sources */,
 				EA307A5D1A8756710008A566 /* MainViewModel.swift in Sources */,
 			);

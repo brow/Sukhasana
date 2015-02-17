@@ -13,6 +13,7 @@ class AppDelegate: NSObject, MainViewDelegate,  NSApplicationDelegate, NSWindowD
   
   @IBOutlet var panel: NSPanel!
   @IBOutlet var mainView: MainView!
+  @IBOutlet var settingsView: SettingsView!
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
     let statusItemFrame = sender.window.frame
@@ -25,7 +26,7 @@ class AppDelegate: NSObject, MainViewDelegate,  NSApplicationDelegate, NSWindowD
   // MARK: MainViewDelegate
   
   func mainViewDidChangeFittingSize(mainView: MainView) {
-    self.updatePanelFrame()
+    updatePanelFrame()
   }
   
   // MARK: NSWindowDelegate
@@ -47,16 +48,21 @@ class AppDelegate: NSObject, MainViewDelegate,  NSApplicationDelegate, NSWindowD
     statusItem.target = self
     statusItem.action = "didClickStatusItem:"
     
-    self.updatePanelFrame()
+    setContentView(settingsView)
   }
   
   // MARK: private
+  
+  private func setContentView(view: NSView) {
+    panel.contentView = view
+    updatePanelFrame()
+  }
   
   private func updatePanelFrame() {
     let topLeft = CGPointMake(
       panel.frame.origin.x,
       panel.frame.origin.y + panel.frame.size.height)
-    let newSize = mainView.fittingSize
+    let newSize = panel.contentView.fittingSize
     let newFrame = NSMakeRect(
       topLeft.x,
       topLeft.y - newSize.height,
