@@ -29,6 +29,28 @@ struct APIClient {
           .GET,
           "https://app.asana.com/api/1.0/workspaces/\(workspaceID)/typeahead",
           parameters: ["type": typeaheadType, "query": query])
+        .validate()
+        .responseJSON {_, _, JSON, error in
+          if let error = error {
+            sendError(observer, error)
+          } else {
+            if let dict = JSON as? NSDictionary {
+              sendNext(observer, dict)
+            }
+            sendCompleted(observer)
+          }
+      }
+      return
+    }
+  }
+  
+  func requestWorkspaces() -> SignalProducer<NSDictionary, NSError> {
+    return SignalProducer { observer, _ in
+      self.requestManager
+        .request(
+          .GET,
+          "https://app.asana.com/api/1.0/workspaces")
+        .validate()
         .responseJSON {_, _, JSON, error in
           if let error = error {
             sendError(observer, error)

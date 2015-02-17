@@ -7,6 +7,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SettingsViewController" customModule="Sukhasana" customModuleProvider="target">
             <connections>
                 <outlet property="APIKeyTextField" destination="WT4-Kr-gjN" id="Uf5-B5-hwL"/>
+                <outlet property="progressIndicator" destination="CCA-5J-yuw" id="Erm-iW-Ubq"/>
                 <outlet property="saveButton" destination="1Oy-J4-PPf" id="aIN-K0-9nX"/>
                 <outlet property="view" destination="UrZ-f9-6W3" id="ibJ-m0-0C9"/>
                 <outlet property="workspacePopUpButton" destination="vck-ri-e7G" id="nAQ-ss-LLB"/>
@@ -65,7 +66,7 @@
                 <constraint firstItem="vck-ri-e7G" firstAttribute="leading" secondItem="WT4-Kr-gjN" secondAttribute="leading" id="niH-oO-U5a"/>
                 <constraint firstItem="vck-ri-e7G" firstAttribute="trailing" secondItem="WT4-Kr-gjN" secondAttribute="trailing" id="tUq-vd-yFI"/>
             </constraints>
-            <point key="canvasLocation" x="299" y="228.5"/>
+            <point key="canvasLocation" x="129" y="115.5"/>
         </customView>
     </objects>
 </document>

@@ -28,6 +28,7 @@
 		EAE48ED81A92C319009F0CFC /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE48ED71A92C319009F0CFC /* APIClient.swift */; };
 		EAE48EDA1A92C922009F0CFC /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE48ED91A92C922009F0CFC /* MainViewController.xib */; };
 		EAE48EDC1A92CE26009F0CFC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE48EDB1A92CE26009F0CFC /* SettingsViewController.xib */; };
+		EAE48EDE1A92DB89009F0CFC /* SignalOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE48EDD1A92DB89009F0CFC /* SignalOperators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		EAE48ED71A92C319009F0CFC /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		EAE48ED91A92C922009F0CFC /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		EAE48EDB1A92CE26009F0CFC /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		EAE48EDD1A92DB89009F0CFC /* SignalOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalOperators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				EAE48ED31A92A42D009F0CFC /* SettingsViewController.swift */,
 				EAE48EDB1A92CE26009F0CFC /* SettingsViewController.xib */,
 				EAE48ED51A92C273009F0CFC /* SettingsViewControllerModel.swift */,
+				EAE48EDD1A92DB89009F0CFC /* SignalOperators.swift */,
 				EA037E551A834B9300F47B17 /* Supporting Files */,
 				EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */,
 			);
@@ -273,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA037E581A834B9300F47B17 /* AppDelegate.swift in Sources */,
+				EAE48EDE1A92DB89009F0CFC /* SignalOperators.swift in Sources */,
 				EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */,
 				EAE48ED81A92C319009F0CFC /* APIClient.swift in Sources */,
 				EA670FFB1A8DCCE1008DA8F7 /* MainViewController.swift in Sources */,

@@ -48,14 +48,6 @@ struct MainViewControllerModel {
   
   private let resultsState = MutableProperty(ResultsState.Initial)
 }
-
-private func startWith<T, E>(value: T)(producer: ReactiveCocoa.SignalProducer<T, E>) -> ReactiveCocoa.SignalProducer<T, E> {
-  return SignalProducer(value: value) |> concat(producer)
-}
-
-private func catchTo<T, E>(value: T)(producer: ReactiveCocoa.SignalProducer<T, E>) -> ReactiveCocoa.SignalProducer<T, NoError> {
-  return catch({ _ in SignalProducer<T, NoError>(value: value) })(producer: producer)
-}
   
 private enum ResultsState {
   case Initial
