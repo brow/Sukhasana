@@ -16,10 +16,10 @@ struct ApplicationModel {
   let shouldDisplayScreen: SignalProducer<Screen, NoError>
   
   init() {
-    settingsViewModel = SettingsScreenModel()
+    let (settingsViewModel, savedSettings) = SettingsScreenModel.make()
     shouldDisplayScreen = SignalProducer(value: .Settings(settingsViewModel))
+    savedSettings.start { settings in
+      
+    }
   }
-  
-  // MARK: private
-  private let settingsViewModel: SettingsScreenModel
 }

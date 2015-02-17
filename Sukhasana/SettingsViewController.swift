@@ -24,6 +24,10 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
     fatalError("not supported")
   }
   
+  @IBAction func didClickSaveButton(sender: AnyObject?) {
+    model.didClickSaveButton()
+  }
+  
   // MARK: NSTextFieldDelegate
   
   override func controlTextDidChange(obj: NSNotification) {

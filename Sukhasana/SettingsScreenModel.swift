@@ -12,9 +12,20 @@ struct SettingsScreenModel {
   let APIKeyTextFieldText = MutableProperty("")
   let saveButtonEnabled, workspacePopUpButtonEnabled, progressIndicatorAnimating: PropertyOf<Bool>
   let workspacePopUpItemsTitles: PropertyOf<[String]>
+  let didClickSaveButton: () -> ()
   
-  init() {
-    resultsState <~ APIKeyTextFieldText.producer
+  static func make() -> (SettingsScreenModel, savedSettings: SignalProducer<Settings, NoError>) {
+    let (savedSettings, savedSettingSink) = SignalProducer<Settings, NoError>.buffer()
+    return (SettingsScreenModel(savedSettingsSink: savedSettingSink), savedSettings)
+  }
+  
+  // MARK: private
+  
+  private init(savedSettingsSink: Signal<Settings, NoError>.Observer) {
+    let enteredAPIKey = MutableProperty("")
+    enteredAPIKey <~ APIKeyTextFieldText.producer
+    
+    workspacesState <~ enteredAPIKey.producer
       |> map { APIClient(APIKey: $0) }
       |> map { $0.requestWorkspaces() }
       |> map { $0 |> map(workspacesFromJSON) }
@@ -25,7 +36,7 @@ struct SettingsScreenModel {
       }
       |> latest
     
-    workspacePopUpButtonEnabled = propertyOf(false, resultsState.producer
+    workspacePopUpButtonEnabled = propertyOf(false, workspacesState.producer
       |> map { switch $0 {
       case .Fetched(let workspaces):
         return !isEmpty(workspaces)
@@ -36,7 +47,7 @@ struct SettingsScreenModel {
     
     saveButtonEnabled = workspacePopUpButtonEnabled
     
-    progressIndicatorAnimating = propertyOf(false, resultsState.producer
+    progressIndicatorAnimating = propertyOf(false, workspacesState.producer
       |> map { switch $0 {
       case .Fetching:
         return true
@@ -45,7 +56,7 @@ struct SettingsScreenModel {
         }
       })
     
-    workspacePopUpItemsTitles = propertyOf([], resultsState.producer
+    workspacePopUpItemsTitles = propertyOf([], workspacesState.producer
       |> map { switch $0 {
       case .Fetched(let workspaces):
         return isEmpty(workspaces)
@@ -57,18 +68,28 @@ struct SettingsScreenModel {
         }
       })
     
+    didClickSaveButton = {
+      sendNext(
+        savedSettingsSink,
+        Settings(
+          APIKey: enteredAPIKey.value,
+          workspaceID: "FIXME"))
+      return
+    }
   }
-  
-  // MARK: private
-  
-  private let resultsState = MutableProperty(ResultsState.Initial)
+
+  private let workspacesState = MutableProperty(WorkspacesState.Initial)
+}
+
+struct Settings {
+  let APIKey, workspaceID: String
 }
 
 private struct Workspace {
   let id, name: String
 }
 
-private enum ResultsState {
+private enum WorkspacesState {
   case Initial
   case Fetching
   case Failed
