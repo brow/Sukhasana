@@ -1,5 +1,5 @@
 //
-//  MainViewControllerModel.swift
+//  MainScreenModel.swift
 //  Sukhasana
 //
 //  Created by Tom Brow on 2/8/15.
@@ -8,7 +8,7 @@
 
 import ReactiveCocoa
 
-struct MainViewControllerModel {
+struct MainScreenModel {
   let textFieldText = MutableProperty("")
   let tableViewShouldReloadData: SignalProducer<(), NoError>
   

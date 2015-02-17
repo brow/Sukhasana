@@ -12,10 +12,6 @@ import Cocoa
 class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate, NSWindowDelegate {
   @IBOutlet var panel: NSPanel!
   
-  override init() {
-    settingsViewController = SettingsViewController(model: SettingsViewControllerModel())!
-  }
-  
   @IBAction func didClickStatusItem(sender: AnyObject) {
     let statusItemFrame = sender.window.frame
     panel.setFrameTopLeftPoint(NSMakePoint(
@@ -41,10 +37,6 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   func applicationDidFinishLaunching(notification: NSNotification) {
     let client = APIClient(APIKey: "4cAUaVhk.Vt70w5u6rOHQgsy3fsLoX9v")
     
-    let mainViewControllerModel = MainViewControllerModel(client: client)
-    let mainViewController = MainViewController(model: mainViewControllerModel)!
-    mainViewController.delegate = self
-    
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
     statusItem.title = "a⋮"
     statusItem.highlightMode = true
@@ -52,8 +44,15 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     statusItem.action = "didClickStatusItem:"
     
     panel.floatingPanel = true
-
-    setContentView(settingsViewController.view)
+    
+    // FIXME: retain cycle
+    model.shouldDisplayScreen.start { screen in
+      switch screen {
+      case .Settings(let model):
+        self.displayingViewController = SettingsViewController(model: model)
+      }
+      self.setContentView(self.displayingViewController!.view)
+    }
   }
   
   // MARK: private
@@ -78,7 +77,8 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   
   // MARK: private
   
+  private var model = ApplicationModel()
   private var statusItem: NSStatusItem!
-  private var settingsViewController: SettingsViewController
+  private var displayingViewController: NSViewController?
 }
 

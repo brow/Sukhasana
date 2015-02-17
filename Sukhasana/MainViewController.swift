@@ -14,7 +14,7 @@ class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
   @IBOutlet var resultsTableScrollView: TableScrollView?
   weak var delegate: MainViewControllerDelegate?
   
-  init?(model: MainViewControllerModel) {
+  init?(model: MainScreenModel) {
     self.model = model
     
     super.init(nibName: "MainViewController", bundle: nil)
@@ -69,7 +69,7 @@ class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
   
   // MARK: private
   
-  private let model: MainViewControllerModel
+  private let model: MainScreenModel
 }
 
 protocol MainViewControllerDelegate: NSObjectProtocol {

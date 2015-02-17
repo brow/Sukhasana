@@ -1,5 +1,5 @@
 //
-//  SettingsViewModel.swift
+//  SettingsScreenModel.swift
 //  Sukhasana
 //
 //  Created by Tom Brow on 2/16/15.
@@ -8,7 +8,7 @@
 
 import ReactiveCocoa
 
-struct SettingsViewControllerModel {
+struct SettingsScreenModel {
   let APIKeyTextFieldText = MutableProperty("")
   let saveButtonEnabled, workspacePopUpButtonEnabled, progressIndicatorAnimating: PropertyOf<Bool>
   let workspacePopUpItemsTitles: PropertyOf<[String]>

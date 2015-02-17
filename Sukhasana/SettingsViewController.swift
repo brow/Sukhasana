@@ -14,7 +14,7 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
   @IBOutlet var saveButton: NSButton?
   @IBOutlet var progressIndicator: NSProgressIndicator?
   
-  init?(model: SettingsViewControllerModel) {
+  init?(model: SettingsScreenModel) {
     self.model = model
     
     super.init(nibName: "SettingsViewController", bundle: nil)
@@ -53,5 +53,5 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
   
   // MARK: private
   
-  private let model: SettingsViewControllerModel
+  private let model: SettingsScreenModel
 }
