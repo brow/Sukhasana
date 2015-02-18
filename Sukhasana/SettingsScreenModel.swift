@@ -13,6 +13,7 @@ struct SettingsScreenModel {
   let saveButtonEnabled, workspacePopUpButtonEnabled, progressIndicatorAnimating: PropertyOf<Bool>
   let workspacePopUpItemsTitles: PropertyOf<[String]>
   let didClickSaveButton: () -> ()
+  let workspacePopUpDidSelectItemAtIndex: (Int) -> ()
   
   static func make() -> (SettingsScreenModel, savedSettings: SignalProducer<Settings, NoError>) {
     let (savedSettings, savedSettingSink) = SignalProducer<Settings, NoError>.buffer()
@@ -25,6 +26,7 @@ struct SettingsScreenModel {
     let enteredAPIKey = MutableProperty("")
     enteredAPIKey <~ APIKeyTextFieldText.producer
     
+    let workspacesState = MutableProperty(WorkspacesState.Initial)
     workspacesState <~ enteredAPIKey.producer
       |> map { APIClient(APIKey: $0) }
       |> map { $0.requestWorkspaces() }
@@ -68,17 +70,31 @@ struct SettingsScreenModel {
         }
       })
     
+    let (workspaceSelectedIndexes, workspaceSelectedIndexSink) = SignalProducer<Int, NoError>.buffer()
+    workspacePopUpDidSelectItemAtIndex = { index in
+      sendNext(workspaceSelectedIndexSink, index)
+    }
+    
+    let selectedWorkspaceIndex: PropertyOf<Int> = propertyOf(0, merge(SignalProducer(values: [
+      workspaceSelectedIndexes,
+      workspacePopUpItemsTitles.producer |> map { _ in 0 }
+      ])))
+    
     didClickSaveButton = {
-      sendNext(
-        savedSettingsSink,
-        Settings(
-          APIKey: enteredAPIKey.value,
-          workspaceID: "FIXME"))
+      switch workspacesState.value {
+      case .Fetched(let workspaces):
+        sendNext(
+          savedSettingsSink,
+          Settings(
+            APIKey: enteredAPIKey.value,
+            workspaceID: workspaces[selectedWorkspaceIndex.value].id))
+      default:
+        fatalError("can't save with no workspaces loaded")
+      }
+     
       return
     }
   }
-
-  private let workspacesState = MutableProperty(WorkspacesState.Initial)
 }
 
 struct Settings {

@@ -41,6 +41,9 @@
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" autoenablesItems="NO" id="ZbJ-hn-MGd"/>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="workspacePopUpButtonDidSelectItem:" target="-2" id="VzT-AZ-eda"/>
+                    </connections>
                 </popUpButton>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Oy-J4-PPf">
                     <rect key="frame" x="215" y="13" width="71" height="32"/>

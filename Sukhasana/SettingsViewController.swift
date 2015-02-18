@@ -10,9 +10,9 @@ import Cocoa
 
 class SettingsViewController: NSViewController, NSTextFieldDelegate {
   @IBOutlet var APIKeyTextField: NSTextField?
-  @IBOutlet var workspacePopUpButton: NSPopUpButton?
-  @IBOutlet var saveButton: NSButton?
-  @IBOutlet var progressIndicator: NSProgressIndicator?
+  @IBOutlet var workspacePopUpButton: NSPopUpButton!
+  @IBOutlet var saveButton: NSButton!
+  @IBOutlet var progressIndicator: NSProgressIndicator!
   
   init?(model: SettingsScreenModel) {
     self.model = model
@@ -26,6 +26,10 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
   
   @IBAction func didClickSaveButton(sender: AnyObject?) {
     model.didClickSaveButton()
+  }
+  
+  @IBAction func workspacePopUpButtonDidSelectItem(sender: AnyObject?) {
+    model.workspacePopUpDidSelectItemAtIndex(workspacePopUpButton.indexOfSelectedItem)
   }
   
   // MARK: NSTextFieldDelegate
