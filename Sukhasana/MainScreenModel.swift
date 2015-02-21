@@ -12,9 +12,11 @@ struct MainScreenModel {
   let textFieldText = MutableProperty("")
   let tableViewShouldReloadData: SignalProducer<(), NoError>
   
-  init(client: APIClient) {
+  init(settings: Settings) {
+    let client = APIClient(APIKey: settings.APIKey)
+    
     resultsState <~ textFieldText.producer
-      |> map { client.requestTasks($0) }
+      |> map { client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: $0) }
       |> map { $0 |> map(namesFromResultsJSON) }
       |> map { $0
           |> map { .Fetched($0) }

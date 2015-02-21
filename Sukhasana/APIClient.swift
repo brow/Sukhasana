@@ -19,14 +19,14 @@ struct APIClient {
     requestManager = Manager(configuration: config)
   }
 
-  func requestTasks(query: String) -> SignalProducer<NSDictionary, NSError> {
-    let workspaceID = 14801884099708
+  func requestTasksInWorkspace(workspaceID: String, matchingQuery query: String) -> SignalProducer<NSDictionary, NSError> {
     let typeaheadType = "task"
     
     return SignalProducer { observer, _ in
       self.requestManager
         .request(
           .GET,
+          // FIXME: escape workspaceID
           "https://app.asana.com/api/1.0/workspaces/\(workspaceID)/typeahead",
           parameters: ["type": typeaheadType, "query": query])
         .validate()

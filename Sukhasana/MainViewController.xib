@@ -103,10 +103,6 @@
                 <constraint firstAttribute="trailing" secondItem="4sH-v6-b1V" secondAttribute="trailing" constant="10" id="rtM-bs-o9N"/>
                 <constraint firstItem="4sH-v6-b1V" firstAttribute="leading" secondItem="zUB-sC-cQk" secondAttribute="leading" constant="10" id="zxi-UO-CaV"/>
             </constraints>
-            <connections>
-                <outlet property="resultsTableScrollView" destination="S8l-Lk-IyI" id="k6U-LB-3pL"/>
-                <outlet property="textField" destination="4sH-v6-b1V" id="ZqV-oe-wD4"/>
-            </connections>
             <point key="canvasLocation" x="254" y="-99"/>
         </view>
     </objects>

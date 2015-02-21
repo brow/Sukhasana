@@ -47,10 +47,14 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     
     // FIXME: retain cycle
     model.shouldDisplayScreen.start { screen in
-      switch screen {
-      case .Settings(let model):
-        self.displayingViewController = SettingsViewController(model: model)
-      }
+      self.displayingViewController = {
+        switch screen {
+        case .Settings(let model):
+          return SettingsViewController(model: model)
+        case .Main(let model):
+          return MainViewController(model: model)
+        }
+      }()
       self.setContentView(self.displayingViewController!.view)
     }
   }

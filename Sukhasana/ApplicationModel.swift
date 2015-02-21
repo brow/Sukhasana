@@ -11,15 +11,15 @@ import ReactiveCocoa
 struct ApplicationModel {
   enum Screen {
     case Settings(SettingsScreenModel)
+    case Main(MainScreenModel)
   }
   
   let shouldDisplayScreen: SignalProducer<Screen, NoError>
   
   init() {
     let (settingsViewModel, savedSettings) = SettingsScreenModel.make()
-    shouldDisplayScreen = SignalProducer(value: .Settings(settingsViewModel))
-    savedSettings.start { settings in
-      
-    }
+    shouldDisplayScreen = savedSettings
+      |> map { .Main(MainScreenModel(settings: $0)) }
+      |> startWith(.Settings(settingsViewModel))
   }
 }
