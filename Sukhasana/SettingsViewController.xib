@@ -16,14 +16,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="UrZ-f9-6W3" userLabel="Settings View">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="123"/>
+            <rect key="frame" x="0.0" y="0.0" width="340" height="123"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WT4-Kr-gjN">
-                    <rect key="frame" x="20" y="78" width="260" height="25"/>
+                    <rect key="frame" x="20" y="78" width="300" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="260" id="Emh-6q-pZO"/>
                         <constraint firstAttribute="height" constant="25" id="TzL-78-vwa"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="bGz-wL-Nm1"/>
                     </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="API key" drawsBackground="YES" id="7cR-Rt-WbB">
                         <font key="font" metaFont="system"/>
@@ -35,7 +35,7 @@
                     </connections>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vck-ri-e7G">
-                    <rect key="frame" x="18" y="46" width="265" height="26"/>
+                    <rect key="frame" x="18" y="46" width="305" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" inset="2" autoenablesItems="NO" id="rWn-IQ-n2w">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -46,7 +46,7 @@
                     </connections>
                 </popUpButton>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Oy-J4-PPf">
-                    <rect key="frame" x="215" y="13" width="71" height="32"/>
+                    <rect key="frame" x="255" y="13" width="71" height="32"/>
                     <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gwO-Bc-R5B">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -56,7 +56,7 @@
                     </buttonCell>
                 </button>
                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="CCA-5J-yuw">
-                    <rect key="frame" x="259" y="82" width="16" height="16"/>
+                    <rect key="frame" x="299" y="82" width="16" height="16"/>
                 </progressIndicator>
             </subviews>
             <constraints>
