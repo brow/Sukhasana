@@ -34,9 +34,7 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   
   // MARK: NSApplicationDelegate
   
-  func applicationDidFinishLaunching(notification: NSNotification) {
-    let client = APIClient(APIKey: "4cAUaVhk.Vt70w5u6rOHQgsy3fsLoX9v")
-    
+  func applicationDidFinishLaunching(notification: NSNotification) {    
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
     statusItem.title = "a⋮"
     statusItem.highlightMode = true
@@ -52,7 +50,7 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
         case .Settings(let model):
           return SettingsViewController(model: model)
         case .Main(let model):
-          return MainViewController(model: model)
+          return MainViewController(model: model, delegate: self)
         }
       }()
       self.setContentView(self.displayingViewController!.view)

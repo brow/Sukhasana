@@ -12,10 +12,10 @@ import ReactiveCocoa
 class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
   @IBOutlet var textField: NSTextField?
   @IBOutlet var resultsTableScrollView: TableScrollView?
-  weak var delegate: MainViewControllerDelegate?
   
-  init?(model: MainScreenModel) {
+  init?(model: MainScreenModel, delegate: MainViewControllerDelegate) {
     self.model = model
+    self.delegate = delegate
     
     super.init(nibName: "MainViewController", bundle: nil)
   }
@@ -70,6 +70,7 @@ class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
   // MARK: private
   
   private let model: MainScreenModel
+  private weak var delegate: MainViewControllerDelegate?
 }
 
 protocol MainViewControllerDelegate: NSObjectProtocol {
