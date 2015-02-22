@@ -32,6 +32,10 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     panel.close()
   }
   
+  func windowDidBecomeKey(notification: NSNotification) {
+    displayingViewController?.viewDidDisplay()
+  }
+  
   // MARK: NSApplicationDelegate
   
   func applicationDidFinishLaunching(notification: NSNotification) {    
@@ -77,8 +81,6 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
       newSize.height)
     panel.setFrame(newFrame, display: true)
   }
-  
-  // MARK: private
   
   private var model = ApplicationModel(settingsStore: NSUserDefaults.standardUserDefaults())
   private var statusItem: NSStatusItem!
