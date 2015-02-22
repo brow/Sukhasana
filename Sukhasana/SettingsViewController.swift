@@ -9,7 +9,7 @@
 import Cocoa
 
 class SettingsViewController: NSViewController, NSTextFieldDelegate {
-  @IBOutlet var APIKeyTextField: NSTextField?
+  @IBOutlet var APIKeyTextField: NSTextField!
   @IBOutlet var workspacePopUpButton: NSPopUpButton!
   @IBOutlet var saveButton: NSButton!
   @IBOutlet var progressIndicator: NSProgressIndicator!
@@ -35,7 +35,7 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
   // MARK: NSTextFieldDelegate
   
   override func controlTextDidChange(obj: NSNotification) {
-    model.APIKeyTextFieldText.put(APIKeyTextField!.stringValue)
+    model.APIKeyTextFieldText.put(APIKeyTextField.stringValue)
   }
   
   // MARK: NSViewController
@@ -47,16 +47,19 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
     model.saveButtonEnabled.producer.start { self.saveButton?.enabled = $0; return}
     model.progressIndicatorAnimating.producer.start { animating in
       if animating {
-        self.progressIndicator?.startAnimation(nil)
+        self.progressIndicator.startAnimation(nil)
       } else {
-        self.progressIndicator?.stopAnimation(nil)
+        self.progressIndicator.stopAnimation(nil)
       }
     }
     model.workspacePopUpButtonEnabled.producer.start { self.workspacePopUpButton?.enabled = $0; return }
     model.workspacePopUpItemsTitles.producer.start { titles in
-      self.workspacePopUpButton?.removeAllItems()
-      self.workspacePopUpButton?.addItemsWithTitles(titles)
+      self.workspacePopUpButton.removeAllItems()
+      self.workspacePopUpButton.addItemsWithTitles(titles)
     }
+    
+    APIKeyTextField.stringValue = model.APIKeyTextFieldText.value
+    workspacePopUpButton.selectItemAtIndex(model.workspacePopupSelectedIndex.value)
   }
   
   // MARK: private
