@@ -9,9 +9,9 @@
 import Cocoa
 import ReactiveCocoa
 
-class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
-  @IBOutlet var textField: NSTextField?
-  @IBOutlet var resultsTableScrollView: TableScrollView?
+class MainViewController: NSViewController, ViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+  @IBOutlet var textField: NSTextField!
+  @IBOutlet var resultsTableScrollView: TableScrollView!
   
   init?(model: MainScreenModel, delegate: MainViewControllerDelegate) {
     self.model = model
@@ -26,6 +26,12 @@ class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
   
   @IBAction func didClickSettingsButton(sender: AnyObject?) {
     model.didClickSettingsButton()
+  }
+  
+  // MARK: ViewController
+  
+  func viewDidDisplay() {
+    textField.becomeFirstResponder()
   }
 
   // MARK: NSTextFieldDelegate
@@ -66,7 +72,7 @@ class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
     
     model.tableViewShouldReloadData.start { _ in
       // FIXME: retain cycle
-      self.resultsTableScrollView?.reloadData()
+      self.resultsTableScrollView.reloadData()
       self.delegate?.mainViewControllerDidChangeFittingSize(self)
     }
   }

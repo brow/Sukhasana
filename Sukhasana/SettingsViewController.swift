@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SettingsViewController: NSViewController, NSTextFieldDelegate {
+class SettingsViewController: NSViewController, ViewController, NSTextFieldDelegate {
   @IBOutlet var APIKeyTextField: NSTextField!
   @IBOutlet var workspacePopUpButton: NSPopUpButton!
   @IBOutlet var saveButton: NSButton!
@@ -30,6 +30,12 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
   
   @IBAction func workspacePopUpButtonDidSelectItem(sender: AnyObject?) {
     model.workspacePopUpDidSelectItemAtIndex(workspacePopUpButton.indexOfSelectedItem)
+  }
+  
+  // MARK: ViewController
+  
+  func viewDidDisplay() {
+    APIKeyTextField.becomeFirstResponder()
   }
   
   // MARK: NSTextFieldDelegate

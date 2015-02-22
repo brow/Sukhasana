@@ -54,6 +54,7 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
         }
       }()
       self.setContentView(self.displayingViewController!.view)
+      self.displayingViewController!.viewDidDisplay()
     }
   }
   
@@ -81,6 +82,6 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   
   private var model = ApplicationModel(settingsStore: NSUserDefaults.standardUserDefaults())
   private var statusItem: NSStatusItem!
-  private var displayingViewController: NSViewController?
+  private var displayingViewController: ViewController?
 }
 
