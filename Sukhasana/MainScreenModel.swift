@@ -14,7 +14,7 @@ struct MainScreenModel {
   let didClickSettingsButton: () -> ()
   
   static func makeWithSettings(settings: Settings) -> (MainScreenModel, didClickSettingsButton: SignalProducer<(), NoError>) {
-    let (didClickSettingsButton, didClickSettingsButtonSink) = SignalProducer<(), NoError>.buffer()
+    let (didClickSettingsButton, didClickSettingsButtonSink) = SignalProducer<(), NoError>.buffer(1)
     
     return (
       MainScreenModel(settings: settings, didClickSettingsButtonSink: didClickSettingsButtonSink),

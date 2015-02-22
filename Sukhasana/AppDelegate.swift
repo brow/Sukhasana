@@ -79,7 +79,7 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   
   // MARK: private
   
-  private var model = ApplicationModel()
+  private var model = ApplicationModel(settingsStore: NSUserDefaults.standardUserDefaults())
   private var statusItem: NSStatusItem!
   private var displayingViewController: NSViewController?
 }

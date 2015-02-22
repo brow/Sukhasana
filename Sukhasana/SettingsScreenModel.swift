@@ -9,22 +9,27 @@
 import ReactiveCocoa
 
 struct SettingsScreenModel {
-  let APIKeyTextFieldText = MutableProperty("")
+  let APIKeyTextFieldText: MutableProperty<String>
   let saveButtonEnabled, workspacePopUpButtonEnabled, progressIndicatorAnimating: PropertyOf<Bool>
   let workspacePopUpItemsTitles: PropertyOf<[String]>
   let workspacePopupSelectedIndex: PropertyOf<Int>
   let didClickSaveButton: () -> ()
   let workspacePopUpDidSelectItemAtIndex: (Int) -> ()
   
-  static func make() -> (SettingsScreenModel, savedSettings: SignalProducer<Settings, NoError>) {
-    let (savedSettings, savedSettingSink) = SignalProducer<Settings, NoError>.buffer()
-    return (SettingsScreenModel(savedSettingsSink: savedSettingSink), savedSettings)
+  static func makeWithSettings(settings: Settings?) -> (SettingsScreenModel, didSaveSettings: SignalProducer<Settings, NoError>) {
+    let (didSaveSettings, didSaveSettingsSink) = SignalProducer<Settings, NoError>.buffer(1)
+    
+    return (
+      SettingsScreenModel(settings: settings, didSaveSettingsSink: didSaveSettingsSink),
+      didSaveSettings: didSaveSettings)
   }
   
   // MARK: private
   
-  private init(savedSettingsSink: Signal<Settings, NoError>.Observer) {
-    let enteredAPIKey = MutableProperty("")
+  private init(settings: Settings?, didSaveSettingsSink: Signal<Settings, NoError>.Observer) {
+    APIKeyTextFieldText = MutableProperty(settings?.APIKey ?? "")
+    
+    let enteredAPIKey = MutableProperty(settings?.APIKey ?? "")
     enteredAPIKey <~ APIKeyTextFieldText.producer
     
     let workspacesState = MutableProperty(WorkspacesState.Initial)
@@ -71,7 +76,7 @@ struct SettingsScreenModel {
         }
       })
     
-    let (workspaceSelectedIndexes, workspaceSelectedIndexSink) = SignalProducer<Int, NoError>.buffer()
+    let (workspaceSelectedIndexes, workspaceSelectedIndexSink) = SignalProducer<Int, NoError>.buffer(1)
     workspacePopUpDidSelectItemAtIndex = { index in
       sendNext(workspaceSelectedIndexSink, index)
     }
@@ -85,7 +90,7 @@ struct SettingsScreenModel {
       switch workspacesState.value {
       case .Fetched(let workspaces):
         sendNext(
-          savedSettingsSink,
+          didSaveSettingsSink,
           Settings(
             APIKey: enteredAPIKey.value,
             workspaceID: workspaces[workspacePopupSelectedIndex.value].id))
@@ -98,10 +103,6 @@ struct SettingsScreenModel {
     
     self.workspacePopupSelectedIndex = workspacePopupSelectedIndex
   }
-}
-
-struct Settings {
-  let APIKey, workspaceID: String
 }
 
 private struct Workspace {

@@ -25,6 +25,8 @@
 		EA670FFB1A8DCCE1008DA8F7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFA1A8DCCE1008DA8F7 /* MainViewController.swift */; };
 		EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */; };
 		EACD805E1A99394900093C22 /* Gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACD805D1A99394900093C22 /* Gear@2x.png */; };
+		EACD80B21A997C0700093C22 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD80B11A997C0700093C22 /* Settings.swift */; };
+		EACD80B61A99885F00093C22 /* NSUserDefaults+SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD80B51A99885F00093C22 /* NSUserDefaults+SettingsStore.swift */; };
 		EAE48ED41A92A42D009F0CFC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE48ED31A92A42D009F0CFC /* SettingsViewController.swift */; };
 		EAE48ED61A92C273009F0CFC /* SettingsScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE48ED51A92C273009F0CFC /* SettingsScreenModel.swift */; };
 		EAE48ED81A92C319009F0CFC /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE48ED71A92C319009F0CFC /* APIClient.swift */; };
@@ -79,6 +81,8 @@
 		EA670FFA1A8DCCE1008DA8F7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableScrollView.swift; sourceTree = "<group>"; };
 		EACD805D1A99394900093C22 /* Gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gear@2x.png"; sourceTree = "<group>"; };
+		EACD80B11A997C0700093C22 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		EACD80B51A99885F00093C22 /* NSUserDefaults+SettingsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+SettingsStore.swift"; sourceTree = "<group>"; };
 		EAE48ED31A92A42D009F0CFC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EAE48ED51A92C273009F0CFC /* SettingsScreenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsScreenModel.swift; sourceTree = "<group>"; };
 		EAE48ED71A92C319009F0CFC /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -137,19 +141,21 @@
 				EAE48ED71A92C319009F0CFC /* APIClient.swift */,
 				EA037E571A834B9300F47B17 /* AppDelegate.swift */,
 				EA1202C01A92F125002DE2FA /* ApplicationModel.swift */,
+				EACD805D1A99394900093C22 /* Gear@2x.png */,
 				EA037E591A834B9300F47B17 /* Images.xcassets */,
 				EA037E5B1A834B9300F47B17 /* MainMenu.xib */,
+				EA307A5C1A8756710008A566 /* MainScreenModel.swift */,
 				EA670FFA1A8DCCE1008DA8F7 /* MainViewController.swift */,
 				EAE48ED91A92C922009F0CFC /* MainViewController.xib */,
-				EA307A5C1A8756710008A566 /* MainScreenModel.swift */,
 				EA307A5A1A8730F10008A566 /* Panel.swift */,
+				EACD80B11A997C0700093C22 /* Settings.swift */,
+				EAE48ED51A92C273009F0CFC /* SettingsScreenModel.swift */,
 				EAE48ED31A92A42D009F0CFC /* SettingsViewController.swift */,
 				EAE48EDB1A92CE26009F0CFC /* SettingsViewController.xib */,
-				EAE48ED51A92C273009F0CFC /* SettingsScreenModel.swift */,
 				EAE48EDD1A92DB89009F0CFC /* SignalOperators.swift */,
 				EA037E551A834B9300F47B17 /* Supporting Files */,
 				EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */,
-				EACD805D1A99394900093C22 /* Gear@2x.png */,
+				EACD80B51A99885F00093C22 /* NSUserDefaults+SettingsStore.swift */,
 			);
 			path = Sukhasana;
 			sourceTree = "<group>";
@@ -284,6 +290,7 @@
 			files = (
 				EA037E581A834B9300F47B17 /* AppDelegate.swift in Sources */,
 				EAE48EDE1A92DB89009F0CFC /* SignalOperators.swift in Sources */,
+				EACD80B61A99885F00093C22 /* NSUserDefaults+SettingsStore.swift in Sources */,
 				EA1202C11A92F125002DE2FA /* ApplicationModel.swift in Sources */,
 				EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */,
 				EAE48ED81A92C319009F0CFC /* APIClient.swift in Sources */,
@@ -291,6 +298,7 @@
 				EAE48ED41A92A42D009F0CFC /* SettingsViewController.swift in Sources */,
 				EA307A5B1A8730F10008A566 /* Panel.swift in Sources */,
 				EA307A5D1A8756710008A566 /* MainScreenModel.swift in Sources */,
+				EACD80B21A997C0700093C22 /* Settings.swift in Sources */,
 				EAE48ED61A92C273009F0CFC /* SettingsScreenModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

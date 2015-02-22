@@ -16,8 +16,13 @@ struct ApplicationModel {
   
   let shouldDisplayScreen: SignalProducer<Screen, NoError>
   
-  init() {
-    let (settingsModel, didSaveSettings) = SettingsScreenModel.make()
+  init(settingsStore: SettingsStore) {
+    let (settingsModel, didSaveSettings) = SettingsScreenModel.makeWithSettings(settingsStore.restoreSettings())
+    
+    // Persist saved settings
+    didSaveSettings.start { settings in
+      settingsStore.saveSettings(settings)
+    }
     
     // Show the main screen after settings are saved
     let mainModelAndDidClickSettingsButton = didSaveSettings
@@ -35,4 +40,9 @@ struct ApplicationModel {
     shouldDisplayScreen = SignalProducer(values: [shouldDisplayMainScreen, shouldDisplaySettingsScreen])
       |> merge
   }
+}
+
+protocol SettingsStore {
+  func saveSettings(settings: Settings) -> ()
+  func restoreSettings() -> Settings?
 }
