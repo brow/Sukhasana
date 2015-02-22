@@ -23,15 +23,14 @@ struct ApplicationModel {
     let mainModelAndDidClickSettingsButton = didSaveSettings
       |> map(MainScreenModel.makeWithSettings)
       |> replay(capacity: 1)
-    
-    let shouldDisplayMainScreen: SignalProducer<Screen, NoError> = mainModelAndDidClickSettingsButton
-      |> map { (mainModel, _) in .Main(mainModel) }
+    let shouldDisplayMainScreen = mainModelAndDidClickSettingsButton
+      |> map { (mainModel, _) in Screen.Main(mainModel) }
     
     // Show the settings screen immediately and whenever the Settings button is clicked
-    let shouldDisplaySettingsScreen: SignalProducer<Screen, NoError> = mainModelAndDidClickSettingsButton
+    let shouldDisplaySettingsScreen = mainModelAndDidClickSettingsButton
       |> latestMap { (_, didClickSettingsButton) in didClickSettingsButton }
       |> startWith(())
-      |> map { _ in .Settings(settingsModel) }
+      |> map { _ in Screen.Settings(settingsModel) }
   
     shouldDisplayScreen = SignalProducer(values: [shouldDisplayMainScreen, shouldDisplaySettingsScreen])
       |> merge
