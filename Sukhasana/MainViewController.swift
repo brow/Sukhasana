@@ -23,6 +23,10 @@ class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
   required init?(coder: NSCoder) {
     fatalError("not supported")
   }
+  
+  @IBAction func didClickSettingsButton(sender: AnyObject?) {
+    model.didClickSettingsButton()
+  }
 
   // MARK: NSTextFieldDelegate
   

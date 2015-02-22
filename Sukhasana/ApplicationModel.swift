@@ -17,9 +17,23 @@ struct ApplicationModel {
   let shouldDisplayScreen: SignalProducer<Screen, NoError>
   
   init() {
-    let (settingsViewModel, savedSettings) = SettingsScreenModel.make()
-    shouldDisplayScreen = savedSettings
-      |> map { .Main(MainScreenModel(settings: $0)) }
-      |> startWith(.Settings(settingsViewModel))
+    let (settingsModel, didSaveSettings) = SettingsScreenModel.make()
+    
+    // Show the main screen after settings are saved
+    let mainModelAndDidClickSettingsButton = didSaveSettings
+      |> map(MainScreenModel.makeWithSettings)
+      |> replay(capacity: 1)
+    
+    let shouldDisplayMainScreen: SignalProducer<Screen, NoError> = mainModelAndDidClickSettingsButton
+      |> map { (mainModel, _) in .Main(mainModel) }
+    
+    // Show the settings screen immediately and whenever the Settings button is clicked
+    let shouldDisplaySettingsScreen: SignalProducer<Screen, NoError> = mainModelAndDidClickSettingsButton
+      |> latestMap { (_, didClickSettingsButton) in didClickSettingsButton }
+      |> startWith(())
+      |> map { _ in .Settings(settingsModel) }
+  
+    shouldDisplayScreen = SignalProducer(values: [shouldDisplayMainScreen, shouldDisplaySettingsScreen])
+      |> merge
   }
 }
