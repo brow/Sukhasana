@@ -31,7 +31,7 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
   // MARK: ViewController
   
   func viewDidDisplay() {
-    textField.becomeFirstResponder()
+    view.window?.makeFirstResponder(textField)
   }
 
   // MARK: NSTextFieldDelegate

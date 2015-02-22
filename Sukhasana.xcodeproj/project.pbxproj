@@ -34,6 +34,7 @@
 		EAE48EDC1A92CE26009F0CFC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE48EDB1A92CE26009F0CFC /* SettingsViewController.xib */; };
 		EAE48EDE1A92DB89009F0CFC /* SignalOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE48EDD1A92DB89009F0CFC /* SignalOperators.swift */; };
 		EAEA6F951A99BE3400F359BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEA6F941A99BE3400F359BD /* ViewController.swift */; };
+		EAEA6F971A9A5FE900F359BD /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEA6F961A9A5FE900F359BD /* TableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		EAE48EDB1A92CE26009F0CFC /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		EAE48EDD1A92DB89009F0CFC /* SignalOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalOperators.swift; sourceTree = "<group>"; };
 		EAEA6F941A99BE3400F359BD /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EAEA6F961A9A5FE900F359BD /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				EAE48EDD1A92DB89009F0CFC /* SignalOperators.swift */,
 				EA037E551A834B9300F47B17 /* Supporting Files */,
 				EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */,
+				EAEA6F961A9A5FE900F359BD /* TableView.swift */,
 				EAEA6F941A99BE3400F359BD /* ViewController.swift */,
 			);
 			path = Sukhasana;
@@ -294,6 +297,7 @@
 				EA037E581A834B9300F47B17 /* AppDelegate.swift in Sources */,
 				EAE48EDE1A92DB89009F0CFC /* SignalOperators.swift in Sources */,
 				EACD80B61A99885F00093C22 /* NSUserDefaults+SettingsStore.swift in Sources */,
+				EAEA6F971A9A5FE900F359BD /* TableView.swift in Sources */,
 				EA1202C11A92F125002DE2FA /* ApplicationModel.swift in Sources */,
 				EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */,
 				EAE48ED81A92C319009F0CFC /* APIClient.swift in Sources */,

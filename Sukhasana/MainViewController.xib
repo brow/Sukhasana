@@ -24,7 +24,7 @@
                         <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="qd4-ch-g2N">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="qd4-ch-g2N" customClass="TableView" customModule="Sukhasana" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="0.0" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -66,6 +66,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="6R7-Tj-I51"/>
                                     <outlet property="delegate" destination="-2" id="DdJ-PK-5X9"/>
+                                    <outlet property="nextKeyView" destination="4sH-v6-b1V" id="hmt-9F-MRA"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -92,6 +93,7 @@
                     </textFieldCell>
                     <connections>
                         <outlet property="delegate" destination="-2" id="swq-ns-SKg"/>
+                        <outlet property="nextKeyView" destination="jfI-if-Ptb" id="d52-No-AWH"/>
                     </connections>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="jfI-if-Ptb" userLabel="Settings Button">
@@ -105,6 +107,7 @@
                     </buttonCell>
                     <connections>
                         <action selector="didClickSettingsButton:" target="-2" id="jzQ-9x-OX8"/>
+                        <outlet property="nextKeyView" destination="qd4-ch-g2N" id="s1U-f0-dD4"/>
                     </connections>
                 </button>
             </subviews>

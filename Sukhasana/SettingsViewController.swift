@@ -35,7 +35,7 @@ class SettingsViewController: NSViewController, ViewController, NSTextFieldDeleg
   // MARK: ViewController
   
   func viewDidDisplay() {
-    APIKeyTextField.becomeFirstResponder()
+    view.window?.makeFirstResponder(APIKeyTextField)
   }
   
   // MARK: NSTextFieldDelegate
