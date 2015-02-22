@@ -21,3 +21,9 @@ func propertyOf<T>(initialValue: T, producer: SignalProducer<T, NoError>) -> Pro
   mutableProperty <~ producer
   return PropertyOf(mutableProperty)
 }
+
+func replay<T, E>(capacity: Int = Int.max)(producer: ReactiveCocoa.SignalProducer<T, E>) -> ReactiveCocoa.SignalProducer<T, E> {
+  let (returnedProducer, sink) = SignalProducer<T, E>.buffer(capacity)
+  producer.start(sink)
+  return returnedProducer
+}

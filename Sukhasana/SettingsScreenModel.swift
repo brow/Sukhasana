@@ -12,6 +12,7 @@ struct SettingsScreenModel {
   let APIKeyTextFieldText = MutableProperty("")
   let saveButtonEnabled, workspacePopUpButtonEnabled, progressIndicatorAnimating: PropertyOf<Bool>
   let workspacePopUpItemsTitles: PropertyOf<[String]>
+  let workspacePopupSelectedIndex: PropertyOf<Int>
   let didClickSaveButton: () -> ()
   let workspacePopUpDidSelectItemAtIndex: (Int) -> ()
   
@@ -75,7 +76,7 @@ struct SettingsScreenModel {
       sendNext(workspaceSelectedIndexSink, index)
     }
     
-    let selectedWorkspaceIndex: PropertyOf<Int> = propertyOf(0, merge(SignalProducer(values: [
+    let workspacePopupSelectedIndex = propertyOf(0, merge(SignalProducer(values: [
       workspaceSelectedIndexes,
       workspacePopUpItemsTitles.producer |> map { _ in 0 }
       ])))
@@ -87,13 +88,15 @@ struct SettingsScreenModel {
           savedSettingsSink,
           Settings(
             APIKey: enteredAPIKey.value,
-            workspaceID: workspaces[selectedWorkspaceIndex.value].id))
+            workspaceID: workspaces[workspacePopupSelectedIndex.value].id))
       default:
         fatalError("can't save with no workspaces loaded")
       }
-     
+      
       return
     }
+    
+    self.workspacePopupSelectedIndex = workspacePopupSelectedIndex
   }
 }
 

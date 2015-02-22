@@ -11,21 +11,15 @@ import ReactiveCocoa
 struct MainScreenModel {
   let textFieldText = MutableProperty("")
   let tableViewShouldReloadData: SignalProducer<(), NoError>
+  let didClickSettingsButton: () -> ()
   
-  init(settings: Settings) {
-    let client = APIClient(APIKey: settings.APIKey)
+  static func makeWithSettings(settings: Settings) -> (MainScreenModel, didClickSettingsButton: SignalProducer<(), NoError>) {
+    let (didClickSettingsButton, didClickSettingsButtonSink) = SignalProducer<(), NoError>.buffer()
     
-    resultsState <~ textFieldText.producer
-      |> map { client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: $0) }
-      |> map { $0 |> map(namesFromResultsJSON) }
-      |> map { $0
-          |> map { .Fetched($0) }
-          |> catchTo(.Failed)
-          |> startWith(.Fetching)
-      }
-      |> latest
-    
-    tableViewShouldReloadData = resultsState.producer |> map { _ in () }
+    return (
+      MainScreenModel(settings: settings, didClickSettingsButtonSink: didClickSettingsButtonSink),
+      didClickSettingsButton: didClickSettingsButton
+    )
   }
   
   func numberOfRows() -> Int {
@@ -49,8 +43,26 @@ struct MainScreenModel {
   // MARK: private
   
   private let resultsState = MutableProperty(ResultsState.Initial)
-}
   
+  private init(settings: Settings, didClickSettingsButtonSink: Signal<(), NoError>.Observer) {
+    let client = APIClient(APIKey: settings.APIKey)
+    
+    resultsState <~ textFieldText.producer
+      |> map { client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: $0) }
+      |> map { $0 |> map(namesFromResultsJSON) }
+      |> map { $0
+        |> map { .Fetched($0) }
+        |> catchTo(.Failed)
+        |> startWith(.Fetching)
+      }
+      |> latest
+    
+    tableViewShouldReloadData = resultsState.producer |> map { _ in () }
+    
+    didClickSettingsButton = { sendNext(didClickSettingsButtonSink, ()) }
+  }
+}
+
 private enum ResultsState {
   case Initial
   case Fetching
