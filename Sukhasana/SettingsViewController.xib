@@ -32,6 +32,7 @@
                     </textFieldCell>
                     <connections>
                         <outlet property="delegate" destination="-2" id="MrT-Y0-x6J"/>
+                        <outlet property="nextKeyView" destination="vck-ri-e7G" id="YY0-QF-KZa"/>
                     </connections>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vck-ri-e7G">
@@ -43,6 +44,7 @@
                     </popUpButtonCell>
                     <connections>
                         <action selector="workspacePopUpButtonDidSelectItem:" target="-2" id="VzT-AZ-eda"/>
+                        <outlet property="nextKeyView" destination="1Oy-J4-PPf" id="5ed-Mt-vOj"/>
                     </connections>
                 </popUpButton>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Oy-J4-PPf">
@@ -54,6 +56,9 @@
                             <action selector="didClickSaveButton:" target="-2" id="ew5-ii-ys0"/>
                         </connections>
                     </buttonCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="WT4-Kr-gjN" id="T3o-54-3l0"/>
+                    </connections>
                 </button>
                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="CCA-5J-yuw">
                     <rect key="frame" x="299" y="82" width="16" height="16"/>
