@@ -11,14 +11,24 @@ import ReactiveCocoa
 struct MainScreenModel {
   let textFieldText = MutableProperty("")
   let tableViewShouldReloadData: SignalProducer<(), NoError>
-  let didClickSettingsButton: () -> ()
+  let didClickSettingsButton: Signal<(), NoError>.Observer
+  let didClickRowAtIndex: Signal<Int, NoError>.Observer
   
-  static func makeWithSettings(settings: Settings) -> (MainScreenModel, didClickSettingsButton: SignalProducer<(), NoError>) {
+  static func makeWithSettings(settings: Settings) -> (
+    MainScreenModel,
+    didClickSettingsButton: SignalProducer<(), NoError>,
+    URLsToOpen: SignalProducer<NSURL, NoError>)
+  {
     let (didClickSettingsButton, didClickSettingsButtonSink) = SignalProducer<(), NoError>.buffer(1)
+    let (URLsToOpen, URLsToOpenSink) = SignalProducer<NSURL, NoError>.buffer(1)
     
     return (
-      MainScreenModel(settings: settings, didClickSettingsButtonSink: didClickSettingsButtonSink),
-      didClickSettingsButton: didClickSettingsButton
+      MainScreenModel(
+        settings: settings,
+        didClickSettingsButtonSink: didClickSettingsButtonSink,
+        URLsToOpenSink: URLsToOpenSink),
+      didClickSettingsButton: didClickSettingsButton,
+      URLsToOpen: URLsToOpen
     )
   }
   
@@ -34,7 +44,7 @@ struct MainScreenModel {
   func stringForRow(row: Int) -> String {
     switch resultsState.value {
     case .Fetched(let results):
-      return results[row]
+      return results[row].name
     case .Initial, .Fetching, .Failed:
       fatalError("no rows should be displayed in this state")
     }
@@ -44,12 +54,16 @@ struct MainScreenModel {
   
   private let resultsState = MutableProperty(ResultsState.Initial)
   
-  private init(settings: Settings, didClickSettingsButtonSink: Signal<(), NoError>.Observer) {
+  private init(
+    settings: Settings,
+    didClickSettingsButtonSink: Signal<(), NoError>.Observer,
+    URLsToOpenSink: Signal<NSURL, NoError>.Observer)
+  {
     let client = APIClient(APIKey: settings.APIKey)
     
     resultsState <~ textFieldText.producer
       |> map { client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: $0) }
-      |> map { $0 |> map(namesFromResultsJSON) }
+      |> map { $0 |> map(resultsFromJSON) }
       |> map { $0
         |> map { .Fetched($0) }
         |> catchTo(.Failed)
@@ -59,7 +73,21 @@ struct MainScreenModel {
     
     tableViewShouldReloadData = resultsState.producer |> map { _ in () }
     
-    didClickSettingsButton = { sendNext(didClickSettingsButtonSink, ()) }
+    didClickSettingsButton = didClickSettingsButtonSink
+    
+    let (didClickRowAtIndexProducer, didClickRowAtIndexSink) = SignalProducer<Int, NoError>.buffer(1)
+    didClickRowAtIndex = didClickRowAtIndexSink
+    resultsState.producer
+      |> sampleOn(didClickRowAtIndexProducer |> map {_ in ()})
+      |> zipWith(didClickRowAtIndexProducer)
+      |> map { resultsState, index in
+        switch resultsState {
+        case .Fetched(let results):
+          return results[index].URL
+        case .Initial, .Fetching, .Failed:
+          fatalError()
+        }}
+      |> start(URLsToOpenSink)
   }
 }
 
@@ -67,15 +95,25 @@ private enum ResultsState {
   case Initial
   case Fetching
   case Failed
-  case Fetched([String])
+  case Fetched([Result])
 }
 
-private func namesFromResultsJSON(resultsJSON: NSDictionary) -> [String] {
-  var names = [String]()
-  if let data = resultsJSON["data"] as? Array<Dictionary<String, AnyObject>> {
+private struct Result {
+  let name, id: String
+  var URL: NSURL {
+    // FIXME: escape id
+    return NSURL(string: "https://app.asana.com/0/\(id)/\(id)")!
+  }
+}
+
+private func resultsFromJSON(JSON: NSDictionary) -> [Result] {
+  var names = [Result]()
+  if let data = JSON["data"] as? Array<Dictionary<String, AnyObject>> {
     for object in data {
       if let name = object["name"] as? String {
-        names.append(name)
+        if let id = object["id"] as? NSNumber {
+          names.append(Result(name: name, id: id.stringValue))
+        }
       }
     }
   }

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ReactiveCocoa
 
 class SettingsViewController: NSViewController, ViewController, NSTextFieldDelegate {
   @IBOutlet var APIKeyTextField: NSTextField!
@@ -25,17 +26,17 @@ class SettingsViewController: NSViewController, ViewController, NSTextFieldDeleg
   }
   
   @IBAction func didClickSaveButton(sender: AnyObject?) {
-    model.didClickSaveButton()
+    sendNext(model.didClickSaveButton, ())
   }
   
   @IBAction func workspacePopUpButtonDidSelectItem(sender: AnyObject?) {
-    model.workspacePopUpDidSelectItemAtIndex(workspacePopUpButton.indexOfSelectedItem)
+    sendNext(model.workspacePopUpDidSelectItemAtIndex, workspacePopUpButton.indexOfSelectedItem)
   }
   
   // MARK: ViewController
   
   func viewDidDisplay() {
-    APIKeyTextField.becomeFirstResponder()
+    view.window?.makeFirstResponder(APIKeyTextField)
   }
   
   // MARK: NSTextFieldDelegate

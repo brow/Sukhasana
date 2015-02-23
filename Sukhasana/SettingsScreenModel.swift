@@ -13,8 +13,8 @@ struct SettingsScreenModel {
   let saveButtonEnabled, workspacePopUpButtonEnabled, progressIndicatorAnimating: PropertyOf<Bool>
   let workspacePopUpItemsTitles: PropertyOf<[String]>
   let workspacePopupSelectedIndex: PropertyOf<Int>
-  let didClickSaveButton: () -> ()
-  let workspacePopUpDidSelectItemAtIndex: (Int) -> ()
+  let didClickSaveButton: Signal<(), NoError>.Observer
+  let workspacePopUpDidSelectItemAtIndex: Signal<Int, NoError>.Observer
   
   static func makeWithSettings(settings: Settings?) -> (SettingsScreenModel, didSaveSettings: SignalProducer<Settings, NoError>) {
     let (didSaveSettings, didSaveSettingsSink) = SignalProducer<Settings, NoError>.buffer(1)
@@ -29,11 +29,7 @@ struct SettingsScreenModel {
   private init(settings: Settings?, didSaveSettingsSink: Signal<Settings, NoError>.Observer) {
     APIKeyTextFieldText = MutableProperty(settings?.APIKey ?? "")
     
-    let enteredAPIKey = MutableProperty(settings?.APIKey ?? "")
-    enteredAPIKey <~ APIKeyTextFieldText.producer
-    
-    let workspacesState = MutableProperty(WorkspacesState.Initial)
-    workspacesState <~ enteredAPIKey.producer
+    let workspacesState: SignalProducer<WorkspacesState, NoError> = APIKeyTextFieldText.producer
       |> map { APIClient(APIKey: $0) }
       |> map { $0.requestWorkspaces() }
       |> map { $0 |> map(workspacesFromJSON) }
@@ -44,7 +40,7 @@ struct SettingsScreenModel {
       }
       |> latest
     
-    workspacePopUpButtonEnabled = propertyOf(false, workspacesState.producer
+    workspacePopUpButtonEnabled = propertyOf(false, workspacesState
       |> map { switch $0 {
       case .Fetched(let workspaces):
         return !isEmpty(workspaces)
@@ -55,7 +51,7 @@ struct SettingsScreenModel {
     
     saveButtonEnabled = workspacePopUpButtonEnabled
     
-    progressIndicatorAnimating = propertyOf(false, workspacesState.producer
+    progressIndicatorAnimating = propertyOf(false, workspacesState
       |> map { switch $0 {
       case .Fetching:
         return true
@@ -64,7 +60,7 @@ struct SettingsScreenModel {
         }
       })
     
-    workspacePopUpItemsTitles = propertyOf([], workspacesState.producer
+    workspacePopUpItemsTitles = propertyOf([], workspacesState
       |> map { switch $0 {
       case .Fetched(let workspaces):
         return isEmpty(workspaces)
@@ -77,31 +73,31 @@ struct SettingsScreenModel {
       })
     
     let (workspaceSelectedIndexes, workspaceSelectedIndexSink) = SignalProducer<Int, NoError>.buffer(1)
-    workspacePopUpDidSelectItemAtIndex = { index in
-      sendNext(workspaceSelectedIndexSink, index)
-    }
+    workspacePopUpDidSelectItemAtIndex = workspaceSelectedIndexSink
     
-    let workspacePopupSelectedIndex = propertyOf(0, merge(SignalProducer(values: [
+    workspacePopupSelectedIndex = propertyOf(0, merge(SignalProducer(values: [
       workspaceSelectedIndexes,
       workspacePopUpItemsTitles.producer |> map { _ in 0 }
       ])))
     
-    didClickSaveButton = {
-      switch workspacesState.value {
-      case .Fetched(let workspaces):
-        sendNext(
-          didSaveSettingsSink,
-          Settings(
-            APIKey: enteredAPIKey.value,
-            workspaceID: workspaces[workspacePopupSelectedIndex.value].id))
-      default:
-        fatalError("can't save with no workspaces loaded")
-      }
-      
-      return
-    }
-    
-    self.workspacePopupSelectedIndex = workspacePopupSelectedIndex
+    let (didClickSaveButtonProducer, didClickSaveButtonSink) = SignalProducer<(), NoError>.buffer(1)
+    didClickSaveButton = didClickSaveButtonSink
+    workspacesState
+      |> combineLatestWith(workspacePopupSelectedIndex.producer)
+      |> combineLatestWith(APIKeyTextFieldText.producer)
+      |> map(repack)
+      |> sampleOn(didClickSaveButtonProducer)
+      |> map { workspacesState, workspacePopupSelectedIndex, APIKeyTextFieldText in
+        switch workspacesState {
+        case .Fetched(let workspaces):
+          return Settings(
+            APIKey: APIKeyTextFieldText,
+            workspaceID: workspaces[workspacePopupSelectedIndex].id)
+        default:
+          fatalError("can't save with no workspaces loaded")
+        }}
+      |> start(didSaveSettingsSink)
+
   }
 }
 

@@ -32,6 +32,10 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     panel.close()
   }
   
+  func windowDidBecomeKey(notification: NSNotification) {
+    displayingViewController?.viewDidDisplay()
+  }
+  
   // MARK: NSApplicationDelegate
   
   func applicationDidFinishLaunching(notification: NSNotification) {    
@@ -56,6 +60,13 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
       self.setContentView(self.displayingViewController!.view)
       self.displayingViewController!.viewDidDisplay()
     }
+    
+    // FIXME: retain cycle
+    model.shouldOpenURL.start { URL in
+      NSWorkspace.sharedWorkspace().openURL(URL)
+      self.panel.close()
+      return
+    }
   }
   
   // MARK: private
@@ -77,8 +88,6 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
       newSize.height)
     panel.setFrame(newFrame, display: true)
   }
-  
-  // MARK: private
   
   private var model = ApplicationModel(settingsStore: NSUserDefaults.standardUserDefaults())
   private var statusItem: NSStatusItem!
