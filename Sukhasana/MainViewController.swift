@@ -25,7 +25,7 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
   }
   
   @IBAction func didClickSettingsButton(sender: AnyObject?) {
-    model.didClickSettingsButton()
+    sendNext(model.didClickSettingsButton, ())
   }
   
   // MARK: ViewController

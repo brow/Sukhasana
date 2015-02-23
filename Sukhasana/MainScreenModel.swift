@@ -11,7 +11,7 @@ import ReactiveCocoa
 struct MainScreenModel {
   let textFieldText = MutableProperty("")
   let tableViewShouldReloadData: SignalProducer<(), NoError>
-  let didClickSettingsButton: () -> ()
+  let didClickSettingsButton: Signal<(), NoError>.Observer
   let didClickRowAtIndex: Signal<Int, NoError>.Observer
   
   static func makeWithSettings(settings: Settings) -> (
@@ -73,10 +73,10 @@ struct MainScreenModel {
     
     tableViewShouldReloadData = resultsState.producer |> map { _ in () }
     
-    didClickSettingsButton = { sendNext(didClickSettingsButtonSink, ()) }
+    didClickSettingsButton = didClickSettingsButtonSink
     
-    let (didClickRowAtIndexProducer, didClickRowAtIndex) = SignalProducer<Int, NoError>.buffer(1)
-    self.didClickRowAtIndex = didClickRowAtIndex
+    let (didClickRowAtIndexProducer, didClickRowAtIndexSink) = SignalProducer<Int, NoError>.buffer(1)
+    didClickRowAtIndex = didClickRowAtIndexSink
     resultsState.producer
       |> sampleOn(didClickRowAtIndexProducer |> map {_ in ()})
       |> zipWith(didClickRowAtIndexProducer)
