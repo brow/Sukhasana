@@ -93,7 +93,7 @@
                     </textFieldCell>
                     <connections>
                         <outlet property="delegate" destination="-2" id="swq-ns-SKg"/>
-                        <outlet property="nextKeyView" destination="jfI-if-Ptb" id="d52-No-AWH"/>
+                        <outlet property="nextKeyView" destination="qd4-ch-g2N" id="kOx-Ls-o2k"/>
                     </connections>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="jfI-if-Ptb" userLabel="Settings Button">
