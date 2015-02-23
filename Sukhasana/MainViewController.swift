@@ -9,7 +9,7 @@
 import Cocoa
 import ReactiveCocoa
 
-class MainViewController: NSViewController, ViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+class MainViewController: NSViewController, ViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, TableViewDelegate {
   @IBOutlet var textField: NSTextField!
   @IBOutlet var resultsTableScrollView: TableScrollView!
   
@@ -63,6 +63,11 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
     
     view.stringValue = model.stringForRow(row)
     return view
+  }
+  
+  // MARK: TableViewDelegate
+  func tableView(tableView: TableView, didClickRowAtIndex index: Int) {
+    sendNext(model.didClickRowAtIndex, index)
   }
   
   // MARK: NSViewController

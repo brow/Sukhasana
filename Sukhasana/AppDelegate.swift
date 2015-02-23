@@ -60,6 +60,13 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
       self.setContentView(self.displayingViewController!.view)
       self.displayingViewController!.viewDidDisplay()
     }
+    
+    // FIXME: retain cycle
+    model.shouldOpenURL.start { URL in
+      NSWorkspace.sharedWorkspace().openURL(URL)
+      self.panel.close()
+      return
+    }
   }
   
   // MARK: private

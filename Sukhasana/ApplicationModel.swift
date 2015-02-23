@@ -15,6 +15,7 @@ struct ApplicationModel {
   }
   
   let shouldDisplayScreen: SignalProducer<Screen, NoError>
+  let shouldOpenURL: SignalProducer<NSURL, NoError>
   
   init(settingsStore: SettingsStore) {
     let restoredSettings = settingsStore.restoreSettings()
@@ -35,21 +36,23 @@ struct ApplicationModel {
     }()
     
     // Show the main screen after settings are saved
-    let mainModelAndDidClickSettingsButton = didRestoreSettings
+    let mainModelAndProducers = didRestoreSettings
       |> concat(didSaveSettings)
       |> map(MainScreenModel.makeWithSettings)
       |> replay(capacity: 1)
-    let shouldDisplayMainScreen = mainModelAndDidClickSettingsButton
-      |> map { (mainModel, _) in Screen.Main(mainModel) }
+    let shouldDisplayMainScreen = mainModelAndProducers
+      |> map { Screen.Main($0.0) }
     
     // Show the settings screen after the Settings button is clicked, and on
     // launch if no settings have been restored
     let shouldDisplaySettingsScreen = SignalProducer(values: restoredSettings == nil ? [()] : [])
-      |> concat (mainModelAndDidClickSettingsButton |> latestMap { $0.1 })
+      |> concat (mainModelAndProducers |> latestMap { $0.didClickSettingsButton })
       |> map { _ in Screen.Settings(settingsModel) }
   
     shouldDisplayScreen = SignalProducer(values: [shouldDisplayMainScreen, shouldDisplaySettingsScreen])
       |> merge
+    
+    shouldOpenURL = mainModelAndProducers |> latestMap { $0.URLsToOpen}
   }
 }
 

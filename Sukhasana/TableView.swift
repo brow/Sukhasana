@@ -9,6 +9,8 @@
 import Cocoa
 
 class TableView: NSTableView {
+  @IBOutlet weak var secondDelegate: TableViewDelegate?
+  
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     
@@ -53,4 +55,17 @@ class TableView: NSTableView {
     window?.makeFirstResponder(self)
     selectRowIndexes(rowIndexesToSelect, byExtendingSelection: false)
   }
+  
+  override func mouseDown(theEvent: NSEvent) {
+    super.mouseDown(theEvent)
+    
+    let row = rowAtPoint(convertPoint(theEvent.locationInWindow, fromView: nil))
+    if row != -1 {
+      secondDelegate?.tableView(self, didClickRowAtIndex: row)
+    }
+  }
+}
+
+@objc protocol TableViewDelegate {
+  func tableView(tableView: TableView, didClickRowAtIndex index: Int)
 }

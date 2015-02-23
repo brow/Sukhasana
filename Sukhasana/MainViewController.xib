@@ -67,6 +67,7 @@
                                     <outlet property="dataSource" destination="-2" id="6R7-Tj-I51"/>
                                     <outlet property="delegate" destination="-2" id="DdJ-PK-5X9"/>
                                     <outlet property="nextKeyView" destination="4sH-v6-b1V" id="hmt-9F-MRA"/>
+                                    <outlet property="secondDelegate" destination="-2" id="WXY-Fh-wZn"/>
                                 </connections>
                             </tableView>
                         </subviews>

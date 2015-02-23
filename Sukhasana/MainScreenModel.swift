@@ -12,13 +12,23 @@ struct MainScreenModel {
   let textFieldText = MutableProperty("")
   let tableViewShouldReloadData: SignalProducer<(), NoError>
   let didClickSettingsButton: () -> ()
+  let didClickRowAtIndex: Signal<Int, NoError>.Observer
   
-  static func makeWithSettings(settings: Settings) -> (MainScreenModel, didClickSettingsButton: SignalProducer<(), NoError>) {
+  static func makeWithSettings(settings: Settings) -> (
+    MainScreenModel,
+    didClickSettingsButton: SignalProducer<(), NoError>,
+    URLsToOpen: SignalProducer<NSURL, NoError>)
+  {
     let (didClickSettingsButton, didClickSettingsButtonSink) = SignalProducer<(), NoError>.buffer(1)
+    let (URLsToOpen, URLsToOpenSink) = SignalProducer<NSURL, NoError>.buffer(1)
     
     return (
-      MainScreenModel(settings: settings, didClickSettingsButtonSink: didClickSettingsButtonSink),
-      didClickSettingsButton: didClickSettingsButton
+      MainScreenModel(
+        settings: settings,
+        didClickSettingsButtonSink: didClickSettingsButtonSink,
+        URLsToOpenSink: URLsToOpenSink),
+      didClickSettingsButton: didClickSettingsButton,
+      URLsToOpen: URLsToOpen
     )
   }
   
@@ -44,7 +54,11 @@ struct MainScreenModel {
   
   private let resultsState = MutableProperty(ResultsState.Initial)
   
-  private init(settings: Settings, didClickSettingsButtonSink: Signal<(), NoError>.Observer) {
+  private init(
+    settings: Settings,
+    didClickSettingsButtonSink: Signal<(), NoError>.Observer,
+    URLsToOpenSink: Signal<NSURL, NoError>.Observer)
+  {
     let client = APIClient(APIKey: settings.APIKey)
     
     resultsState <~ textFieldText.producer
@@ -60,6 +74,19 @@ struct MainScreenModel {
     tableViewShouldReloadData = resultsState.producer |> map { _ in () }
     
     didClickSettingsButton = { sendNext(didClickSettingsButtonSink, ()) }
+    
+    let (didClickRowAtIndexProducer, didClickRowAtIndex) = SignalProducer<Int, NoError>.buffer(1)
+    self.didClickRowAtIndex = didClickRowAtIndex
+    resultsState.producer
+      |> sampleOn(didClickRowAtIndexProducer |> map {_ in ()})
+      |> map { resultsState in
+        switch resultsState {
+        case .Fetched(let results):
+          return NSURL(string: "https://app.asana.com/0/27089193997842/27089193997842")!
+        case .Initial, .Fetching, .Failed:
+          fatalError()
+        }}
+      |> start(URLsToOpenSink)
   }
 }
 
