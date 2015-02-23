@@ -89,6 +89,12 @@
                         <outlet property="tableView" destination="qd4-ch-g2N" id="ew5-qL-gkG"/>
                     </connections>
                 </scrollView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="1RJ-Cf-MgD" userLabel="Separator View" customClass="SeparatorView" customModule="Sukhasana" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="333" width="276" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="BWe-8Y-og4"/>
+                    </constraints>
+                </customView>
                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4sH-v6-b1V">
                     <rect key="frame" x="10" y="344" width="223" height="24"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Search" drawsBackground="YES" id="fUS-lV-uIE">
@@ -119,10 +125,13 @@
                 <constraint firstItem="jfI-if-Ptb" firstAttribute="leading" secondItem="4sH-v6-b1V" secondAttribute="trailing" id="0kR-j7-z0W"/>
                 <constraint firstItem="4sH-v6-b1V" firstAttribute="centerY" secondItem="jfI-if-Ptb" secondAttribute="centerY" id="1wq-EC-Arp"/>
                 <constraint firstItem="S8l-Lk-IyI" firstAttribute="top" secondItem="4sH-v6-b1V" secondAttribute="bottom" constant="10" id="24K-uu-F50"/>
+                <constraint firstItem="1RJ-Cf-MgD" firstAttribute="leading" secondItem="S8l-Lk-IyI" secondAttribute="leading" id="5DN-86-y5D"/>
+                <constraint firstItem="1RJ-Cf-MgD" firstAttribute="trailing" secondItem="S8l-Lk-IyI" secondAttribute="trailing" id="BG6-v4-2Cs"/>
                 <constraint firstAttribute="trailing" secondItem="jfI-if-Ptb" secondAttribute="trailing" id="BJl-Va-Mbr"/>
                 <constraint firstAttribute="trailing" secondItem="S8l-Lk-IyI" secondAttribute="trailing" id="Fme-LK-nr8"/>
                 <constraint firstAttribute="bottom" secondItem="S8l-Lk-IyI" secondAttribute="bottom" id="O99-yf-ZDU"/>
                 <constraint firstItem="4sH-v6-b1V" firstAttribute="top" secondItem="zUB-sC-cQk" secondAttribute="top" constant="10" id="Vgr-pH-Upg"/>
+                <constraint firstItem="1RJ-Cf-MgD" firstAttribute="top" secondItem="S8l-Lk-IyI" secondAttribute="top" id="dNj-DD-prr"/>
                 <constraint firstItem="S8l-Lk-IyI" firstAttribute="leading" secondItem="zUB-sC-cQk" secondAttribute="leading" id="imM-zH-wZB"/>
                 <constraint firstItem="jfI-if-Ptb" firstAttribute="top" secondItem="zUB-sC-cQk" secondAttribute="top" id="lOl-Ra-4Sj"/>
                 <constraint firstItem="4sH-v6-b1V" firstAttribute="leading" secondItem="zUB-sC-cQk" secondAttribute="leading" constant="10" id="zxi-UO-CaV"/>

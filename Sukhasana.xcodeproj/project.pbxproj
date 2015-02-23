@@ -23,6 +23,7 @@
 		EA307A601A87FC780008A566 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; };
 		EA307A611A87FC780008A566 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA462FC11A9AD196005965A8 /* TupleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA462FC01A9AD196005965A8 /* TupleExtensions.swift */; };
+		EA462FC31A9ADF55005965A8 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA462FC21A9ADF55005965A8 /* SeparatorView.swift */; };
 		EA670FFB1A8DCCE1008DA8F7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFA1A8DCCE1008DA8F7 /* MainViewController.swift */; };
 		EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */; };
 		EACD805E1A99394900093C22 /* Gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACD805D1A99394900093C22 /* Gear@2x.png */; };
@@ -82,6 +83,7 @@
 		EA307A5C1A8756710008A566 /* MainScreenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenModel.swift; sourceTree = "<group>"; };
 		EA307A5F1A87FC780008A566 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		EA462FC01A9AD196005965A8 /* TupleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TupleExtensions.swift; sourceTree = "<group>"; };
+		EA462FC21A9ADF55005965A8 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		EA670FFA1A8DCCE1008DA8F7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableScrollView.swift; sourceTree = "<group>"; };
 		EACD805D1A99394900093C22 /* Gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gear@2x.png"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				EAE48ED91A92C922009F0CFC /* MainViewController.xib */,
 				EACD80B51A99885F00093C22 /* NSUserDefaults+SettingsStore.swift */,
 				EA307A5A1A8730F10008A566 /* Panel.swift */,
+				EA462FC21A9ADF55005965A8 /* SeparatorView.swift */,
 				EACD80B11A997C0700093C22 /* Settings.swift */,
 				EAE48ED51A92C273009F0CFC /* SettingsScreenModel.swift */,
 				EAE48ED31A92A42D009F0CFC /* SettingsViewController.swift */,
@@ -307,6 +310,7 @@
 				EA670FFB1A8DCCE1008DA8F7 /* MainViewController.swift in Sources */,
 				EAE48ED41A92A42D009F0CFC /* SettingsViewController.swift in Sources */,
 				EAEA6F951A99BE3400F359BD /* ViewController.swift in Sources */,
+				EA462FC31A9ADF55005965A8 /* SeparatorView.swift in Sources */,
 				EA462FC11A9AD196005965A8 /* TupleExtensions.swift in Sources */,
 				EA307A5B1A8730F10008A566 /* Panel.swift in Sources */,
 				EA307A5D1A8756710008A566 /* MainScreenModel.swift in Sources */,
