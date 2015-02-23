@@ -11,8 +11,6 @@
 		EA037E5A1A834B9300F47B17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA037E591A834B9300F47B17 /* Images.xcassets */; };
 		EA037E5D1A834B9300F47B17 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA037E5B1A834B9300F47B17 /* MainMenu.xib */; };
 		EA037E691A834B9300F47B17 /* SukhasanaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA037E681A834B9300F47B17 /* SukhasanaTests.swift */; };
-		EA037E7D1A847CF800F47B17 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E781A847CF800F47B17 /* Cartography.framework */; };
-		EA037E7E1A847CF800F47B17 /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E781A847CF800F47B17 /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA037E7F1A847CF800F47B17 /* LlamaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E791A847CF800F47B17 /* LlamaKit.framework */; };
 		EA037E801A847CF800F47B17 /* LlamaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E791A847CF800F47B17 /* LlamaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA037E851A847CF800F47B17 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */; };
@@ -56,7 +54,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA037E7E1A847CF800F47B17 /* Cartography.framework in Embed Frameworks */,
 				EA037E801A847CF800F47B17 /* LlamaKit.framework in Embed Frameworks */,
 				EA037E861A847CF800F47B17 /* ReactiveCocoa.framework in Embed Frameworks */,
 				EA307A611A87FC780008A566 /* Alamofire.framework in Embed Frameworks */,
@@ -75,7 +72,6 @@
 		EA037E621A834B9300F47B17 /* SukhasanaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SukhasanaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA037E671A834B9300F47B17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA037E681A834B9300F47B17 /* SukhasanaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SukhasanaTests.swift; sourceTree = "<group>"; };
-		EA037E781A847CF800F47B17 /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
 		EA037E791A847CF800F47B17 /* LlamaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LlamaKit.framework; path = Carthage/Build/Mac/LlamaKit.framework; sourceTree = "<group>"; };
 		EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		EA1202C01A92F125002DE2FA /* ApplicationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationModel.swift; sourceTree = "<group>"; };
@@ -104,7 +100,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA037E7D1A847CF800F47B17 /* Cartography.framework in Frameworks */,
 				EA037E7F1A847CF800F47B17 /* LlamaKit.framework in Frameworks */,
 				EA037E851A847CF800F47B17 /* ReactiveCocoa.framework in Frameworks */,
 				EA307A601A87FC780008A566 /* Alamofire.framework in Frameworks */,
@@ -125,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				EA307A5F1A87FC780008A566 /* Alamofire.framework */,
-				EA037E781A847CF800F47B17 /* Cartography.framework */,
 				EA037E791A847CF800F47B17 /* LlamaKit.framework */,
 				EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */,
 				EA037E541A834B9300F47B17 /* Sukhasana */,
