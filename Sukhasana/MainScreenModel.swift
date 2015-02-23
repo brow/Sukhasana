@@ -44,7 +44,7 @@ struct MainScreenModel {
   func stringForRow(row: Int) -> String {
     switch resultsState.value {
     case .Fetched(let results):
-      return results[row]
+      return results[row].name
     case .Initial, .Fetching, .Failed:
       fatalError("no rows should be displayed in this state")
     }
@@ -63,7 +63,7 @@ struct MainScreenModel {
     
     resultsState <~ textFieldText.producer
       |> map { client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: $0) }
-      |> map { $0 |> map(namesFromResultsJSON) }
+      |> map { $0 |> map(resultsFromJSON) }
       |> map { $0
         |> map { .Fetched($0) }
         |> catchTo(.Failed)
@@ -79,10 +79,11 @@ struct MainScreenModel {
     self.didClickRowAtIndex = didClickRowAtIndex
     resultsState.producer
       |> sampleOn(didClickRowAtIndexProducer |> map {_ in ()})
-      |> map { resultsState in
+      |> zipWith(didClickRowAtIndexProducer)
+      |> map { resultsState, index in
         switch resultsState {
         case .Fetched(let results):
-          return NSURL(string: "https://app.asana.com/0/27089193997842/27089193997842")!
+          return results[index].URL
         case .Initial, .Fetching, .Failed:
           fatalError()
         }}
@@ -94,15 +95,25 @@ private enum ResultsState {
   case Initial
   case Fetching
   case Failed
-  case Fetched([String])
+  case Fetched([Result])
 }
 
-private func namesFromResultsJSON(resultsJSON: NSDictionary) -> [String] {
-  var names = [String]()
-  if let data = resultsJSON["data"] as? Array<Dictionary<String, AnyObject>> {
+private struct Result {
+  let name, id: String
+  var URL: NSURL {
+    // FIXME: escape id
+    return NSURL(string: "https://app.asana.com/0/\(id)/\(id)")!
+  }
+}
+
+private func resultsFromJSON(JSON: NSDictionary) -> [Result] {
+  var names = [Result]()
+  if let data = JSON["data"] as? Array<Dictionary<String, AnyObject>> {
     for object in data {
       if let name = object["name"] as? String {
-        names.append(name)
+        if let id = object["id"] as? NSNumber {
+          names.append(Result(name: name, id: id.stringValue))
+        }
       }
     }
   }
