@@ -29,10 +29,7 @@ struct SettingsScreenModel {
   private init(settings: Settings?, didSaveSettingsSink: Signal<Settings, NoError>.Observer) {
     APIKeyTextFieldText = MutableProperty(settings?.APIKey ?? "")
     
-    let enteredAPIKey = MutableProperty(settings?.APIKey ?? "")
-    enteredAPIKey <~ APIKeyTextFieldText.producer
-    
-    let workspacesState: SignalProducer<WorkspacesState, NoError> = enteredAPIKey.producer
+    let workspacesState: SignalProducer<WorkspacesState, NoError> = APIKeyTextFieldText.producer
       |> map { APIClient(APIKey: $0) }
       |> map { $0.requestWorkspaces() }
       |> map { $0 |> map(workspacesFromJSON) }
@@ -87,13 +84,15 @@ struct SettingsScreenModel {
     didClickSaveButton = didClickSaveButtonSink
     workspacesState
       |> combineLatestWith(workspacePopupSelectedIndex.producer)
+      |> combineLatestWith(APIKeyTextFieldText.producer)
+      |> map(repack)
       |> sampleOn(didClickSaveButtonProducer)
-      |> map { workspacesState, selectedWorkspaceIndex in
+      |> map { workspacesState, workspacePopupSelectedIndex, APIKeyTextFieldText in
         switch workspacesState {
         case .Fetched(let workspaces):
           return Settings(
-            APIKey: enteredAPIKey.value,
-            workspaceID: workspaces[selectedWorkspaceIndex].id)
+            APIKey: APIKeyTextFieldText,
+            workspaceID: workspaces[workspacePopupSelectedIndex].id)
         default:
           fatalError("can't save with no workspaces loaded")
         }}
