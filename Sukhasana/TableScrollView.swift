@@ -16,7 +16,9 @@ class TableScrollView: NSScrollView {
   }
   
   override var intrinsicContentSize: NSSize {
-    return NSMakeSize(320, CGFloat(tableView.numberOfRows) * (tableView.rowHeight + tableView.intercellSpacing.height))
+    let rowHeight = tableView.rowHeight + tableView.intercellSpacing.height
+    let bottomPadding = CGFloat(tableView.numberOfRows > 0 ? 4 : 0)
+    return NSMakeSize(320, CGFloat(tableView.numberOfRows) * rowHeight + bottomPadding)
   }
   
   func reloadData() {
