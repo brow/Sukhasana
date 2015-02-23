@@ -52,7 +52,7 @@ struct MainScreenModel {
   
   // MARK: private
   
-  private let resultsState = MutableProperty(ResultsState.Initial)
+  private let resultsState: PropertyOf<ResultsState>
   
   private init(
     settings: Settings,
@@ -61,7 +61,7 @@ struct MainScreenModel {
   {
     let client = APIClient(APIKey: settings.APIKey)
     
-    resultsState <~ textFieldText.producer
+    resultsState = propertyOf(.Initial, textFieldText.producer
       |> map { client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: $0) }
       |> map { $0 |> map(resultsFromJSON) }
       |> map { $0
@@ -69,7 +69,7 @@ struct MainScreenModel {
         |> catchTo(.Failed)
         |> startWith(.Fetching)
       }
-      |> latest
+      |> latest)
     
     tableViewShouldReloadData = resultsState.producer |> map { _ in () }
     
