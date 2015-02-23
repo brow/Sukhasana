@@ -40,7 +40,7 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   
   func applicationDidFinishLaunching(notification: NSNotification) {    
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
-    statusItem.title = "a⋮"
+    statusItem.title = "☀"
     statusItem.highlightMode = true
     statusItem.target = self
     statusItem.action = "didClickStatusItem:"
