@@ -18,19 +18,18 @@
             <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView borderType="none" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8l-Lk-IyI" customClass="TableScrollView" customModule="Sukhasana" customModuleProvider="target">
+                <scrollView borderType="none" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8l-Lk-IyI" customClass="TableScrollView" customModule="Sukhasana" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="276" height="334"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="INA-R8-5Mw">
                         <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="qd4-ch-g2N" customClass="TableView" customModule="Sukhasana" customModuleProvider="target">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="qd4-ch-g2N" customClass="TableView" customModule="Sukhasana" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="0.0" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                <color key="gridColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn width="276" minWidth="40" maxWidth="1000" id="HmT-qu-xjU">
+                                    <tableColumn identifier="" width="276" minWidth="40" maxWidth="1000" id="HmT-qu-xjU">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -43,12 +42,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="cGo-Kc-aPf">
+                                            <tableCellView identifier="CellIdentifier" id="cGo-Kc-aPf">
                                                 <rect key="frame" x="1" y="1" width="273" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zbg-Ev-qpk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="17"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Zbg-Ev-qpk" userLabel="Text Field">
+                                                        <rect key="frame" x="8" y="0.0" width="260" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="xsJ-4N-yHm">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -56,6 +55,11 @@
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Zbg-Ev-qpk" firstAttribute="leading" secondItem="cGo-Kc-aPf" secondAttribute="leading" constant="10" id="8uB-V0-rta"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Zbg-Ev-qpk" secondAttribute="trailing" constant="10" id="cDU-ix-pra"/>
+                                                    <constraint firstAttribute="centerY" secondItem="Zbg-Ev-qpk" secondAttribute="centerY" id="dpY-aZ-dhJ"/>
+                                                </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="Zbg-Ev-qpk" id="uGt-wo-duj"/>
                                                 </connections>
@@ -108,7 +112,6 @@
                     </buttonCell>
                     <connections>
                         <action selector="didClickSettingsButton:" target="-2" id="jzQ-9x-OX8"/>
-                        <outlet property="nextKeyView" destination="qd4-ch-g2N" id="s1U-f0-dD4"/>
                     </connections>
                 </button>
             </subviews>

@@ -49,19 +49,8 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
   // MARK: NSTableViewDelegate
   
   func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-    let identifier = "View"
-    let view: NSTextField = {
-      if let view = tableView.makeViewWithIdentifier(identifier, owner: self) as? NSTextField {
-        return view
-      } else {
-        let view = NSTextField()
-        view.editable = false
-        view.identifier = identifier
-        return view
-      }
-      }()
-    
-    view.stringValue = model.stringForRow(row)
+    let view = tableView.makeViewWithIdentifier("CellIdentifier", owner: self) as NSTableCellView
+    view.textField?.stringValue = model.stringForRow(row)
     return view
   }
   
