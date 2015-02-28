@@ -1,2 +1,2 @@
 github "Alamofire/Alamofire" == 1.1.4
-github "brow/ReactiveCocoa" "switchToLatest-weak-workaround"
+github "ReactiveCocoa/ReactiveCocoa" "d32d14749c94ddc002b6a6427ef4e82d13db5a1c"

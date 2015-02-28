@@ -69,7 +69,7 @@ struct MainScreenModel {
         |> catchTo(.Failed)
         |> startWith(.Fetching)
       }
-      |> latest)
+      |> join(.Latest))
     
     tableViewShouldReloadData = resultsState.producer |> map { _ in () }
     

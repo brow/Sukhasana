@@ -38,7 +38,7 @@ struct SettingsScreenModel {
         |> catchTo(.Failed)
         |> startWith(.Fetching)
       }
-      |> latest
+      |> join(.Latest)
     
     workspacePopUpButtonEnabled = propertyOf(false, workspacesState
       |> map { switch $0 {
@@ -75,10 +75,13 @@ struct SettingsScreenModel {
     let (workspaceSelectedIndexes, workspaceSelectedIndexSink) = SignalProducer<Int, NoError>.buffer(1)
     workspacePopUpDidSelectItemAtIndex = workspaceSelectedIndexSink
     
-    workspacePopupSelectedIndex = propertyOf(0, merge(SignalProducer(values: [
-      workspaceSelectedIndexes,
-      workspacePopUpItemsTitles.producer |> map { _ in 0 }
-      ])))
+    workspacePopupSelectedIndex = propertyOf(0,
+      SignalProducer(values: [
+        workspaceSelectedIndexes,
+        workspacePopUpItemsTitles.producer |> map { _ in 0 }
+        ])
+        |> join(.Merge)
+    )
     
     let (didClickSaveButtonProducer, didClickSaveButtonSink) = SignalProducer<(), NoError>.buffer(1)
     didClickSaveButton = didClickSaveButtonSink

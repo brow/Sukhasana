@@ -46,13 +46,13 @@ struct ApplicationModel {
     // Show the settings screen after the Settings button is clicked, and on
     // launch if no settings have been restored
     let shouldDisplaySettingsScreen = SignalProducer(values: restoredSettings == nil ? [()] : [])
-      |> concat (mainModelAndProducers |> latestMap { $0.didClickSettingsButton })
+      |> concat (mainModelAndProducers |> joinMap(.Latest) { $0.didClickSettingsButton })
       |> map { _ in Screen.Settings(settingsModel) }
   
     shouldDisplayScreen = SignalProducer(values: [shouldDisplayMainScreen, shouldDisplaySettingsScreen])
-      |> merge
+      |> join(.Merge)
     
-    shouldOpenURL = mainModelAndProducers |> latestMap { $0.URLsToOpen}
+    shouldOpenURL = mainModelAndProducers |> joinMap(.Latest) { $0.URLsToOpen}
   }
 }
 
