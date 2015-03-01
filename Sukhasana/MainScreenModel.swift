@@ -63,12 +63,16 @@ struct MainScreenModel {
     let client = APIClient(APIKey: settings.APIKey)
     
     resultsState = propertyOf(.Initial, textFieldText.producer
-      |> map { client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: $0) }
-      |> map { $0 |> map(resultsFromJSON) }
-      |> map { $0
-        |> map { .Fetched($0) }
-        |> catchTo(.Failed)
-        |> startWith(.Fetching)
+      |> map { query in
+        query == ""
+          ? SignalProducer<[Result], NSError>(value: []) // The empty query always returns no results, so don't bother
+          : (client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: query) |> map(resultsFromJSON))
+      }
+      |> map { request in
+        request
+          |> map { results in .Fetched(results) }
+          |> catchTo(.Failed)
+          |> startWith(.Fetching)
       }
       |> join(.Latest))
     
