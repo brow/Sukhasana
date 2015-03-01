@@ -59,11 +59,14 @@ struct MainScreenModel {
       |> map { query -> SignalProducer<Results, NSError> in
         if query == "" {
           // The empty query always returns no results, so don't bother
-          return SignalProducer(value: Results(projects: []))
+          return SignalProducer(value: Results(projects: [], tasks: []))
         } else {
-          return client.requestTypeaheadResultsInWorkspace(settings.workspaceID, ofType: .Project, matchingQuery: query)
-            |> map(resultsFromJSON)
-            |> map { Results(projects: $0) }
+          let request = { type in
+            client.requestTypeaheadResultsInWorkspace(settings.workspaceID, ofType: type, matchingQuery: query)
+              |> map(resultsFromJSON)
+          }
+          return zip(request(.Project), request(.Task))
+            |> map { projects, tasks in Results(projects: projects, tasks: tasks) }
         }
       }
       |> map { request in
@@ -122,7 +125,7 @@ private enum FetchState {
 }
 
 private struct Results {
-  let projects: [Result]
+  let projects, tasks: [Result]
 }
 
 private struct ResultsTable {
@@ -137,7 +140,7 @@ private struct ResultsTable {
   }
   
   init(results: Results) {
-    rows = results.projects.map { result in
+    rows = (results.projects + results.tasks).map { result in
       .Item(
         text: result.name.stringByReplacingOccurrencesOfString("\n", withString: "⏎"),
         clickURL: result.URL)
