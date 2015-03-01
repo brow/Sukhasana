@@ -47,24 +47,24 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     
     panel.floatingPanel = true
     
-    // FIXME: retain cycle
-    model.shouldDisplayScreen.start { screen in
-      self.displayingViewController = {
-        switch screen {
-        case .Settings(let model):
-          return SettingsViewController(model: model)
-        case .Main(let model):
-          return MainViewController(model: model, delegate: self)
-        }
-      }()
-      self.setContentView(self.displayingViewController!.view)
-      self.displayingViewController!.viewDidDisplay()
+    model.shouldDisplayScreen.start { [weak self] screen in
+      if let _self = self {
+        _self.displayingViewController = {
+          switch screen {
+          case .Settings(let model):
+            return SettingsViewController(model: model)
+          case .Main(let model):
+            return MainViewController(model: model, delegate: _self)
+          }
+          }()
+        _self.setContentView(_self.displayingViewController!.view)
+        _self.displayingViewController!.viewDidDisplay()
+      }
     }
     
-    // FIXME: retain cycle
-    model.shouldOpenURL.start { URL in
+    model.shouldOpenURL.start { [weak self] URL in
       NSWorkspace.sharedWorkspace().openURL(URL)
-      self.panel.close()
+      self?.panel.close()
       return
     }
   }

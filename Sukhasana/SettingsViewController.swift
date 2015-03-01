@@ -50,19 +50,24 @@ class SettingsViewController: NSViewController, ViewController, NSTextFieldDeleg
   override func loadView() {
     super.loadView()
     
-    // FIXME: retain cycles
-    model.saveButtonEnabled.producer.start { self.saveButton?.enabled = $0; return}
-    model.progressIndicatorAnimating.producer.start { animating in
+    model.saveButtonEnabled.producer.start { [weak self] enabled in
+      self?.saveButton?.enabled = enabled
+      return
+    }
+    model.progressIndicatorAnimating.producer.start { [weak self] animating in
       if animating {
-        self.progressIndicator.startAnimation(nil)
+        self?.progressIndicator.startAnimation(nil)
       } else {
-        self.progressIndicator.stopAnimation(nil)
+        self?.progressIndicator.stopAnimation(nil)
       }
     }
-    model.workspacePopUpButtonEnabled.producer.start { self.workspacePopUpButton?.enabled = $0; return }
-    model.workspacePopUpItemsTitles.producer.start { titles in
-      self.workspacePopUpButton.removeAllItems()
-      self.workspacePopUpButton.addItemsWithTitles(titles)
+    model.workspacePopUpButtonEnabled.producer.start { [weak self] enabled in
+      self?.workspacePopUpButton?.enabled = enabled
+      return
+    }
+    model.workspacePopUpItemsTitles.producer.start { [weak self] titles in
+      self?.workspacePopUpButton.removeAllItems()
+      self?.workspacePopUpButton.addItemsWithTitles(titles)
     }
     
     APIKeyTextField.stringValue = model.APIKeyTextFieldText.value

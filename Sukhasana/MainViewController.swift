@@ -65,10 +65,11 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
   override func loadView() {
     super.loadView()
     
-    model.tableViewShouldReloadData.start { _ in
-      // FIXME: retain cycle
-      self.resultsTableScrollView.reloadData()
-      self.delegate?.mainViewControllerDidChangeFittingSize(self)
+    model.tableViewShouldReloadData.start { [weak self] _ in
+      self?.resultsTableScrollView.reloadData()
+      if let _self = self {
+        _self.delegate?.mainViewControllerDidChangeFittingSize(_self)
+      }
     }
     
     model.activityIndicatorIsAnimating.producer.start { [weak self] animating in
