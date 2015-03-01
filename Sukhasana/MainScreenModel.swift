@@ -45,7 +45,7 @@ struct MainScreenModel {
   func stringForRow(row: Int) -> String {
     switch resultsState.value {
     case .Fetched(let results):
-      return results[row].name
+      return results[row].name.stringByReplacingOccurrencesOfString("\n", withString: "⏎")
     case .Initial, .Fetching, .Failed:
       fatalError("no rows should be displayed in this state")
     }
