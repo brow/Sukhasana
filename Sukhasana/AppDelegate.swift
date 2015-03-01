@@ -77,16 +77,18 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   }
   
   private func updatePanelFrame() {
-    let topLeft = CGPointMake(
-      panel.frame.origin.x,
-      panel.frame.origin.y + panel.frame.size.height)
-    let newSize = panel.contentView.fittingSize
-    let newFrame = NSMakeRect(
-      topLeft.x,
-      topLeft.y - newSize.height,
-      newSize.width,
-      newSize.height)
-    panel.setFrame(newFrame, display: true)
+    if let screen = panel.screen {
+      let topLeft = CGPointMake(
+        panel.frame.origin.x,
+        panel.frame.origin.y + panel.frame.size.height)
+      let fittingSize = panel.contentView.fittingSize
+      let newFrame = NSMakeRect(
+        topLeft.x,
+        topLeft.y - fittingSize.height,
+        screen.frame.size.width - topLeft.x,
+        fittingSize.height)
+      panel.setFrame(newFrame, display: true)
+    }
   }
   
   private var model = ApplicationModel(settingsStore: NSUserDefaults.standardUserDefaults())
