@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainViewController" customModule="Sukhasana">
             <connections>
+                <outlet property="progressIndicator" destination="RRm-9b-6gv" id="LyD-Lq-Fe4"/>
                 <outlet property="resultsTableScrollView" destination="S8l-Lk-IyI" id="uEw-36-pyJ"/>
                 <outlet property="textField" destination="4sH-v6-b1V" id="Ovb-va-CNa"/>
                 <outlet property="view" destination="zUB-sC-cQk" id="lo3-M2-ep4"/>
@@ -120,18 +121,24 @@
                         <action selector="didClickSettingsButton:" target="-2" id="jzQ-9x-OX8"/>
                     </connections>
                 </button>
+                <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="RRm-9b-6gv">
+                    <rect key="frame" x="-5" y="-7" width="286" height="12"/>
+                </progressIndicator>
             </subviews>
             <constraints>
                 <constraint firstItem="jfI-if-Ptb" firstAttribute="leading" secondItem="4sH-v6-b1V" secondAttribute="trailing" id="0kR-j7-z0W"/>
                 <constraint firstItem="4sH-v6-b1V" firstAttribute="centerY" secondItem="jfI-if-Ptb" secondAttribute="centerY" id="1wq-EC-Arp"/>
                 <constraint firstItem="S8l-Lk-IyI" firstAttribute="top" secondItem="4sH-v6-b1V" secondAttribute="bottom" constant="10" id="24K-uu-F50"/>
+                <constraint firstAttribute="bottom" secondItem="RRm-9b-6gv" secondAttribute="bottom" constant="-7" id="53o-MX-9KI"/>
                 <constraint firstItem="1RJ-Cf-MgD" firstAttribute="leading" secondItem="S8l-Lk-IyI" secondAttribute="leading" id="5DN-86-y5D"/>
                 <constraint firstItem="1RJ-Cf-MgD" firstAttribute="trailing" secondItem="S8l-Lk-IyI" secondAttribute="trailing" id="BG6-v4-2Cs"/>
                 <constraint firstAttribute="trailing" secondItem="jfI-if-Ptb" secondAttribute="trailing" id="BJl-Va-Mbr"/>
                 <constraint firstAttribute="trailing" secondItem="S8l-Lk-IyI" secondAttribute="trailing" id="Fme-LK-nr8"/>
                 <constraint firstAttribute="bottom" secondItem="S8l-Lk-IyI" secondAttribute="bottom" id="O99-yf-ZDU"/>
                 <constraint firstItem="4sH-v6-b1V" firstAttribute="top" secondItem="zUB-sC-cQk" secondAttribute="top" constant="10" id="Vgr-pH-Upg"/>
+                <constraint firstAttribute="trailing" secondItem="RRm-9b-6gv" secondAttribute="trailing" constant="-5" id="bXN-mS-6UZ"/>
                 <constraint firstItem="1RJ-Cf-MgD" firstAttribute="top" secondItem="S8l-Lk-IyI" secondAttribute="top" id="dNj-DD-prr"/>
+                <constraint firstItem="RRm-9b-6gv" firstAttribute="leading" secondItem="zUB-sC-cQk" secondAttribute="leading" constant="-5" id="dtu-KV-3IX"/>
                 <constraint firstItem="S8l-Lk-IyI" firstAttribute="leading" secondItem="zUB-sC-cQk" secondAttribute="leading" id="imM-zH-wZB"/>
                 <constraint firstItem="jfI-if-Ptb" firstAttribute="top" secondItem="zUB-sC-cQk" secondAttribute="top" id="lOl-Ra-4Sj"/>
                 <constraint firstItem="4sH-v6-b1V" firstAttribute="leading" secondItem="zUB-sC-cQk" secondAttribute="leading" constant="10" id="zxi-UO-CaV"/>

@@ -12,6 +12,7 @@ import ReactiveCocoa
 class MainViewController: NSViewController, ViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, TableViewDelegate {
   @IBOutlet var textField: NSTextField!
   @IBOutlet var resultsTableScrollView: TableScrollView!
+  @IBOutlet var progressIndicator: NSProgressIndicator!
   
   init?(model: MainScreenModel, delegate: MainViewControllerDelegate) {
     self.model = model
@@ -68,6 +69,14 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
       // FIXME: retain cycle
       self.resultsTableScrollView.reloadData()
       self.delegate?.mainViewControllerDidChangeFittingSize(self)
+    }
+    
+    model.activityIndicatorIsAnimating.producer.start { [weak self] animating in
+      if animating {
+        self?.progressIndicator.startAnimation(self)
+      } else {
+        self?.progressIndicator.stopAnimation(self)
+      }
     }
   }
   

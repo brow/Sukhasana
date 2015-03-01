@@ -10,6 +10,7 @@ import ReactiveCocoa
 
 struct MainScreenModel {
   let textFieldText = MutableProperty("")
+  let activityIndicatorIsAnimating: PropertyOf<Bool>
   let tableViewShouldReloadData: SignalProducer<(), NoError>
   let didClickSettingsButton: Signal<(), NoError>.Observer
   let didClickRowAtIndex: Signal<Int, NoError>.Observer
@@ -70,6 +71,16 @@ struct MainScreenModel {
         |> startWith(.Fetching)
       }
       |> join(.Latest))
+    
+    activityIndicatorIsAnimating = propertyOf(false, resultsState.producer
+      |> map { resultsState in
+        switch resultsState {
+        case .Fetching:
+          return true
+        case .Initial, .Failed, .Fetched:
+          return false
+        }
+      })
     
     tableViewShouldReloadData = resultsState.producer |> map { _ in () }
     
