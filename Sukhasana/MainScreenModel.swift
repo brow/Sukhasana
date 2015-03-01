@@ -34,7 +34,7 @@ struct MainScreenModel {
   }
   
   func numberOfRows() -> Int {
-    switch resultsState.value {
+    switch fetchState.value {
     case .Fetched(let results):
       return countElements(results)
     case .Initial, .Fetching, .Failed:
@@ -43,7 +43,7 @@ struct MainScreenModel {
   }
   
   func stringForRow(row: Int) -> String {
-    switch resultsState.value {
+    switch fetchState.value {
     case .Fetched(let results):
       return results[row].name.stringByReplacingOccurrencesOfString("\n", withString: "⏎")
     case .Initial, .Fetching, .Failed:
@@ -53,7 +53,7 @@ struct MainScreenModel {
   
   // MARK: private
   
-  private let resultsState: PropertyOf<ResultsState>
+  private let fetchState: PropertyOf<FetchState>
   
   private init(
     settings: Settings,
@@ -62,7 +62,7 @@ struct MainScreenModel {
   {
     let client = APIClient(APIKey: settings.APIKey)
     
-    resultsState = propertyOf(.Initial, textFieldText.producer
+    fetchState = propertyOf(.Initial, textFieldText.producer
       |> map { query -> SignalProducer<[Result], NSError> in
         if query == "" {
           // The empty query always returns no results, so don't bother
@@ -80,7 +80,7 @@ struct MainScreenModel {
       }
       |> join(.Latest))
     
-    activityIndicatorIsAnimating = propertyOf(false, resultsState.producer
+    activityIndicatorIsAnimating = propertyOf(false, fetchState.producer
       |> map { resultsState in
         switch resultsState {
         case .Fetching:
@@ -90,14 +90,14 @@ struct MainScreenModel {
         }
       })
     
-    tableViewShouldReloadData = resultsState.producer |> map { _ in () }
+    tableViewShouldReloadData = fetchState.producer |> map { _ in () }
     
     didClickSettingsButton = didClickSettingsButtonSink
     
     let (didClickRowAtIndexProducer, didClickRowAtIndexSink) = SignalProducer<Int, NoError>.buffer(1)
     didClickRowAtIndex = didClickRowAtIndexSink
-    resultsState.producer
-      |> sampleOn(didClickRowAtIndexProducer |> map {_ in ()})
+    fetchState.producer
+      |> sampleOn(didClickRowAtIndexProducer |> map { _ in ()})
       |> zipWith(didClickRowAtIndexProducer)
       |> map { resultsState, index in
         switch resultsState {
@@ -110,7 +110,7 @@ struct MainScreenModel {
   }
 }
 
-private enum ResultsState {
+private enum FetchState {
   case Initial
   case Fetching
   case Failed
