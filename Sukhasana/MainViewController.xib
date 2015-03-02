@@ -43,7 +43,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView identifier="CellIdentifier" id="cGo-Kc-aPf">
+                                            <tableCellView identifier="SelectableCell" id="cGo-Kc-aPf">
                                                 <rect key="frame" x="1" y="1" width="273" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -65,6 +65,10 @@
                                                     <outlet property="textField" destination="Zbg-Ev-qpk" id="uGt-wo-duj"/>
                                                 </connections>
                                             </tableCellView>
+                                            <customView identifier="SeparatorView" id="HCz-yK-dzh" userLabel="Separator View" customClass="SeparatorView" customModule="Sukhasana" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="17" width="276" height="1"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            </customView>
                                         </prototypeCellViews>
                                     </tableColumn>
                                 </tableColumns>

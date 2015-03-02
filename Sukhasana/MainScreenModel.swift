@@ -9,6 +9,11 @@
 import ReactiveCocoa
 
 struct MainScreenModel {
+  enum Cell {
+    case Selectable(String)
+    case Separator
+  }
+  
   let textFieldText = MutableProperty("")
   let activityIndicatorIsAnimating: PropertyOf<Bool>
   let tableViewShouldReloadData: SignalProducer<(), NoError>
@@ -37,10 +42,12 @@ struct MainScreenModel {
     return countElements(resultsTable.value.rows)
   }
   
-  func stringForRow(row: Int) -> String {
+  func cellForRow(row: Int) -> Cell {
     switch resultsTable.value.rows[row] {
     case let .Item(text: text, clickURL: _):
-      return text
+      return .Selectable(text)
+    case .Separator:
+      return .Separator
     }
   }
   
@@ -107,10 +114,12 @@ struct MainScreenModel {
     resultsTable.producer
       |> sampleOn(didClickRowAtIndexProducer |> map { _ in ()})
       |> zipWith(didClickRowAtIndexProducer)
-      |> map { resultsTable, index in
+      |> mapOptional { resultsTable, index in
         switch resultsTable.rows[index] {
         case .Item(text: _, clickURL: let URL):
           return URL
+        case .Separator:
+          return nil
         }
       }
       |> start(URLsToOpenSink)
@@ -131,6 +140,7 @@ private struct Results {
 private struct ResultsTable {
   enum Row {
     case Item(text: String, clickURL: NSURL)
+    case Separator
   }
   
   let rows: [Row]
@@ -140,11 +150,16 @@ private struct ResultsTable {
   }
   
   init(results: Results) {
-    rows = (results.projects + results.tasks).map { result in
-      .Item(
-        text: result.name.stringByReplacingOccurrencesOfString("\n", withString: "⏎"),
-        clickURL: result.URL)
-    }
+    let sections: [[Row]] = [results.projects, results.tasks]
+      .filter { !$0.isEmpty }
+      .map { section in
+        section.map { result in
+          .Item(
+            text: result.name.stringByReplacingOccurrencesOfString("\n", withString: "⏎"),
+            clickURL: result.URL)
+        }}
+    
+    rows = [.Separator].join(sections)
   }
 }
 

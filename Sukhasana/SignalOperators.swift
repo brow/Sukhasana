@@ -27,3 +27,7 @@ func replay<T, E>(capacity: Int = Int.max)(producer: ReactiveCocoa.SignalProduce
   producer.start(sink)
   return returnedProducer
 }
+
+func mapOptional<T, U, E>(transform: T -> U?)(signal: Signal<T, E>) -> Signal<U, E> {
+  return signal |> map(transform) |> filter { $0 != nil } |> map { $0! }
+}

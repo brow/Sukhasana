@@ -50,9 +50,23 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
   // MARK: NSTableViewDelegate
   
   func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-    let view = tableView.makeViewWithIdentifier("CellIdentifier", owner: self) as NSTableCellView
-    view.textField?.stringValue = model.stringForRow(row)
-    return view
+    switch model.cellForRow(row) {
+    case .Selectable(let text):
+      let view = tableView.makeViewWithIdentifier("SelectableCell", owner: self) as NSTableCellView
+      view.textField?.stringValue = text
+      return view
+    case .Separator:
+      return tableView.makeViewWithIdentifier("SeparatorView", owner: self) as? NSView
+    }
+  }
+  
+  func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+    switch model.cellForRow(row) {
+    case .Selectable:
+      return true
+    case .Separator:
+      return false
+    }
   }
   
   // MARK: TableViewDelegate

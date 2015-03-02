@@ -33,7 +33,7 @@ struct APIClient {
           .GET,
           // FIXME: escape workspaceID
           "https://app.asana.com/api/1.0/workspaces/\(workspaceID)/typeahead",
-          parameters: ["type": type.rawValue, "query": query])
+          parameters: ["type": type.rawValue, "query": query, "count": 10])
         .validate()
         .responseJSON {_, _, JSON, error in
           if let error = error {
