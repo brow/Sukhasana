@@ -86,10 +86,7 @@ struct SettingsScreenModel {
     
     let (didClickSaveButtonProducer, didClickSaveButtonSink) = SignalProducer<(), NoError>.buffer(1)
     didClickSaveButton = didClickSaveButtonSink
-    workspacesState
-      |> combineLatestWith(workspacePopupSelectedIndex.producer)
-      |> combineLatestWith(APIKeyTextFieldText.producer)
-      |> map(repack)
+    combineLatest(workspacesState, workspacePopupSelectedIndex.producer, APIKeyTextFieldText.producer)
       |> sampleOn(didClickSaveButtonProducer)
       |> map { workspacesState, workspacePopupSelectedIndex, APIKeyTextFieldText in
         switch workspacesState {
