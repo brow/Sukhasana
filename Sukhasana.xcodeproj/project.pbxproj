@@ -23,7 +23,6 @@
 		EA462FC11A9AD196005965A8 /* TupleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA462FC01A9AD196005965A8 /* TupleExtensions.swift */; };
 		EA462FC31A9ADF55005965A8 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA462FC21A9ADF55005965A8 /* SeparatorView.swift */; };
 		EA670FFB1A8DCCE1008DA8F7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFA1A8DCCE1008DA8F7 /* MainViewController.swift */; };
-		EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */; };
 		EACD80B21A997C0700093C22 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD80B11A997C0700093C22 /* Settings.swift */; };
 		EACD80B61A99885F00093C22 /* NSUserDefaults+SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD80B51A99885F00093C22 /* NSUserDefaults+SettingsStore.swift */; };
 		EAE48ED41A92A42D009F0CFC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE48ED31A92A42D009F0CFC /* SettingsViewController.swift */; };
@@ -80,7 +79,6 @@
 		EA462FC01A9AD196005965A8 /* TupleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TupleExtensions.swift; sourceTree = "<group>"; };
 		EA462FC21A9ADF55005965A8 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		EA670FFA1A8DCCE1008DA8F7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableScrollView.swift; sourceTree = "<group>"; };
 		EACD80B11A997C0700093C22 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		EACD80B51A99885F00093C22 /* NSUserDefaults+SettingsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+SettingsStore.swift"; sourceTree = "<group>"; };
 		EAE48ED31A92A42D009F0CFC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 				EA462FC21A9ADF55005965A8 /* SeparatorView.swift */,
 				EAE48ED31A92A42D009F0CFC /* SettingsViewController.swift */,
 				EAE48EDB1A92CE26009F0CFC /* SettingsViewController.xib */,
-				EA670FFC1A8DD1C9008DA8F7 /* TableScrollView.swift */,
 				EAEA6F961A9A5FE900F359BD /* TableView.swift */,
 				EAEA6F941A99BE3400F359BD /* ViewController.swift */,
 			);
@@ -327,7 +324,6 @@
 				EACD80B61A99885F00093C22 /* NSUserDefaults+SettingsStore.swift in Sources */,
 				EAEA6F971A9A5FE900F359BD /* TableView.swift in Sources */,
 				EA1202C11A92F125002DE2FA /* ApplicationModel.swift in Sources */,
-				EA670FFD1A8DD1C9008DA8F7 /* TableScrollView.swift in Sources */,
 				EAE48ED81A92C319009F0CFC /* APIClient.swift in Sources */,
 				EA670FFB1A8DCCE1008DA8F7 /* MainViewController.swift in Sources */,
 				EAE48ED41A92A42D009F0CFC /* SettingsViewController.swift in Sources */,

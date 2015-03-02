@@ -8,7 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MainViewController" customModule="Sukhasana">
             <connections>
                 <outlet property="progressIndicator" destination="RRm-9b-6gv" id="LyD-Lq-Fe4"/>
-                <outlet property="resultsTableScrollView" destination="S8l-Lk-IyI" id="uEw-36-pyJ"/>
+                <outlet property="resultsTableView" destination="qd4-ch-g2N" id="xbD-Ig-cHs"/>
+                <outlet property="resultsTableViewHeightConstraint" destination="Laa-rC-VGj" id="SSX-xu-WTl"/>
                 <outlet property="textField" destination="4sH-v6-b1V" id="Ovb-va-CNa"/>
                 <outlet property="view" destination="zUB-sC-cQk" id="lo3-M2-ep4"/>
             </connections>
@@ -16,21 +17,21 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="zUB-sC-cQk">
-            <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="378"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView borderType="none" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8l-Lk-IyI" customClass="TableScrollView" customModule="Sukhasana" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="276" height="334"/>
+                <scrollView borderType="none" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8l-Lk-IyI" customClass="TableScrollView" customModule="Sukhasana" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="334"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="INA-R8-5Mw">
                         <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="qd4-ch-g2N" customClass="TableView" customModule="Sukhasana" customModuleProvider="target">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="qd4-ch-g2N" customClass="TableView" customModule="Sukhasana" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <color key="gridColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn identifier="" width="276" minWidth="40" maxWidth="1000" id="HmT-qu-xjU">
+                                    <tableColumn identifier="" width="300" minWidth="40" maxWidth="1000" id="HmT-qu-xjU">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -44,10 +45,10 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="SelectableCell" id="cGo-Kc-aPf">
-                                                <rect key="frame" x="1" y="1" width="273" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Zbg-Ev-qpk" userLabel="Text Field">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zbg-Ev-qpk" userLabel="Text Field">
                                                         <rect key="frame" x="8" y="0.0" width="260" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="xsJ-4N-yHm">
                                                             <font key="font" metaFont="system"/>
@@ -66,7 +67,7 @@
                                                 </connections>
                                             </tableCellView>
                                             <customView identifier="SeparatorView" id="HCz-yK-dzh" userLabel="Separator View" customClass="SeparatorView" customModule="Sukhasana" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="17" width="276" height="1"/>
+                                                <rect key="frame" x="0.0" y="17" width="300" height="1"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </customView>
                                         </prototypeCellViews>
@@ -82,6 +83,10 @@
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="4Gh-Ez-m9D"/>
+                        <constraint firstAttribute="height" priority="750" constant="334" id="Laa-rC-VGj"/>
+                    </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="LVB-Dg-5qY">
                         <rect key="frame" x="1" y="117.88576114177704" width="237.5" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -95,13 +100,13 @@
                     </connections>
                 </scrollView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="1RJ-Cf-MgD" userLabel="Separator View" customClass="SeparatorView" customModule="Sukhasana" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="333" width="276" height="1"/>
+                    <rect key="frame" x="0.0" y="333" width="300" height="1"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="BWe-8Y-og4"/>
                     </constraints>
                 </customView>
                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4sH-v6-b1V">
-                    <rect key="frame" x="10" y="344" width="223" height="24"/>
+                    <rect key="frame" x="10" y="344" width="247" height="24"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Search" drawsBackground="YES" id="fUS-lV-uIE">
                         <font key="font" metaFont="system" size="20"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -113,7 +118,7 @@
                     </connections>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="jfI-if-Ptb" userLabel="Settings Button">
-                    <rect key="frame" x="233" y="335" width="43" height="43"/>
+                    <rect key="frame" x="257" y="335" width="43" height="43"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="jfI-if-Ptb" secondAttribute="height" id="gKw-yA-I9D"/>
                     </constraints>
@@ -125,7 +130,7 @@
                         <action selector="didClickSettingsButton:" target="-2" id="jzQ-9x-OX8"/>
                     </connections>
                 </button>
-                <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="RRm-9b-6gv">
+                <progressIndicator misplaced="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="RRm-9b-6gv">
                     <rect key="frame" x="-5" y="-7" width="286" height="12"/>
                 </progressIndicator>
             </subviews>
