@@ -39,6 +39,7 @@ struct SettingsScreenModel {
         |> startWith(.Fetching)
       }
       |> join(.Latest)
+      |> replay(capacity: 1)
     
     workspacePopUpButtonEnabled = propertyOf(false, workspacesState
       |> map { switch $0 {
