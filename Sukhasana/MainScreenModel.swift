@@ -9,6 +9,11 @@
 import ReactiveCocoa
 
 struct MainScreenModel {
+  enum Cell {
+    case Selectable(String)
+    case Separator
+  }
+  
   let textFieldText = MutableProperty("")
   let activityIndicatorIsAnimating: PropertyOf<Bool>
   let tableViewShouldReloadData: SignalProducer<(), NoError>
@@ -34,26 +39,21 @@ struct MainScreenModel {
   }
   
   func numberOfRows() -> Int {
-    switch resultsState.value {
-    case .Fetched(let results):
-      return countElements(results)
-    case .Initial, .Fetching, .Failed:
-      return 0
-    }
+    return countElements(resultsTable.value.rows)
   }
   
-  func stringForRow(row: Int) -> String {
-    switch resultsState.value {
-    case .Fetched(let results):
-      return results[row].name.stringByReplacingOccurrencesOfString("\n", withString: "⏎")
-    case .Initial, .Fetching, .Failed:
-      fatalError("no rows should be displayed in this state")
+  func cellForRow(row: Int) -> Cell {
+    switch resultsTable.value.rows[row] {
+    case let .Item(text: text, clickURL: _):
+      return .Selectable(text)
+    case .Separator:
+      return .Separator
     }
   }
   
   // MARK: private
   
-  private let resultsState: PropertyOf<ResultsState>
+  private let resultsTable: PropertyOf<ResultsTable>
   
   private init(
     settings: Settings,
@@ -62,11 +62,19 @@ struct MainScreenModel {
   {
     let client = APIClient(APIKey: settings.APIKey)
     
-    resultsState = propertyOf(.Initial, textFieldText.producer
-      |> map { query in
-        query == ""
-          ? SignalProducer<[Result], NSError>(value: []) // The empty query always returns no results, so don't bother
-          : (client.requestTasksInWorkspace(settings.workspaceID, matchingQuery: query) |> map(resultsFromJSON))
+    let fetchState: SignalProducer<FetchState, NoError> = textFieldText.producer
+      |> map { query -> SignalProducer<Results, NSError> in
+        if query == "" {
+          // The empty query always returns no results, so don't bother
+          return SignalProducer(value: Results(projects: [], tasks: []))
+        } else {
+          let request = { type in
+            client.requestTypeaheadResultsInWorkspace(settings.workspaceID, ofType: type, matchingQuery: query)
+              |> map(resultsFromJSON)
+          }
+          return zip(request(.Project), request(.Task))
+            |> map { projects, tasks in Results(projects: projects, tasks: tasks) }
+        }
       }
       |> map { request in
         request
@@ -74,9 +82,20 @@ struct MainScreenModel {
           |> catchTo(.Failed)
           |> startWith(.Fetching)
       }
-      |> join(.Latest))
+      |> join(.Latest)
+      |> replay(capacity: 1)
     
-    activityIndicatorIsAnimating = propertyOf(false, resultsState.producer
+    resultsTable = propertyOf(ResultsTable(), fetchState
+      |> map { fetchState in
+        switch fetchState {
+        case .Fetched(let results):
+          return ResultsTable(results: results)
+        case .Initial, .Failed, .Fetching:
+          return ResultsTable()
+        }
+      })
+    
+    activityIndicatorIsAnimating = propertyOf(false, fetchState
       |> map { resultsState in
         switch resultsState {
         case .Fetching:
@@ -86,31 +105,62 @@ struct MainScreenModel {
         }
       })
     
-    tableViewShouldReloadData = resultsState.producer |> map { _ in () }
+    tableViewShouldReloadData = resultsTable.producer |> map { _ in () }
     
     didClickSettingsButton = didClickSettingsButtonSink
     
     let (didClickRowAtIndexProducer, didClickRowAtIndexSink) = SignalProducer<Int, NoError>.buffer(1)
     didClickRowAtIndex = didClickRowAtIndexSink
-    resultsState.producer
-      |> sampleOn(didClickRowAtIndexProducer |> map {_ in ()})
+    resultsTable.producer
+      |> sampleOn(didClickRowAtIndexProducer |> map { _ in ()})
       |> zipWith(didClickRowAtIndexProducer)
-      |> map { resultsState, index in
-        switch resultsState {
-        case .Fetched(let results):
-          return results[index].URL
-        case .Initial, .Fetching, .Failed:
-          fatalError()
-        }}
+      |> mapOptional { resultsTable, index in
+        switch resultsTable.rows[index] {
+        case .Item(text: _, clickURL: let URL):
+          return URL
+        case .Separator:
+          return nil
+        }
+      }
       |> start(URLsToOpenSink)
   }
 }
 
-private enum ResultsState {
+private enum FetchState {
   case Initial
   case Fetching
   case Failed
-  case Fetched([Result])
+  case Fetched(Results)
+}
+
+private struct Results {
+  let projects, tasks: [Result]
+}
+
+private struct ResultsTable {
+  enum Row {
+    case Item(text: String, clickURL: NSURL)
+    case Separator
+  }
+  
+  let rows: [Row]
+  
+  init () {
+    rows = []
+  }
+  
+  init(results: Results) {
+    let sections: [[Row]] = [results.projects, results.tasks]
+      .filter { !$0.isEmpty }
+      .map { section in
+        section.map { result in
+          .Item(
+            text: result.name.stringByReplacingOccurrencesOfString("\n", withString: "⏎"),
+            clickURL: result.URL)
+        }}
+    
+    rows = [.Separator].join(sections)
+  }
 }
 
 private struct Result {

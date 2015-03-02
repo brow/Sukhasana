@@ -18,8 +18,13 @@ struct APIClient {
     
     requestManager = Manager(configuration: config)
   }
+  
+  enum TypeaheadType: String {
+    case Task = "task"
+    case Project = "project"
+  }
 
-  func requestTasksInWorkspace(workspaceID: String, matchingQuery query: String) -> SignalProducer<NSDictionary, NSError> {
+  func requestTypeaheadResultsInWorkspace(workspaceID: String, ofType type: TypeaheadType, matchingQuery query: String) -> SignalProducer<NSDictionary, NSError> {
     let typeaheadType = "task"
     
     return SignalProducer { observer, _ in
@@ -28,7 +33,7 @@ struct APIClient {
           .GET,
           // FIXME: escape workspaceID
           "https://app.asana.com/api/1.0/workspaces/\(workspaceID)/typeahead",
-          parameters: ["type": typeaheadType, "query": query])
+          parameters: ["type": type.rawValue, "query": query, "count": 10])
         .validate()
         .responseJSON {_, _, JSON, error in
           if let error = error {

@@ -11,7 +11,8 @@ import ReactiveCocoa
 
 class MainViewController: NSViewController, ViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, TableViewDelegate {
   @IBOutlet var textField: NSTextField!
-  @IBOutlet var resultsTableScrollView: TableScrollView!
+  @IBOutlet var resultsTableView: TableView!
+  @IBOutlet var resultsTableViewHeightConstraint: NSLayoutConstraint!
   @IBOutlet var progressIndicator: NSProgressIndicator!
   
   init?(model: MainScreenModel, delegate: MainViewControllerDelegate) {
@@ -50,9 +51,32 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
   // MARK: NSTableViewDelegate
   
   func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-    let view = tableView.makeViewWithIdentifier("CellIdentifier", owner: self) as NSTableCellView
-    view.textField?.stringValue = model.stringForRow(row)
-    return view
+    switch model.cellForRow(row) {
+    case .Selectable(let text):
+      let view = tableView.makeViewWithIdentifier("SelectableCell", owner: self) as NSTableCellView
+      view.textField?.stringValue = text
+      return view
+    case .Separator:
+      return tableView.makeViewWithIdentifier("SeparatorView", owner: self) as? NSView
+    }
+  }
+  
+  func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+    switch model.cellForRow(row) {
+    case .Selectable:
+      return true
+    case .Separator:
+      return false
+    }
+  }
+  
+  func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+    switch model.cellForRow(row) {
+    case .Selectable:
+      return 22
+    case .Separator:
+      return 1
+    }
   }
   
   // MARK: TableViewDelegate
@@ -66,8 +90,16 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
     super.loadView()
     
     model.tableViewShouldReloadData.start { [weak self] _ in
-      self?.resultsTableScrollView.reloadData()
       if let _self = self {
+        _self.resultsTableView.reloadData()
+        
+        let numberOfRows = _self.model.numberOfRows()
+        let bottomPadding = CGFloat(numberOfRows > 0 ? 4 : 0)
+        _self.resultsTableViewHeightConstraint.constant =
+          bottomPadding +
+          map(0..<numberOfRows) { row in
+            _self.tableView(_self.resultsTableView, heightOfRow: row)
+            }.reduce(0, +)
         _self.delegate?.mainViewControllerDidChangeFittingSize(_self)
       }
     }
