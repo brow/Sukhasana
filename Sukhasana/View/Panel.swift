@@ -9,6 +9,8 @@
 import Cocoa
 
 class Panel: NSPanel {
+  // MARK: NSWindow
+  
   override var canBecomeKeyWindow: Bool {
     return true
   }
@@ -17,5 +19,12 @@ class Panel: NSPanel {
     // If this is not overridden, then the nextKeyView outlets set in the nibs
     // are ignored the first time that a given view is displayed in the panel.
     // This is not helped by unsetting NSPanel.autorecalculatesKeyViewLoop.
+  }
+  
+  // MARK: NSResponder
+  
+  func cancel(sender: AnyObject?) {
+    // Called during Escape or Command-. shortcuts.
+    close()
   }
 }
