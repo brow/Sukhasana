@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="378"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView borderType="none" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8l-Lk-IyI" customClass="TableScrollView" customModule="Sukhasana" customModuleProvider="target">
+                <scrollView borderType="none" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8l-Lk-IyI">
                     <rect key="frame" x="0.0" y="0.0" width="300" height="334"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="INA-R8-5Mw">
                         <rect key="frame" x="1" y="0.0" width="238" height="134"/>
@@ -95,9 +95,6 @@
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <connections>
-                        <outlet property="tableView" destination="qd4-ch-g2N" id="ew5-qL-gkG"/>
-                    </connections>
                 </scrollView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="1RJ-Cf-MgD" userLabel="Separator View" customClass="SeparatorView" customModule="Sukhasana" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="333" width="300" height="1"/>
