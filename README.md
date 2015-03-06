@@ -7,6 +7,7 @@ Mac status item for searching Asana. An experiment with [MVVM](https://github.co
 ```
 git clone git@github.com:brow/Sukhasana.git
 cd Sukhasana
+brew install carthage
 carthage update
 open Sukhasana.xcodeproj
 ```
