@@ -44,13 +44,9 @@ class TableView: NSTableView {
     super.mouseMoved(theEvent)
     
     let row = rowAtPoint(convertPoint(theEvent.locationInWindow, fromView: nil))
-    let rowIndexesToSelect: NSIndexSet = {
-      if row == -1 {
-        return NSIndexSet()
-      } else {
-        return NSIndexSet(index: row)
-      }
-    }()
+    let rowIndexesToSelect = row == -1
+      ? NSIndexSet()
+      : NSIndexSet(index: row)
     
     window?.makeFirstResponder(self)
     selectRowIndexes(rowIndexesToSelect, byExtendingSelection: false)
