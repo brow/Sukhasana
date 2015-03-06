@@ -8,6 +8,6 @@ Mac status item for searching Asana. An experiment with [MVVM](https://github.co
 git clone git@github.com:brow/Sukhasana.git
 cd Sukhasana
 brew install carthage
-carthage update
+carthage update --platform Mac
 open Sukhasana.xcodeproj
 ```
