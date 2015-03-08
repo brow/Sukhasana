@@ -1,3 +1,3 @@
 github "brow/Alamofire" == 1.1.4
-github "brow/MASShortcut" == 2.1.2
+github "brow/MASShortcut" "carthage"
 github "brow/ReactiveCocoa" "7651d7de1c939b2a4db7ffb3220ca6274c20a9aa"

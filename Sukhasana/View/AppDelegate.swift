@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import MASShortcut
 
 @NSApplicationMain
 class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate, NSWindowDelegate {
@@ -95,4 +96,3 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   private var statusItem: NSStatusItem!
   private var displayingViewController: ViewController?
 }
-
