@@ -13,11 +13,7 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   @IBOutlet var panel: NSPanel!
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
-    let statusItemFrame = sender.window.frame
-    panel.setFrameTopLeftPoint(NSMakePoint(
-      statusItemFrame.origin.x,
-      statusItemFrame.origin.y + statusItemFrame.size.height))
-    panel.makeKeyAndOrderFront(self)    
+    panel.makeKeyAndOrderFront(self)
   }
   
   // MARK: MainViewControllerDelegate
@@ -38,7 +34,7 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   
   // MARK: NSApplicationDelegate
   
-  func applicationDidFinishLaunching(notification: NSNotification) {    
+  func applicationDidFinishLaunching(notification: NSNotification) {
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
     statusItem.title = "☀"
     statusItem.highlightMode = true
@@ -67,6 +63,10 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
       self?.panel.close()
       return
     }
+    
+    if model.shouldOpenPanelOnLaunch {
+      panel.makeKeyAndOrderFront(self)
+    }
   }
   
   // MARK: private
@@ -77,16 +77,18 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   }
   
   private func updatePanelFrame() {
-    let topLeft = CGPointMake(
-      panel.frame.origin.x,
-      panel.frame.origin.y + panel.frame.size.height)
-    let newSize = panel.contentView.fittingSize
-    let newFrame = NSMakeRect(
-      topLeft.x,
-      topLeft.y - newSize.height,
-      newSize.width,
-      newSize.height)
-    panel.setFrame(newFrame, display: true)
+    if let statusItemFrame = statusItem.button?.window?.frame {
+      let topLeft = CGPointMake(
+        statusItemFrame.origin.x,
+        statusItemFrame.origin.y + statusItemFrame.size.height)
+      let size = panel.contentView.fittingSize
+      let newFrame = NSMakeRect(
+        topLeft.x,
+        topLeft.y - size.height,
+        size.width,
+        size.height)
+      panel.setFrame(newFrame, display: true)
+    }
   }
   
   private var model = ApplicationModel(settingsStore: NSUserDefaults.standardUserDefaults())
