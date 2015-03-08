@@ -8,12 +8,14 @@
 
 import Cocoa
 import ReactiveCocoa
+import MASShortcut
 
 class SettingsViewController: NSViewController, ViewController, NSTextFieldDelegate {
   @IBOutlet var APIKeyTextField: NSTextField!
   @IBOutlet var workspacePopUpButton: NSPopUpButton!
   @IBOutlet var saveButton: NSButton!
   @IBOutlet var progressIndicator: NSProgressIndicator!
+  @IBOutlet var shortcutView: MASShortcutView!
   
   init?(model: SettingsScreenModel) {
     self.model = model
@@ -72,6 +74,7 @@ class SettingsViewController: NSViewController, ViewController, NSTextFieldDeleg
     
     APIKeyTextField.stringValue = model.APIKeyTextFieldText.value
     workspacePopUpButton.selectItemAtIndex(model.workspacePopupSelectedIndex.value)
+    shortcutView.associatedUserDefaultsKey = model.shortcutViewAssociatedUserDefaultsKey
   }
   
   // MARK: private

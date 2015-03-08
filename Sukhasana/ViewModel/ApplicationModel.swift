@@ -18,9 +18,11 @@ struct ApplicationModel {
   let shouldOpenURL: SignalProducer<NSURL, NoError>
   let shouldOpenPanelOnLaunch: Bool
   
-  init(settingsStore: SettingsStore) {
+  init(settingsStore: SettingsStore, globalShortcutDefaultsKey: String) {
     let restoredSettings = settingsStore.restoreSettings()
-    let (settingsModel, didSaveSettings) = SettingsScreenModel.makeWithSettings(restoredSettings)
+    let (settingsModel, didSaveSettings) = SettingsScreenModel.makeWithSettings(
+      restoredSettings,
+      globalShortcutDefaultsKey: globalShortcutDefaultsKey)
     
     // Persist saved settings
     didSaveSettings.start { settings in

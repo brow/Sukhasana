@@ -9,6 +9,7 @@
                 <outlet property="APIKeyTextField" destination="WT4-Kr-gjN" id="Uf5-B5-hwL"/>
                 <outlet property="progressIndicator" destination="CCA-5J-yuw" id="Erm-iW-Ubq"/>
                 <outlet property="saveButton" destination="1Oy-J4-PPf" id="aIN-K0-9nX"/>
+                <outlet property="shortcutView" destination="1v4-B6-003" id="NMv-Kk-3JH"/>
                 <outlet property="view" destination="UrZ-f9-6W3" id="ibJ-m0-0C9"/>
                 <outlet property="workspacePopUpButton" destination="vck-ri-e7G" id="nAQ-ss-LLB"/>
             </connections>
