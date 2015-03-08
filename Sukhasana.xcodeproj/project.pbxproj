@@ -32,6 +32,8 @@
 		EA125B2C1AA40426004177C4 /* SettingsScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B191AA40426004177C4 /* SettingsScreenModel.swift */; };
 		EA307A601A87FC780008A566 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; };
 		EA307A611A87FC780008A566 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EAFFDC7D1AACF5C400F38834 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAFFDC7C1AACF5C400F38834 /* MASShortcut.framework */; };
+		EAFFDC7E1AACF5C400F38834 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAFFDC7C1AACF5C400F38834 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,7 @@
 			files = (
 				EA037E801A847CF800F47B17 /* LlamaKit.framework in Embed Frameworks */,
 				EA037E861A847CF800F47B17 /* ReactiveCocoa.framework in Embed Frameworks */,
+				EAFFDC7E1AACF5C400F38834 /* MASShortcut.framework in Embed Frameworks */,
 				EA307A611A87FC780008A566 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -87,6 +90,7 @@
 		EA125B181AA40426004177C4 /* MainScreenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenModel.swift; sourceTree = "<group>"; };
 		EA125B191AA40426004177C4 /* SettingsScreenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsScreenModel.swift; sourceTree = "<group>"; };
 		EA307A5F1A87FC780008A566 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
+		EAFFDC7C1AACF5C400F38834 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = ../Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 			files = (
 				EA037E7F1A847CF800F47B17 /* LlamaKit.framework in Frameworks */,
 				EA037E851A847CF800F47B17 /* ReactiveCocoa.framework in Frameworks */,
+				EAFFDC7D1AACF5C400F38834 /* MASShortcut.framework in Frameworks */,
 				EA307A601A87FC780008A566 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,6 +214,7 @@
 			children = (
 				EA307A5F1A87FC780008A566 /* Alamofire.framework */,
 				EA037E791A847CF800F47B17 /* LlamaKit.framework */,
+				EAFFDC7C1AACF5C400F38834 /* MASShortcut.framework */,
 				EA037E7C1A847CF800F47B17 /* ReactiveCocoa.framework */,
 			);
 			name = Frameworks;
@@ -437,6 +443,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Sukhasana",
 				);
 				INFOPLIST_FILE = Sukhasana/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -452,6 +459,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Sukhasana",
 				);
 				INFOPLIST_FILE = Sukhasana/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

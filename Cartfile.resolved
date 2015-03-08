@@ -1,3 +1,4 @@
 github "brow/Alamofire" "1.1.4"
 github "LlamaKit/LlamaKit" "v0.5.0"
+github "brow/MASShortcut" "2.1.2"
 github "brow/ReactiveCocoa" "7651d7de1c939b2a4db7ffb3220ca6274c20a9aa"
