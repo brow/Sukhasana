@@ -16,6 +16,7 @@ struct ApplicationModel {
   
   let shouldDisplayScreen: SignalProducer<Screen, NoError>
   let shouldOpenURL: SignalProducer<NSURL, NoError>
+  let shouldOpenPanelOnLaunch: Bool
   
   init(settingsStore: SettingsStore) {
     let restoredSettings = settingsStore.restoreSettings()
@@ -26,7 +27,7 @@ struct ApplicationModel {
       settingsStore.saveSettings(settings)
     }
     
-    // Show the main screen on launch if settings are restored
+    // Show the main screen right away if settings already exist
     let didRestoreSettings: SignalProducer<Settings, NoError> = {
       if let restoredSettings = restoredSettings {
         return SignalProducer(value: restoredSettings)
@@ -35,7 +36,7 @@ struct ApplicationModel {
       }
     }()
     
-    // Show the main screen after settings are saved
+    // Show the main screen after new settings are saved
     let mainModelAndProducers = didRestoreSettings
       |> concat(didSaveSettings)
       |> map(MainScreenModel.makeWithSettings)
@@ -48,6 +49,10 @@ struct ApplicationModel {
     let shouldDisplaySettingsScreen = SignalProducer(values: restoredSettings == nil ? [()] : [])
       |> concat (mainModelAndProducers |> joinMap(.Latest) { $0.didClickSettingsButton })
       |> map { _ in Screen.Settings(settingsModel) }
+    
+    // If settings haven't been entered yet, this is probably the first launch.
+    // We should open the panel to show the user where it is.
+    shouldOpenPanelOnLaunch = restoredSettings == nil
   
     shouldDisplayScreen = SignalProducer(values: [shouldDisplayMainScreen, shouldDisplaySettingsScreen])
       |> join(.Merge)

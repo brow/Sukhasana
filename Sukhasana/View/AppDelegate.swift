@@ -63,6 +63,10 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
       self?.panel.close()
       return
     }
+    
+    if model.shouldOpenPanelOnLaunch {
+      panel.makeKeyAndOrderFront(self)
+    }
   }
   
   // MARK: private
