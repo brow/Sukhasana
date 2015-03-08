@@ -9,6 +9,7 @@
                 <outlet property="APIKeyTextField" destination="WT4-Kr-gjN" id="Uf5-B5-hwL"/>
                 <outlet property="progressIndicator" destination="CCA-5J-yuw" id="Erm-iW-Ubq"/>
                 <outlet property="saveButton" destination="1Oy-J4-PPf" id="aIN-K0-9nX"/>
+                <outlet property="shortcutView" destination="1v4-B6-003" id="NMv-Kk-3JH"/>
                 <outlet property="view" destination="UrZ-f9-6W3" id="ibJ-m0-0C9"/>
                 <outlet property="workspacePopUpButton" destination="vck-ri-e7G" id="nAQ-ss-LLB"/>
             </connections>
@@ -16,11 +17,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="UrZ-f9-6W3" userLabel="Settings View">
-            <rect key="frame" x="0.0" y="0.0" width="340" height="123"/>
+            <rect key="frame" x="0.0" y="0.0" width="340" height="149"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WT4-Kr-gjN">
-                    <rect key="frame" x="20" y="78" width="300" height="25"/>
+                    <rect key="frame" x="20" y="104" width="300" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="TzL-78-vwa"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="bGz-wL-Nm1"/>
@@ -36,7 +37,7 @@
                     </connections>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vck-ri-e7G">
-                    <rect key="frame" x="18" y="46" width="305" height="26"/>
+                    <rect key="frame" x="18" y="72" width="305" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" inset="2" autoenablesItems="NO" id="rWn-IQ-n2w">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -61,23 +62,45 @@
                     </connections>
                 </button>
                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="CCA-5J-yuw">
-                    <rect key="frame" x="299" y="82" width="16" height="16"/>
+                    <rect key="frame" x="299" y="108" width="16" height="16"/>
                 </progressIndicator>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="1v4-B6-003" customClass="MASShortcutView">
+                    <rect key="frame" x="85" y="49" width="235" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="19" id="VEv-d0-y4d"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="nextKeyView" destination="WT4-Kr-gjN" id="uX3-QF-Oj3"/>
+                    </connections>
+                </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7VC-kX-RD7">
+                    <rect key="frame" x="18" y="50" width="61" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Shortcut:" id="shk-oV-Puj">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="WT4-Kr-gjN" firstAttribute="trailing" secondItem="CCA-5J-yuw" secondAttribute="trailing" constant="5" id="51c-P8-A7q"/>
                 <constraint firstItem="WT4-Kr-gjN" firstAttribute="centerY" secondItem="CCA-5J-yuw" secondAttribute="centerY" id="BOh-Ib-hyR"/>
-                <constraint firstItem="1Oy-J4-PPf" firstAttribute="top" secondItem="vck-ri-e7G" secondAttribute="bottom" constant="8" id="FO8-PO-eFq"/>
                 <constraint firstItem="vck-ri-e7G" firstAttribute="top" secondItem="WT4-Kr-gjN" secondAttribute="bottom" constant="8" id="Fa7-x0-ev8"/>
                 <constraint firstAttribute="bottom" secondItem="1Oy-J4-PPf" secondAttribute="bottom" constant="20" id="FlI-u5-56T"/>
                 <constraint firstItem="WT4-Kr-gjN" firstAttribute="top" secondItem="UrZ-f9-6W3" secondAttribute="top" constant="20" id="JPE-n3-Rm3"/>
+                <constraint firstItem="1Oy-J4-PPf" firstAttribute="top" secondItem="1v4-B6-003" secondAttribute="bottom" constant="8" id="LmL-X3-aYt"/>
+                <constraint firstItem="7VC-kX-RD7" firstAttribute="leading" secondItem="vck-ri-e7G" secondAttribute="leading" id="N3L-0t-mfU"/>
+                <constraint firstItem="7VC-kX-RD7" firstAttribute="centerY" secondItem="1v4-B6-003" secondAttribute="centerY" id="VAS-zQ-1UZ"/>
                 <constraint firstItem="WT4-Kr-gjN" firstAttribute="leading" secondItem="UrZ-f9-6W3" secondAttribute="leading" constant="20" id="WkA-Qq-AfB"/>
                 <constraint firstAttribute="trailing" secondItem="WT4-Kr-gjN" secondAttribute="trailing" constant="20" id="Xje-1m-Nda"/>
+                <constraint firstItem="1v4-B6-003" firstAttribute="leading" secondItem="7VC-kX-RD7" secondAttribute="trailing" constant="8" id="fuw-oU-8vd"/>
                 <constraint firstItem="vck-ri-e7G" firstAttribute="trailing" secondItem="1Oy-J4-PPf" secondAttribute="trailing" id="gFP-V1-yQ1"/>
+                <constraint firstItem="1v4-B6-003" firstAttribute="top" secondItem="vck-ri-e7G" secondAttribute="bottom" constant="7" id="iep-Xt-1G9"/>
                 <constraint firstItem="vck-ri-e7G" firstAttribute="leading" secondItem="WT4-Kr-gjN" secondAttribute="leading" id="niH-oO-U5a"/>
                 <constraint firstItem="vck-ri-e7G" firstAttribute="trailing" secondItem="WT4-Kr-gjN" secondAttribute="trailing" id="tUq-vd-yFI"/>
+                <constraint firstItem="vck-ri-e7G" firstAttribute="trailing" secondItem="1v4-B6-003" secondAttribute="trailing" id="yN6-QU-cmy"/>
             </constraints>
-            <point key="canvasLocation" x="129" y="115.5"/>
+            <point key="canvasLocation" x="129" y="147"/>
         </customView>
     </objects>
 </document>

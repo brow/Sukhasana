@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import MASShortcut
 
 @NSApplicationMain
 class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate, NSWindowDelegate {
@@ -67,6 +68,12 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     if model.shouldOpenPanelOnLaunch {
       panel.makeKeyAndOrderFront(self)
     }
+    
+    MASShortcutBinder.sharedBinder().bindShortcutWithDefaultsKey(globalShortcutDefaultsKey) { [weak self] in
+      if let _self = self {
+        _self.panel.makeKeyAndOrderFront(_self)
+      }
+    }
   }
   
   // MARK: private
@@ -91,8 +98,12 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     }
   }
   
-  private var model = ApplicationModel(settingsStore: NSUserDefaults.standardUserDefaults())
+  private let model = ApplicationModel(
+    settingsStore: NSUserDefaults.standardUserDefaults(),
+    globalShortcutDefaultsKey: globalShortcutDefaultsKey)
   private var statusItem: NSStatusItem!
   private var displayingViewController: ViewController?
 }
+
+private let globalShortcutDefaultsKey = "globalShortcut"
 

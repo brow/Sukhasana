@@ -9,6 +9,7 @@
 import ReactiveCocoa
 
 struct SettingsScreenModel {
+  let shortcutViewAssociatedUserDefaultsKey: String
   let APIKeyTextFieldText: MutableProperty<String>
   let saveButtonEnabled, workspacePopUpButtonEnabled, progressIndicatorAnimating: PropertyOf<Bool>
   let workspacePopUpItemsTitles: PropertyOf<[String]>
@@ -16,17 +17,25 @@ struct SettingsScreenModel {
   let didClickSaveButton: Signal<(), NoError>.Observer
   let workspacePopUpDidSelectItemAtIndex: Signal<Int, NoError>.Observer
   
-  static func makeWithSettings(settings: Settings?) -> (SettingsScreenModel, didSaveSettings: SignalProducer<Settings, NoError>) {
+  static func makeWithSettings(settings: Settings?, globalShortcutDefaultsKey: String) -> (SettingsScreenModel, didSaveSettings: SignalProducer<Settings, NoError>) {
     let (didSaveSettings, didSaveSettingsSink) = SignalProducer<Settings, NoError>.buffer(1)
     
     return (
-      SettingsScreenModel(settings: settings, didSaveSettingsSink: didSaveSettingsSink),
+      SettingsScreenModel(
+        settings: settings,
+        globalShortcutDefaultsKey: globalShortcutDefaultsKey,
+        didSaveSettingsSink: didSaveSettingsSink),
       didSaveSettings: didSaveSettings)
   }
   
   // MARK: private
   
-  private init(settings: Settings?, didSaveSettingsSink: Signal<Settings, NoError>.Observer) {
+  private init(
+    settings: Settings?,
+    globalShortcutDefaultsKey: String,
+    didSaveSettingsSink: Signal<Settings, NoError>.Observer)
+  {
+    shortcutViewAssociatedUserDefaultsKey = globalShortcutDefaultsKey
     APIKeyTextFieldText = MutableProperty(settings?.APIKey ?? "")
     
     let workspacesState: SignalProducer<WorkspacesState, NoError> = APIKeyTextFieldText.producer
