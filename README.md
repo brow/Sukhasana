@@ -3,7 +3,13 @@ Mac status item for searching Asana. An experiment with [MVVM](https://github.co
 
 ![screenshot](http://zippy.gfycat.com/WellmadeBewitchedHart.gif)
 
-## Get started
+## Installation
+
+1. Download the [latest release](https://github.com/brow/Sukhasana/releases/latest).
+2. Open `Sukhasana.zip`.
+3. Move `Sukhasana` into your `Applications` folder.
+
+## Development
 ```
 git clone git@github.com:brow/Sukhasana.git
 cd Sukhasana
