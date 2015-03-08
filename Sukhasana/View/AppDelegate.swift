@@ -98,11 +98,12 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     }
   }
   
-  private var model = ApplicationModel(
+  private let model = ApplicationModel(
     settingsStore: NSUserDefaults.standardUserDefaults(),
     globalShortcutDefaultsKey: globalShortcutDefaultsKey)
   private var statusItem: NSStatusItem!
   private var displayingViewController: ViewController?
 }
 
-let globalShortcutDefaultsKey = "globalShortcut"
+private let globalShortcutDefaultsKey = "globalShortcut"
+
