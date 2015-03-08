@@ -5,7 +5,7 @@ Mac status item for searching Asana. An experiment with [MVVM](https://github.co
 
 ## Installation
 
-1. Download the [latest release](https://github.com/brow/Sukhasana/releases/latest).
+1. Download `Sukhasana.zip` from the [latest release](https://github.com/brow/Sukhasana/releases/latest).
 2. Open `Sukhasana.zip`.
 3. Move `Sukhasana` into your `Applications` folder.
 
