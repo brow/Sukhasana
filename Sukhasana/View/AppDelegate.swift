@@ -95,17 +95,27 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   }
   
   private func updatePanelFrame() {
-    if let statusItemFrame = statusItem.button?.window?.frame {
-      let topLeft = CGPointMake(
-        statusItemFrame.origin.x,
-        statusItemFrame.origin.y + statusItemFrame.size.height)
-      let size = panel.contentView.fittingSize
-      let newFrame = NSMakeRect(
-        topLeft.x,
-        topLeft.y - size.height,
-        size.width,
-        size.height)
-      panel.setFrame(newFrame, display: true)
+    if let statusItemWindow = statusItem.button?.window? {
+      let statusItemFrame = statusItemWindow.frame
+      let panelSize = panel.contentView.fittingSize
+      let maxPanelOriginX: CGFloat? = {
+        if let screen = statusItemWindow.screen {
+          let frame = screen.visibleFrame
+          return frame.origin.x + frame.size.width - panelSize.width
+        } else {
+          return nil
+        }
+      }()
+      let panelOrigin = CGPoint(
+        x: min(statusItemFrame.origin.x, maxPanelOriginX ?? CGFloat.max),
+        y: statusItemFrame.origin.y + statusItemFrame.size.height)
+      let panelFrame = NSMakeRect(
+        panelOrigin.x,
+        panelOrigin.y - panelSize.height,
+        panelSize.width,
+        panelSize.height)
+      
+      panel.setFrame(panelFrame, display: true)
     }
   }
   
