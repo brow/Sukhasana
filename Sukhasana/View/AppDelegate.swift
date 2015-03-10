@@ -13,6 +13,10 @@ import MASShortcut
 class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate, NSWindowDelegate {
   @IBOutlet var panel: NSPanel!
   
+  deinit {
+    notificationCenter.removeObserver(statusItemMoveObserver)
+  }
+  
   @IBAction func didClickStatusItem(sender: AnyObject) {
     panel.makeKeyAndOrderFront(self)
   }
@@ -43,6 +47,13 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
     statusItem.action = "didClickStatusItem:"
     
     panel.floatingPanel = true
+    
+    // The status item can move when other items are removed or hidden.
+    statusItemMoveObserver = notificationCenter.addObserverForName(
+      NSWindowDidMoveNotification,
+      object: statusItem.button!.window!,
+      queue: nil,
+      usingBlock: { [weak self] _ in self?.updatePanelFrame(); return })
     
     model.shouldDisplayScreen.start { [weak self] screen in
       if let _self = self {
@@ -101,7 +112,9 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   private let model = ApplicationModel(
     settingsStore: NSUserDefaults.standardUserDefaults(),
     globalShortcutDefaultsKey: globalShortcutDefaultsKey)
+  private let notificationCenter = NSNotificationCenter.defaultCenter()
   private var statusItem: NSStatusItem!
+  private var statusItemMoveObserver: AnyObject!
   private var displayingViewController: ViewController?
 }
 
