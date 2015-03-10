@@ -4,6 +4,7 @@ Mac status item for searching Asana. An experiment with [MVVM](https://github.co
 ![screenshot](http://zippy.gfycat.com/WellmadeBewitchedHart.gif)
 
 ## Installation
+Sukhasana requires OS X Yosemite (10.10).
 
 1. Download `Sukhasana.zip` from the [latest release](https://github.com/brow/Sukhasana/releases/latest).
 2. Open `Sukhasana.zip`.
