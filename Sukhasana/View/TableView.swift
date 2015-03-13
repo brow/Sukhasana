@@ -63,9 +63,12 @@ class TableView: NSTableView {
   }
   
   override func keyDown(theEvent: NSEvent) {
-    if Int(theEvent.keyCode) == kVK_UpArrow && selectedRow == 0 {
+    switch Int(theEvent.keyCode) {
+    case kVK_UpArrow where selectedRow == 0:
       window?.selectKeyViewPrecedingView(self)
-    } else {
+    case kVK_Space, kVK_Return where selectedRow >= 0:
+      secondDelegate?.tableView(self, didClickRowAtIndex: selectedRow)
+    default:
       super.keyDown(theEvent)
     }
   }
