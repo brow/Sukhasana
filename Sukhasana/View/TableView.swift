@@ -69,6 +69,15 @@ class TableView: NSTableView {
       super.keyDown(theEvent)
     }
   }
+  
+  override func resignFirstResponder() -> Bool {
+    if super.resignFirstResponder() {
+      deselectAll(self)
+      return true
+    } else {
+      return false
+    }
+  }
 }
 
 @objc protocol TableViewDelegate {
