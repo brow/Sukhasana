@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Carbon
 
 class TableView: NSTableView {
   @IBOutlet weak var secondDelegate: TableViewDelegate?
@@ -58,6 +59,14 @@ class TableView: NSTableView {
     let row = rowAtPoint(convertPoint(theEvent.locationInWindow, fromView: nil))
     if row != -1 {
       secondDelegate?.tableView(self, didClickRowAtIndex: row)
+    }
+  }
+  
+  override func keyDown(theEvent: NSEvent) {
+    if Int(theEvent.keyCode) == kVK_UpArrow && selectedRow == 0 {
+      window?.selectKeyViewPrecedingView(self)
+    } else {
+      super.keyDown(theEvent)
     }
   }
 }
