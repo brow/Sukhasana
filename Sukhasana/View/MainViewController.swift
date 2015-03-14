@@ -42,6 +42,17 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
     model.textFieldText.put(textField!.stringValue)
   }
   
+  func control(control: NSControl, textView: NSTextView, doCommandBySelector commandSelector: Selector) -> Bool {
+    switch commandSelector {
+    case "moveDown:":
+      // Down arrow key moves from search field to results table
+      control.window?.selectKeyViewFollowingView(control)
+      return true
+    default:
+      return false
+    }
+  }
+  
   // MARK: NSTableViewDataSource
   
   func numberOfRowsInTableView(tableView: NSTableView) -> Int {
@@ -80,6 +91,7 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
   }
   
   // MARK: TableViewDelegate
+  
   func tableView(tableView: TableView, didClickRowAtIndex index: Int) {
     sendNext(model.didClickRowAtIndex, index)
   }
