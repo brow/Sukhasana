@@ -96,6 +96,14 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
     sendNext(model.didClickRowAtIndex, index)
   }
   
+  func tableView(tableView: TableView, wantsToCopyRowAtIndex index: Int) {
+    if let pasteboardObjects = model.pasteboardObjectsForRow(index) {
+      let pasteboard = NSPasteboard.generalPasteboard()
+      pasteboard.clearContents()
+      pasteboard.writeObjects(pasteboardObjects)
+    }
+  }
+  
   // MARK: NSViewController
   
   override func loadView() {

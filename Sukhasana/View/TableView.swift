@@ -25,6 +25,12 @@ class TableView: NSTableView {
         userInfo: nil))
   }
   
+  func copy(sender: AnyObject?) {
+    if selectedRow >= 0 {
+      secondDelegate?.tableView(self, wantsToCopyRowAtIndex: selectedRow)
+    }
+  }
+  
   // MARK: NSResponder
   
   func acceptsFirstResponder() -> Bool {
@@ -85,4 +91,5 @@ class TableView: NSTableView {
 
 @objc protocol TableViewDelegate {
   func tableView(tableView: TableView, didClickRowAtIndex index: Int)
+  func tableView(tableView: TableView, wantsToCopyRowAtIndex index: Int)
 }
