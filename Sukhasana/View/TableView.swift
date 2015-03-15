@@ -10,7 +10,9 @@ import Cocoa
 import Carbon
 
 class TableView: NSTableView {
-  @IBOutlet weak var secondDelegate: TableViewDelegate?
+  enum Action { case Click, Copy }
+  
+  weak var secondDelegate: TableViewDelegate?
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
@@ -27,17 +29,13 @@ class TableView: NSTableView {
   
   func copy(sender: AnyObject?) {
     if selectedRow >= 0 {
-      let row = selectedRow
-      flashHighlightedRowsThen {
-        self.secondDelegate?.tableView(self, wantsToCopyRowAtIndex: row)
-        return
-      }
+      didRecognizeAction(.Copy, onRowAtIndex: selectedRow)
     }
   }
   
-  func clickRow(row: Int) {
+  func didRecognizeAction(action: Action, onRowAtIndex index: Int) {
     flashHighlightedRowsThen {
-      self.secondDelegate?.tableView(self, didClickRowAtIndex: row)
+      self.secondDelegate?.tableView(self, didRecognizeAction: action, onRowAtIndex: index)
       return
     }
   }
@@ -75,7 +73,7 @@ class TableView: NSTableView {
     
     let row = rowAtPoint(convertPoint(theEvent.locationInWindow, fromView: nil))
     if row >= 0 {
-      clickRow(row)
+      didRecognizeAction(.Click, onRowAtIndex: row)
     }
   }
   
@@ -84,7 +82,7 @@ class TableView: NSTableView {
     case kVK_UpArrow where selectedRow == 0:
       window?.selectKeyViewPrecedingView(self)
     case kVK_Space, kVK_Return where selectedRow >= 0:
-      clickRow(selectedRow)
+      didRecognizeAction(.Click, onRowAtIndex: selectedRow)
     default:
       super.keyDown(theEvent)
     }
@@ -100,9 +98,8 @@ class TableView: NSTableView {
   }
 }
 
-@objc protocol TableViewDelegate {
-  func tableView(tableView: TableView, didClickRowAtIndex index: Int)
-  func tableView(tableView: TableView, wantsToCopyRowAtIndex index: Int)
+protocol TableViewDelegate: class {
+  func tableView(tableView: TableView, didRecognizeAction action: TableView.Action, onRowAtIndex index: Int)
 }
 
 extension NSTableView {
