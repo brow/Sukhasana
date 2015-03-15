@@ -10,7 +10,9 @@ import Cocoa
 import Carbon
 
 class TableView: NSTableView {
-  @IBOutlet weak var secondDelegate: TableViewDelegate?
+  enum Action { case Click, Copy }
+  
+  weak var secondDelegate: TableViewDelegate?
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
@@ -27,7 +29,14 @@ class TableView: NSTableView {
   
   func copy(sender: AnyObject?) {
     if selectedRow >= 0 {
-      secondDelegate?.tableView(self, wantsToCopyRowAtIndex: selectedRow)
+      didRecognizeAction(.Copy, onRowAtIndex: selectedRow)
+    }
+  }
+  
+  func didRecognizeAction(action: Action, onRowAtIndex index: Int) {
+    flashHighlightedRowsThen {
+      self.secondDelegate?.tableView(self, didRecognizeAction: action, onRowAtIndex: index)
+      return
     }
   }
   
@@ -63,8 +72,8 @@ class TableView: NSTableView {
     super.mouseDown(theEvent)
     
     let row = rowAtPoint(convertPoint(theEvent.locationInWindow, fromView: nil))
-    if row != -1 {
-      secondDelegate?.tableView(self, didClickRowAtIndex: row)
+    if row >= 0 {
+      didRecognizeAction(.Click, onRowAtIndex: row)
     }
   }
   
@@ -73,7 +82,7 @@ class TableView: NSTableView {
     case kVK_UpArrow where selectedRow == 0:
       window?.selectKeyViewPrecedingView(self)
     case kVK_Space, kVK_Return where selectedRow >= 0:
-      secondDelegate?.tableView(self, didClickRowAtIndex: selectedRow)
+      didRecognizeAction(.Click, onRowAtIndex: selectedRow)
     default:
       super.keyDown(theEvent)
     }
@@ -89,7 +98,30 @@ class TableView: NSTableView {
   }
 }
 
-@objc protocol TableViewDelegate {
-  func tableView(tableView: TableView, didClickRowAtIndex index: Int)
-  func tableView(tableView: TableView, wantsToCopyRowAtIndex index: Int)
+protocol TableViewDelegate: class {
+  func tableView(tableView: TableView, didRecognizeAction action: TableView.Action, onRowAtIndex index: Int)
+}
+
+extension NSTableView {
+  func flashHighlightedRowsThen(callback: () -> ()) {
+    // Simulate NSMenu's flash on selecting a row, not without jank
+    let baseHighlightStyle = selectionHighlightStyle
+    let mainQueue = dispatch_get_main_queue()
+    let toggleInterval = Int64(NSEC_PER_SEC) / 20
+    let numberOfToggles: Int64 = 3
+    
+    for i: Int64 in 0...numberOfToggles {
+      let time = dispatch_time(DISPATCH_TIME_NOW, toggleInterval * i)
+      dispatch_after(time, mainQueue) {
+        if i < numberOfToggles {
+          self.selectionHighlightStyle = i % 2 == 0
+            ? NSTableViewSelectionHighlightStyle.None
+            : baseHighlightStyle
+        } else {
+          self.selectionHighlightStyle = baseHighlightStyle
+          callback()
+        }
+      }
+    }
+  }
 }

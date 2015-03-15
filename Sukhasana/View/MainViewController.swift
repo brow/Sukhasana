@@ -92,15 +92,16 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
   
   // MARK: TableViewDelegate
   
-  func tableView(tableView: TableView, didClickRowAtIndex index: Int) {
-    sendNext(model.didClickRowAtIndex, index)
-  }
-  
-  func tableView(tableView: TableView, wantsToCopyRowAtIndex index: Int) {
-    if let pasteboardObjects = model.pasteboardObjectsForRow(index) {
-      let pasteboard = NSPasteboard.generalPasteboard()
-      pasteboard.clearContents()
-      pasteboard.writeObjects(pasteboardObjects)
+  func tableView(tableView: TableView, didRecognizeAction action: TableView.Action, onRowAtIndex index: Int) {
+    switch action {
+    case .Click:
+      sendNext(model.didClickRowAtIndex, index)
+    case .Copy:
+      if let pasteboardObjects = model.pasteboardObjectsForRow(index) {
+        let pasteboard = NSPasteboard.generalPasteboard()
+        pasteboard.clearContents()
+        pasteboard.writeObjects(pasteboardObjects)
+      }
     }
   }
   
