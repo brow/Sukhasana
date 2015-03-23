@@ -9,16 +9,10 @@
 import ReactiveCocoa
 
 struct MainScreenModel {
-  enum Cell {
-    case Selectable(String)
-    case Separator
-  }
-  
   let textFieldText = MutableProperty("")
   let activityIndicatorIsAnimating: PropertyOf<Bool>
-  let tableViewShouldReloadData: SignalProducer<(), NoError>
   let didClickSettingsButton: Signal<(), NoError>.Observer
-  let didClickRowAtIndex: Signal<Int, NoError>.Observer
+  let resultsTableViewModel: PropertyOf<ResultsTableViewModel>
   
   static func makeWithSettings(settings: Settings) -> (
     MainScreenModel,
@@ -38,45 +32,7 @@ struct MainScreenModel {
     )
   }
   
-  func numberOfRows() -> Int {
-    return countElements(resultsTable.value.rows)
-  }
-  
-  func cellForRow(row: Int) -> Cell {
-    switch resultsTable.value.rows[row] {
-    case let .Item(text: text, clickURL: _):
-      return .Selectable(text)
-    case .Separator:
-      return .Separator
-    }
-  }
-  
-  func pasteboardObjectsForRow(row: Int) -> [NSPasteboardWriting]? {
-    switch resultsTable.value.rows[row] {
-      
-    case let .Item(text: text, clickURL: URL):
-      let hyperlink = NSAttributedString(
-        string: text,
-        attributes: [NSLinkAttributeName: URL])
-      let item = NSPasteboardItem()
-      item.setData(
-        hyperlink.RTFFromRange(
-          NSMakeRange(0, hyperlink.length),
-          documentAttributes: nil ),
-        forType: NSPasteboardTypeRTF)
-      item.setString(
-        URL.absoluteString,
-        forType: NSPasteboardTypeString)
-      return [item]
-      
-    case .Separator:
-      return nil
-    }
-  }
-  
   // MARK: private
-  
-  private let resultsTable: PropertyOf<ResultsTable>
   
   private init(
     settings: Settings,
@@ -108,13 +64,13 @@ struct MainScreenModel {
       |> join(.Latest)
       |> replay(capacity: 1)
     
-    resultsTable = propertyOf(ResultsTable(), fetchState
+    resultsTableViewModel = propertyOf(ResultsTableViewModel(), fetchState
       |> map { fetchState in
         switch fetchState {
         case .Fetched(let results):
-          return ResultsTable(results: results)
+          return ResultsTableViewModel(results: results)
         case .Initial, .Failed, .Fetching:
-          return ResultsTable()
+          return ResultsTableViewModel()
         }
       })
     
@@ -128,24 +84,7 @@ struct MainScreenModel {
         }
       })
     
-    tableViewShouldReloadData = resultsTable.producer |> map { _ in () }
-    
     didClickSettingsButton = didClickSettingsButtonSink
-    
-    let (didClickRowAtIndexProducer, didClickRowAtIndexSink) = SignalProducer<Int, NoError>.buffer(1)
-    didClickRowAtIndex = didClickRowAtIndexSink
-    resultsTable.producer
-      |> sampleOn(didClickRowAtIndexProducer |> map { _ in ()})
-      |> zipWith(didClickRowAtIndexProducer)
-      |> mapOptional { resultsTable, index in
-        switch resultsTable.rows[index] {
-        case .Item(text: _, clickURL: let URL):
-          return URL
-        case .Separator:
-          return nil
-        }
-      }
-      |> start(URLsToOpenSink)
   }
 }
 
@@ -154,44 +93,6 @@ private enum FetchState {
   case Fetching
   case Failed
   case Fetched(Results)
-}
-
-private struct Results {
-  let projects, tasks: [Result]
-}
-
-private struct ResultsTable {
-  enum Row {
-    case Item(text: String, clickURL: NSURL)
-    case Separator
-  }
-  
-  let rows: [Row]
-  
-  init () {
-    rows = []
-  }
-  
-  init(results: Results) {
-    let sections: [[Row]] = [results.projects, results.tasks]
-      .filter { !$0.isEmpty }
-      .map { section in
-        section.map { result in
-          .Item(
-            text: result.name.stringByReplacingOccurrencesOfString("\n", withString: "⏎"),
-            clickURL: result.URL)
-        }}
-    
-    rows = [.Separator].join(sections)
-  }
-}
-
-private struct Result {
-  let name, id: String
-  var URL: NSURL {
-    // FIXME: escape id
-    return NSURL(string: "https://app.asana.com/0/\(id)/\(id)")!
-  }
 }
 
 private func resultsFromJSON(JSON: NSDictionary) -> [Result] {

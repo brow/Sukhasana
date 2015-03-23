@@ -11,9 +11,7 @@ import Carbon
 
 class TableView: NSTableView {
   enum Action { case Click, Copy }
-  
-  weak var secondDelegate: TableViewDelegate?
-  
+    
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     
