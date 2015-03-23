@@ -15,8 +15,13 @@ struct ResultsTableViewModel {
     case Separator
   }
   
-  let didClickRowAtIndex: Signal<Int, NoError>.Observer
+  enum Action {
+    case Click
+    case Copy
+  }
   
+  let didClickRowAtIndex: Signal<Int, NoError>.Observer
+    
   static func makeWithResults(results: Results) -> (
     ResultsTableViewModel,
     URLsToOpen: SignalProducer<NSURL, NoError>)
@@ -70,7 +75,7 @@ struct ResultsTableViewModel {
   
   private let resultsTable: ResultsTable
   
-  init(results: Results, URLsToOpenSink: Signal<NSURL, NoError>.Observer) {
+  private init(results: Results, URLsToOpenSink: Signal<NSURL, NoError>.Observer) {
     let resultsTable = ResultsTable(results: results)
     self.resultsTable = resultsTable
     

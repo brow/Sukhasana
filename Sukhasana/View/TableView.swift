@@ -8,13 +8,20 @@
 
 import Cocoa
 import Carbon
+import ReactiveCocoa
 
-class TableView: NSTableView {
-  enum Action { case Click, Copy }
-    
+class TableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate {
+  let model: MutableProperty<ResultsTableViewModel>
+  let fittingHeightDidChange: SignalProducer<(), NoError>
+  
   required init?(coder: NSCoder) {
+    model = MutableProperty(ResultsTableViewModel.makeWithResults(Results.empty).0)
+    fittingHeightDidChange = model.producer |> map { _ in () }
+    
     super.init(coder: coder)
     
+    self.setDataSource(self)
+    self.setDelegate(self)
     self.allowsTypeSelect = false
     
     addTrackingArea(
@@ -23,6 +30,20 @@ class TableView: NSTableView {
         options: .ActiveAlways | .InVisibleRect | .MouseEnteredAndExited | .MouseMoved,
         owner: self,
         userInfo: nil))
+    
+    model.producer.start { [weak self] _ in
+      self?.reloadData()
+      return
+    }
+  }
+  
+  var fittingHeight: CGFloat {
+    let numberOfRows = model.value.numberOfRows()
+    let bottomPadding = CGFloat(numberOfRows > 0 ? 4 : 0)
+    return bottomPadding +
+      map(0..<numberOfRows) { row in
+        self.tableView(self, heightOfRow: row)
+      }.reduce(0, +)
   }
   
   func copy(sender: AnyObject?) {
@@ -31,10 +52,55 @@ class TableView: NSTableView {
     }
   }
   
-  func didRecognizeAction(action: Action, onRowAtIndex index: Int) {
+  func didRecognizeAction(action: ResultsTableViewModel.Action, onRowAtIndex index: Int) {
     flashHighlightedRowsThen {
-      self.secondDelegate?.tableView(self, didRecognizeAction: action, onRowAtIndex: index)
-      return
+      switch action {
+      case .Click:
+        sendNext(self.model.value.didClickRowAtIndex, index)
+      case .Copy:
+        if let pasteboardObjects = self.model.value.pasteboardObjectsForRow(index) {
+          let pasteboard = NSPasteboard.generalPasteboard()
+          pasteboard.clearContents()
+          pasteboard.writeObjects(pasteboardObjects)
+        }
+      }
+    }
+  }
+  
+  // MARK: NSTableViewDataSource
+  
+  func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    return model.value.numberOfRows()
+  }
+  
+  // MARK: NSTableViewDelegate
+  
+  func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    switch model.value.cellForRow(row) {
+    case .Selectable(let text):
+      let view = tableView.makeViewWithIdentifier("SelectableCell", owner: self) as NSTableCellView
+      view.textField?.stringValue = text
+      return view
+    case .Separator:
+      return tableView.makeViewWithIdentifier("SeparatorView", owner: self) as? NSView
+    }
+  }
+  
+  func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+    switch model.value.cellForRow(row) {
+    case .Selectable:
+      return true
+    case .Separator:
+      return false
+    }
+  }
+  
+  func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+    switch model.value.cellForRow(row) {
+    case .Selectable:
+      return 22
+    case .Separator:
+      return 1
     }
   }
   
@@ -94,10 +160,6 @@ class TableView: NSTableView {
       return false
     }
   }
-}
-
-protocol TableViewDelegate: class {
-  func tableView(tableView: TableView, didRecognizeAction action: TableView.Action, onRowAtIndex index: Int)
 }
 
 extension NSTableView {

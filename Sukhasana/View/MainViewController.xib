@@ -48,8 +48,8 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zbg-Ev-qpk" userLabel="Text Field">
-                                                        <rect key="frame" x="8" y="0.0" width="260" height="17"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Zbg-Ev-qpk" userLabel="Text Field">
+                                                        <rect key="frame" x="8" y="0.0" width="284" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="xsJ-4N-yHm">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -74,8 +74,6 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <outlet property="dataSource" destination="-2" id="6R7-Tj-I51"/>
-                                    <outlet property="delegate" destination="-2" id="DdJ-PK-5X9"/>
                                     <outlet property="nextKeyView" destination="4sH-v6-b1V" id="hmt-9F-MRA"/>
                                 </connections>
                             </tableView>
@@ -126,8 +124,8 @@
                         <action selector="didClickSettingsButton:" target="-2" id="jzQ-9x-OX8"/>
                     </connections>
                 </button>
-                <progressIndicator misplaced="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="RRm-9b-6gv">
-                    <rect key="frame" x="-5" y="-7" width="286" height="12"/>
+                <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="RRm-9b-6gv">
+                    <rect key="frame" x="-5" y="-7" width="310" height="12"/>
                 </progressIndicator>
             </subviews>
             <constraints>

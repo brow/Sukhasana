@@ -11,8 +11,8 @@ import ReactiveCocoa
 struct MainScreenModel {
   let textFieldText = MutableProperty("")
   let activityIndicatorIsAnimating: PropertyOf<Bool>
-  let didClickSettingsButton: Signal<(), NoError>.Observer
   let resultsTableViewModel: PropertyOf<ResultsTableViewModel>
+  let didClickSettingsButton: Signal<(), NoError>.Observer
   
   static func makeWithSettings(settings: Settings) -> (
     MainScreenModel,
@@ -64,15 +64,26 @@ struct MainScreenModel {
       |> join(.Latest)
       |> replay(capacity: 1)
     
-    resultsTableViewModel = propertyOf(ResultsTableViewModel(), fetchState
+    let resultsTableViewModelsAndSignals: SignalProducer<(ResultsTableViewModel, SignalProducer<NSURL, NoError>), NoError> =
+    fetchState
       |> map { fetchState in
         switch fetchState {
         case .Fetched(let results):
-          return ResultsTableViewModel(results: results)
+          return ResultsTableViewModel.makeWithResults(results)
         case .Initial, .Failed, .Fetching:
-          return ResultsTableViewModel()
+          return ResultsTableViewModel.makeWithResults(Results.empty)
         }
-      })
+      }
+      |> replay(capacity: 1)
+    
+    resultsTableViewModel = propertyOf(
+      ResultsTableViewModel.makeWithResults(Results.empty).0,
+      resultsTableViewModelsAndSignals |> map { $0.0 } )
+    
+    resultsTableViewModelsAndSignals
+      |> map { $0.1 }
+      |> join(.Latest)
+      |> start(URLsToOpenSink)
     
     activityIndicatorIsAnimating = propertyOf(false, fetchState
       |> map { resultsState in
