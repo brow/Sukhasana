@@ -10,7 +10,7 @@ import Cocoa
 import Carbon
 import ReactiveCocoa
 
-class TableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate {
+class ResultsTableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate {
   let model: MutableProperty<ResultsTableViewModel>
   let fittingHeightDidChange: SignalProducer<(), NoError>
   

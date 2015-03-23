@@ -25,7 +25,7 @@
 		EA125B251AA40426004177C4 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B111AA40426004177C4 /* SeparatorView.swift */; };
 		EA125B261AA40426004177C4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B121AA40426004177C4 /* SettingsViewController.swift */; };
 		EA125B271AA40426004177C4 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA125B131AA40426004177C4 /* SettingsViewController.xib */; };
-		EA125B281AA40426004177C4 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B141AA40426004177C4 /* TableView.swift */; };
+		EA125B281AA40426004177C4 /* ResultsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B141AA40426004177C4 /* ResultsTableView.swift */; };
 		EA125B291AA40426004177C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B151AA40426004177C4 /* ViewController.swift */; };
 		EA125B2A1AA40426004177C4 /* ApplicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B171AA40426004177C4 /* ApplicationModel.swift */; };
 		EA125B2B1AA40426004177C4 /* MainScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B181AA40426004177C4 /* MainScreenModel.swift */; };
@@ -86,7 +86,7 @@
 		EA125B111AA40426004177C4 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		EA125B121AA40426004177C4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EA125B131AA40426004177C4 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
-		EA125B141AA40426004177C4 /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		EA125B141AA40426004177C4 /* ResultsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableView.swift; sourceTree = "<group>"; };
 		EA125B151AA40426004177C4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EA125B171AA40426004177C4 /* ApplicationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationModel.swift; sourceTree = "<group>"; };
 		EA125B181AA40426004177C4 /* MainScreenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenModel.swift; sourceTree = "<group>"; };
@@ -195,10 +195,10 @@
 				EA125B0E1AA40426004177C4 /* MainViewController.swift */,
 				EA125B0F1AA40426004177C4 /* MainViewController.xib */,
 				EA125B101AA40426004177C4 /* Panel.swift */,
+				EA125B141AA40426004177C4 /* ResultsTableView.swift */,
 				EA125B111AA40426004177C4 /* SeparatorView.swift */,
 				EA125B121AA40426004177C4 /* SettingsViewController.swift */,
 				EA125B131AA40426004177C4 /* SettingsViewController.xib */,
-				EA125B141AA40426004177C4 /* TableView.swift */,
 				EA125B151AA40426004177C4 /* ViewController.swift */,
 			);
 			path = View;
@@ -329,7 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA125B1C1AA40426004177C4 /* Settings.swift in Sources */,
-				EA125B281AA40426004177C4 /* TableView.swift in Sources */,
+				EA125B281AA40426004177C4 /* ResultsTableView.swift in Sources */,
 				EA125B241AA40426004177C4 /* Panel.swift in Sources */,
 				EA125B251AA40426004177C4 /* SeparatorView.swift in Sources */,
 				EA125B291AA40426004177C4 /* ViewController.swift in Sources */,

@@ -11,7 +11,7 @@ import ReactiveCocoa
 
 class MainViewController: NSViewController, ViewController, NSTextFieldDelegate {
   @IBOutlet var textField: NSTextField!
-  @IBOutlet var resultsTableView: TableView!
+  @IBOutlet var resultsTableView: ResultsTableView!
   @IBOutlet var resultsTableViewHeightConstraint: NSLayoutConstraint!
   @IBOutlet var progressIndicator: NSProgressIndicator!
   
