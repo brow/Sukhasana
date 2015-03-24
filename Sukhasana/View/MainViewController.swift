@@ -60,9 +60,9 @@ class MainViewController: NSViewController, ViewController, NSTextFieldDelegate 
     
     resultsTableView.model <~ model.resultsTableViewModel
     
-    resultsTableView.fittingHeightDidChange.start { [weak self] _ in
+    resultsTableView.fittingHeight.start { [weak self] height in
       if let _self = self {
-        _self.resultsTableViewHeightConstraint.constant = _self.resultsTableView.fittingHeight
+        _self.resultsTableViewHeightConstraint.constant = height
         _self.delegate?.mainViewControllerDidChangeFittingSize(_self)
       }
     }

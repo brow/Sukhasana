@@ -12,11 +12,20 @@ import ReactiveCocoa
 
 class ResultsTableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate {
   let model: MutableProperty<ResultsTableViewModel>
-  let fittingHeightDidChange: SignalProducer<(), NoError>
+  let fittingHeight: SignalProducer<CGFloat, NoError>
   
   required init?(coder: NSCoder) {
     model = MutableProperty(ResultsTableViewModel.makeWithResults(Results.empty).0)
-    fittingHeightDidChange = model.producer |> map { _ in () }
+    
+    fittingHeight = model.producer
+      |> map { model in
+        let numberOfRows = model.numberOfRows()
+        let bottomPadding = CGFloat(numberOfRows > 0 ? 4 : 0)
+        return bottomPadding +
+          map(0..<numberOfRows) { row in
+            heightForCell(model.cellForRow(row))
+          }.reduce(0, +)
+      }
     
     super.init(coder: coder)
     
@@ -35,15 +44,6 @@ class ResultsTableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate 
       self?.reloadData()
       return
     }
-  }
-  
-  var fittingHeight: CGFloat {
-    let numberOfRows = model.value.numberOfRows()
-    let bottomPadding = CGFloat(numberOfRows > 0 ? 4 : 0)
-    return bottomPadding +
-      map(0..<numberOfRows) { row in
-        self.tableView(self, heightOfRow: row)
-      }.reduce(0, +)
   }
   
   func copy(sender: AnyObject?) {
@@ -87,12 +87,7 @@ class ResultsTableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate 
   }
   
   func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-    switch model.value.cellForRow(row) {
-    case .Selectable:
-      return 22
-    case .Separator:
-      return 1
-    }
+    return heightForCell(model.value.cellForRow(row))
   }
   
   // MARK: NSResponder
@@ -150,6 +145,15 @@ class ResultsTableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate 
     } else {
       return false
     }
+  }
+}
+
+private func heightForCell(cell: ResultsTableViewModel.Cell) -> CGFloat {
+  switch cell {
+  case .Selectable:
+    return 22
+  case .Separator:
+    return 1
   }
 }
 
