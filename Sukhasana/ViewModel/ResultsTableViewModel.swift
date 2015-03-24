@@ -20,19 +20,24 @@ struct ResultsTableViewModel {
     case Copy
   }
   
-  let didClickRowAtIndex: Signal<Int, NoError>.Observer
+  enum Effect {
+    case OpenURL(NSURL)
+    case WriteObjectsToPasteboard([NSPasteboardWriting])
+  }
+  
+  let didRecognizeActionOnRowAtIndex: Signal<(Action, Int), NoError>.Observer
     
   static func makeWithResults(results: Results) -> (
     ResultsTableViewModel,
-    URLsToOpen: SignalProducer<NSURL, NoError>)
+    effects: SignalProducer<Effect, NoError>)
   {
-    let (URLsToOpen, URLsToOpenSink) = SignalProducer<NSURL, NoError>.buffer(1)
+    let (effects, effectsSink) = SignalProducer<Effect, NoError>.buffer(1)
     
     return (
       ResultsTableViewModel(
         results: results,
-        URLsToOpenSink: URLsToOpenSink),
-      URLsToOpen: URLsToOpen)
+        effectsSink: effectsSink),
+      effects: effects)
   }
   
   func numberOfRows() -> Int {
@@ -75,22 +80,31 @@ struct ResultsTableViewModel {
   
   private let resultsTable: ResultsTable
   
-  private init(results: Results, URLsToOpenSink: Signal<NSURL, NoError>.Observer) {
+  private init(results: Results, effectsSink: Signal<Effect, NoError>.Observer) {
     let resultsTable = ResultsTable(results: results)
     self.resultsTable = resultsTable
     
-    let (didClickRowAtIndexProducer, didClickRowAtIndexSink) = SignalProducer<Int, NoError>.buffer(1)
-    didClickRowAtIndex = didClickRowAtIndexSink
-    didClickRowAtIndexProducer
-      |> mapOptional { index in
-        switch self.resultsTable.rows[index] {
-        case .Item(text: _, clickURL: let URL):
-          return URL
-        case .Separator:
-          return nil
+    didRecognizeActionOnRowAtIndex = {
+      let buffer = SignalProducer<(Action, Int), NoError>.buffer(1)
+      buffer.0
+        |> mapOptional { (action, index) in
+          switch resultsTable.rows[index] {
+          case let .Item(text: text, clickURL: clickURL):
+            switch action {
+            case .Click:
+              return .OpenURL(clickURL)
+            case .Copy:
+              let pasteboardItem = pasteboardItemForLinkWithText(text, URL: clickURL)
+              return .WriteObjectsToPasteboard([pasteboardItem])
+            }
+          case .Separator:
+            return nil
+          }
         }
-      }
-      |> start(URLsToOpenSink)
+        |> start(effectsSink)
+      return buffer.1
+    }()
+
   }
 }
 
@@ -118,4 +132,22 @@ private struct ResultsTable {
     
     rows = [.Separator].join(sections)
   }
+}
+
+private func pasteboardItemForLinkWithText(text: String, #URL: NSURL) -> NSPasteboardItem {
+  let hyperlink = NSAttributedString(
+    string: text,
+    attributes: [NSLinkAttributeName: URL])
+  
+  let item = NSPasteboardItem()
+  item.setData(
+    hyperlink.RTFFromRange(
+      NSMakeRange(0, hyperlink.length),
+      documentAttributes: nil ),
+    forType: NSPasteboardTypeRTF)
+  item.setString(
+    URL.absoluteString,
+    forType: NSPasteboardTypeString)
+  
+  return item
 }

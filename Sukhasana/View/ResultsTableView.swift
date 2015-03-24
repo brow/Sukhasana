@@ -54,16 +54,7 @@ class ResultsTableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate 
   
   func didRecognizeAction(action: ResultsTableViewModel.Action, onRowAtIndex index: Int) {
     flashHighlightedRowsThen {
-      switch action {
-      case .Click:
-        sendNext(self.model.value.didClickRowAtIndex, index)
-      case .Copy:
-        if let pasteboardObjects = self.model.value.pasteboardObjectsForRow(index) {
-          let pasteboard = NSPasteboard.generalPasteboard()
-          pasteboard.clearContents()
-          pasteboard.writeObjects(pasteboardObjects)
-        }
-      }
+      sendNext(self.model.value.didRecognizeActionOnRowAtIndex, (action, index))
     }
   }
   

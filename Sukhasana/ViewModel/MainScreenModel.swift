@@ -9,6 +9,11 @@
 import ReactiveCocoa
 
 struct MainScreenModel {
+  enum Effect {
+    case OpenSettings
+    case Results(ResultsTableViewModel.Effect)
+  }
+  
   let textFieldText = MutableProperty("")
   let activityIndicatorIsAnimating: PropertyOf<Bool>
   let resultsTableViewModel: PropertyOf<ResultsTableViewModel>
@@ -16,19 +21,15 @@ struct MainScreenModel {
   
   static func makeWithSettings(settings: Settings) -> (
     MainScreenModel,
-    didClickSettingsButton: SignalProducer<(), NoError>,
-    URLsToOpen: SignalProducer<NSURL, NoError>)
+    effects: SignalProducer<Effect, NoError>)
   {
-    let (didClickSettingsButton, didClickSettingsButtonSink) = SignalProducer<(), NoError>.buffer(1)
-    let (URLsToOpen, URLsToOpenSink) = SignalProducer<NSURL, NoError>.buffer(1)
+    let (effects, effectsSink) = SignalProducer<Effect, NoError>.buffer(1)
     
     return (
       MainScreenModel(
         settings: settings,
-        didClickSettingsButtonSink: didClickSettingsButtonSink,
-        URLsToOpenSink: URLsToOpenSink),
-      didClickSettingsButton: didClickSettingsButton,
-      URLsToOpen: URLsToOpen
+        effectsSink: effectsSink),
+      effects: effects
     )
   }
   
@@ -36,8 +37,7 @@ struct MainScreenModel {
   
   private init(
     settings: Settings,
-    didClickSettingsButtonSink: Signal<(), NoError>.Observer,
-    URLsToOpenSink: Signal<NSURL, NoError>.Observer)
+    effectsSink: Signal<Effect, NoError>.Observer)
   {
     let client = APIClient(APIKey: settings.APIKey)
     
@@ -64,7 +64,7 @@ struct MainScreenModel {
       |> join(.Latest)
       |> replay(capacity: 1)
     
-    let resultsTableViewModelsAndSignals: SignalProducer<(ResultsTableViewModel, SignalProducer<NSURL, NoError>), NoError> =
+    let resultsTableViewModelsAndEffects: SignalProducer<(ResultsTableViewModel, SignalProducer<ResultsTableViewModel.Effect, NoError>), NoError> =
     fetchState
       |> map { fetchState in
         switch fetchState {
@@ -78,12 +78,12 @@ struct MainScreenModel {
     
     resultsTableViewModel = propertyOf(
       ResultsTableViewModel.makeWithResults(Results.empty).0,
-      resultsTableViewModelsAndSignals |> map { $0.0 } )
+      resultsTableViewModelsAndEffects |> map { $0.0 } )
     
-    resultsTableViewModelsAndSignals
-      |> map { $0.1 }
-      |> join(.Latest)
-      |> start(URLsToOpenSink)
+    resultsTableViewModelsAndEffects
+      |> joinMap(.Latest) { $0.1 }
+      |> map { .Results($0) }
+      |> start(effectsSink)
     
     activityIndicatorIsAnimating = propertyOf(false, fetchState
       |> map { resultsState in
@@ -95,7 +95,13 @@ struct MainScreenModel {
         }
       })
     
-    didClickSettingsButton = didClickSettingsButtonSink
+    didClickSettingsButton = {
+      let buffer = SignalProducer<(), NoError>.buffer(1)
+      buffer.0
+        |> map { _ in .OpenSettings}
+        |> start(effectsSink)
+      return buffer.1
+    }()
   }
 }
 

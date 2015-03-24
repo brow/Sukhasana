@@ -55,25 +55,35 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
       queue: nil,
       usingBlock: { [weak self] _ in self?.updatePanelFrame(); return })
     
-    model.shouldDisplayScreen.start { [weak self] screen in
+    model.effects.start { [weak self] effect in
       if let _self = self {
-        _self.displayingViewController = {
-          switch screen {
-          case .Settings(let model):
-            return SettingsViewController(model: model)
-          case .Main(let model):
-            return MainViewController(model: model, delegate: _self)
-          }
-          }()
-        _self.setContentView(_self.displayingViewController!.view)
-        _self.displayingViewController!.viewDidDisplay()
+        switch effect {
+          
+        case .DisplayScreen(let screen):
+          _self.displayingViewController = {
+            switch screen {
+            case .Settings(let model):
+              return SettingsViewController(model: model)
+            case .Main(let model):
+              return MainViewController(model: model, delegate: _self)
+            }
+            }()
+          _self.setContentView(_self.displayingViewController!.view)
+          _self.displayingViewController!.viewDidDisplay()
+          
+        case .MainScreen(.Results(.OpenURL(let URL))):
+          NSWorkspace.sharedWorkspace().openURL(URL)
+          _self.panel.close()
+          
+        case .MainScreen(.Results(.WriteObjectsToPasteboard(let objects))):
+          let pasteboard = NSPasteboard.generalPasteboard()
+          pasteboard.clearContents()
+          pasteboard.writeObjects(objects)
+          
+        default:
+          break
+        }
       }
-    }
-    
-    model.shouldOpenURL.start { [weak self] URL in
-      NSWorkspace.sharedWorkspace().openURL(URL)
-      self?.panel.close()
-      return
     }
     
     if model.shouldOpenPanelOnLaunch {
