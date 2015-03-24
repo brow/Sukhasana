@@ -71,17 +71,14 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
           _self.setContentView(_self.displayingViewController!.view)
           _self.displayingViewController!.viewDidDisplay()
           
-        case .MainScreen(.Results(.OpenURL(let URL))):
+        case .Results(.OpenURL(let URL)):
           NSWorkspace.sharedWorkspace().openURL(URL)
           _self.panel.close()
           
-        case .MainScreen(.Results(.WriteObjectsToPasteboard(let objects))):
+        case .Results(.WriteObjectsToPasteboard(let objects)):
           let pasteboard = NSPasteboard.generalPasteboard()
           pasteboard.clearContents()
           pasteboard.writeObjects(objects)
-          
-        default:
-          break
         }
       }
     }

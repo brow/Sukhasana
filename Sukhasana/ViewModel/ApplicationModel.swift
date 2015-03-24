@@ -16,7 +16,7 @@ struct ApplicationModel {
   
   enum Effect {
     case DisplayScreen(Screen)
-    case MainScreen(MainScreenModel.Effect)
+    case Results(ResultsTableViewModel.Effect)
   }
   
   let effects: SignalProducer<Effect, NoError>
@@ -79,7 +79,14 @@ struct ApplicationModel {
         |> map { .DisplayScreen($0) },
       mainModelsAndEffects
         |> joinMap(.Latest) { $0.effects}
-        |> map { .MainScreen($0) },
+        |> mapOptional { effect in
+          switch effect {
+          case .Results(let effect):
+            return .Results(effect)
+          default:
+            return nil
+          }
+        },
       ])
       |> join(.Merge)
   }
