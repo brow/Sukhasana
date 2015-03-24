@@ -25,13 +25,15 @@
 		EA125B251AA40426004177C4 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B111AA40426004177C4 /* SeparatorView.swift */; };
 		EA125B261AA40426004177C4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B121AA40426004177C4 /* SettingsViewController.swift */; };
 		EA125B271AA40426004177C4 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA125B131AA40426004177C4 /* SettingsViewController.xib */; };
-		EA125B281AA40426004177C4 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B141AA40426004177C4 /* TableView.swift */; };
+		EA125B281AA40426004177C4 /* ResultsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B141AA40426004177C4 /* ResultsTableView.swift */; };
 		EA125B291AA40426004177C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B151AA40426004177C4 /* ViewController.swift */; };
 		EA125B2A1AA40426004177C4 /* ApplicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B171AA40426004177C4 /* ApplicationModel.swift */; };
 		EA125B2B1AA40426004177C4 /* MainScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B181AA40426004177C4 /* MainScreenModel.swift */; };
 		EA125B2C1AA40426004177C4 /* SettingsScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA125B191AA40426004177C4 /* SettingsScreenModel.swift */; };
 		EA307A601A87FC780008A566 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; };
 		EA307A611A87FC780008A566 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA307A5F1A87FC780008A566 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EAFD89FB1ABF7A0400DA0CBE /* ResultsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFD89FA1ABF7A0400DA0CBE /* ResultsTableViewModel.swift */; };
+		EAFD89FD1ABF7E3100DA0CBE /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFD89FC1ABF7E3100DA0CBE /* Results.swift */; };
 		EAFFDC7D1AACF5C400F38834 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAFFDC7C1AACF5C400F38834 /* MASShortcut.framework */; };
 		EAFFDC7E1AACF5C400F38834 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAFFDC7C1AACF5C400F38834 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -84,12 +86,14 @@
 		EA125B111AA40426004177C4 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		EA125B121AA40426004177C4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EA125B131AA40426004177C4 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
-		EA125B141AA40426004177C4 /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		EA125B141AA40426004177C4 /* ResultsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableView.swift; sourceTree = "<group>"; };
 		EA125B151AA40426004177C4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EA125B171AA40426004177C4 /* ApplicationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationModel.swift; sourceTree = "<group>"; };
 		EA125B181AA40426004177C4 /* MainScreenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenModel.swift; sourceTree = "<group>"; };
 		EA125B191AA40426004177C4 /* SettingsScreenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsScreenModel.swift; sourceTree = "<group>"; };
 		EA307A5F1A87FC780008A566 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
+		EAFD89FA1ABF7A0400DA0CBE /* ResultsTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableViewModel.swift; sourceTree = "<group>"; };
+		EAFD89FC1ABF7E3100DA0CBE /* Results.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
 		EAFFDC7C1AACF5C400F38834 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = ../Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				EA125B061AA40426004177C4 /* Settings.swift */,
+				EAFD89FC1ABF7E3100DA0CBE /* Results.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,10 +195,10 @@
 				EA125B0E1AA40426004177C4 /* MainViewController.swift */,
 				EA125B0F1AA40426004177C4 /* MainViewController.xib */,
 				EA125B101AA40426004177C4 /* Panel.swift */,
+				EA125B141AA40426004177C4 /* ResultsTableView.swift */,
 				EA125B111AA40426004177C4 /* SeparatorView.swift */,
 				EA125B121AA40426004177C4 /* SettingsViewController.swift */,
 				EA125B131AA40426004177C4 /* SettingsViewController.xib */,
-				EA125B141AA40426004177C4 /* TableView.swift */,
 				EA125B151AA40426004177C4 /* ViewController.swift */,
 			);
 			path = View;
@@ -204,6 +209,7 @@
 			children = (
 				EA125B171AA40426004177C4 /* ApplicationModel.swift */,
 				EA125B181AA40426004177C4 /* MainScreenModel.swift */,
+				EAFD89FA1ABF7A0400DA0CBE /* ResultsTableViewModel.swift */,
 				EA125B191AA40426004177C4 /* SettingsScreenModel.swift */,
 			);
 			path = ViewModel;
@@ -323,14 +329,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA125B1C1AA40426004177C4 /* Settings.swift in Sources */,
-				EA125B281AA40426004177C4 /* TableView.swift in Sources */,
+				EA125B281AA40426004177C4 /* ResultsTableView.swift in Sources */,
 				EA125B241AA40426004177C4 /* Panel.swift in Sources */,
 				EA125B251AA40426004177C4 /* SeparatorView.swift in Sources */,
 				EA125B291AA40426004177C4 /* ViewController.swift in Sources */,
+				EAFD89FB1ABF7A0400DA0CBE /* ResultsTableViewModel.swift in Sources */,
 				EA125B1F1AA40426004177C4 /* SignalOperators.swift in Sources */,
 				EA125B2C1AA40426004177C4 /* SettingsScreenModel.swift in Sources */,
 				EA125B2A1AA40426004177C4 /* ApplicationModel.swift in Sources */,
 				EA125B1D1AA40426004177C4 /* APIClient.swift in Sources */,
+				EAFD89FD1ABF7E3100DA0CBE /* Results.swift in Sources */,
 				EA125B221AA40426004177C4 /* MainViewController.swift in Sources */,
 				EA125B201AA40426004177C4 /* AppDelegate.swift in Sources */,
 				EA125B2B1AA40426004177C4 /* MainScreenModel.swift in Sources */,
