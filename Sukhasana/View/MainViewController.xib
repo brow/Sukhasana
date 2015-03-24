@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -26,7 +26,7 @@
                         <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="qd4-ch-g2N" customClass="TableView" customModule="Sukhasana" customModuleProvider="target">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="qd4-ch-g2N" customClass="ResultsTableView" customModule="Sukhasana" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <color key="gridColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,8 +48,8 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zbg-Ev-qpk" userLabel="Text Field">
-                                                        <rect key="frame" x="8" y="0.0" width="260" height="17"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Zbg-Ev-qpk" userLabel="Text Field">
+                                                        <rect key="frame" x="8" y="0.0" width="284" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="xsJ-4N-yHm">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -74,10 +74,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <outlet property="dataSource" destination="-2" id="6R7-Tj-I51"/>
-                                    <outlet property="delegate" destination="-2" id="DdJ-PK-5X9"/>
                                     <outlet property="nextKeyView" destination="4sH-v6-b1V" id="hmt-9F-MRA"/>
-                                    <outlet property="secondDelegate" destination="-2" id="WXY-Fh-wZn"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -127,8 +124,8 @@
                         <action selector="didClickSettingsButton:" target="-2" id="jzQ-9x-OX8"/>
                     </connections>
                 </button>
-                <progressIndicator misplaced="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="RRm-9b-6gv">
-                    <rect key="frame" x="-5" y="-7" width="286" height="12"/>
+                <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="RRm-9b-6gv">
+                    <rect key="frame" x="-5" y="-7" width="310" height="12"/>
                 </progressIndicator>
             </subviews>
             <constraints>

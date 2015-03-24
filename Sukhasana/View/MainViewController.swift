@@ -9,9 +9,9 @@
 import Cocoa
 import ReactiveCocoa
 
-class MainViewController: NSViewController, ViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, TableViewDelegate {
+class MainViewController: NSViewController, ViewController, NSTextFieldDelegate {
   @IBOutlet var textField: NSTextField!
-  @IBOutlet var resultsTableView: TableView!
+  @IBOutlet var resultsTableView: ResultsTableView!
   @IBOutlet var resultsTableViewHeightConstraint: NSLayoutConstraint!
   @IBOutlet var progressIndicator: NSProgressIndicator!
   
@@ -53,74 +53,16 @@ class MainViewController: NSViewController, ViewController, NSTableViewDataSourc
     }
   }
   
-  // MARK: NSTableViewDataSource
-  
-  func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-    return model.numberOfRows()
-  }
-  
-  // MARK: NSTableViewDelegate
-  
-  func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-    switch model.cellForRow(row) {
-    case .Selectable(let text):
-      let view = tableView.makeViewWithIdentifier("SelectableCell", owner: self) as NSTableCellView
-      view.textField?.stringValue = text
-      return view
-    case .Separator:
-      return tableView.makeViewWithIdentifier("SeparatorView", owner: self) as? NSView
-    }
-  }
-  
-  func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
-    switch model.cellForRow(row) {
-    case .Selectable:
-      return true
-    case .Separator:
-      return false
-    }
-  }
-  
-  func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-    switch model.cellForRow(row) {
-    case .Selectable:
-      return 22
-    case .Separator:
-      return 1
-    }
-  }
-  
-  // MARK: TableViewDelegate
-  
-  func tableView(tableView: TableView, didRecognizeAction action: TableView.Action, onRowAtIndex index: Int) {
-    switch action {
-    case .Click:
-      sendNext(model.didClickRowAtIndex, index)
-    case .Copy:
-      if let pasteboardObjects = model.pasteboardObjectsForRow(index) {
-        let pasteboard = NSPasteboard.generalPasteboard()
-        pasteboard.clearContents()
-        pasteboard.writeObjects(pasteboardObjects)
-      }
-    }
-  }
-  
   // MARK: NSViewController
   
   override func loadView() {
     super.loadView()
     
-    model.tableViewShouldReloadData.start { [weak self] _ in
+    resultsTableView.model <~ model.resultsTableViewModel
+    
+    resultsTableView.fittingHeight.start { [weak self] height in
       if let _self = self {
-        _self.resultsTableView.reloadData()
-        
-        let numberOfRows = _self.model.numberOfRows()
-        let bottomPadding = CGFloat(numberOfRows > 0 ? 4 : 0)
-        _self.resultsTableViewHeightConstraint.constant =
-          bottomPadding +
-          map(0..<numberOfRows) { row in
-            _self.tableView(_self.resultsTableView, heightOfRow: row)
-            }.reduce(0, +)
+        _self.resultsTableViewHeightConstraint.constant = height
         _self.delegate?.mainViewControllerDidChangeFittingSize(_self)
       }
     }
