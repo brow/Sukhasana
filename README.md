@@ -18,7 +18,7 @@ Sukhasana's dependencies are built with [Carthage](https://github.com/Carthage/C
 ```
 brew install carthage
 ```
-Build with `make`.
+Build and install with `make`.
 ```
 git clone git@github.com:brow/Sukhasana.git
 cd Sukhasana
