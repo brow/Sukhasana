@@ -48,7 +48,11 @@ class ResultsTableView: NSTableView, NSTableViewDataSource, NSTableViewDelegate 
   
   func copy(sender: AnyObject?) {
     if selectedRow >= 0 {
-      didRecognizeAction(.Copy, onRowAtIndex: selectedRow)
+      // For some reason, the flashHighlightedRowsThen animation's timing is off
+      // if initiated in the same event loop iteration `self.copy` is called.
+      dispatch_async(dispatch_get_main_queue()) {
+        self.didRecognizeAction(.Copy, onRowAtIndex: self.selectedRow)
+      }
     }
   }
   
