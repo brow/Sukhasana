@@ -9,10 +9,10 @@
 import Foundation
 
 struct Results {
-  let projects, tasks: [Result]
+  let projects, users, tasks, tags: [Result]
   
   static var empty: Results {
-    return Results(projects: [], tasks: [])
+    return Results(projects: [], users: [], tasks: [], tags: [])
   }
 }
 

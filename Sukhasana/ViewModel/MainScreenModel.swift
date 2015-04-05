@@ -45,14 +45,20 @@ struct MainScreenModel {
       |> map { query -> SignalProducer<Results, NSError> in
         if query == "" {
           // The empty query always returns no results, so don't bother
-          return SignalProducer(value: Results(projects: [], tasks: []))
+          return SignalProducer(value: Results.empty)
         } else {
           let request = { type in
             client.requestTypeaheadResultsInWorkspace(settings.workspaceID, ofType: type, matchingQuery: query)
               |> map(resultsFromJSON)
           }
-          return zip(request(.Project), request(.Task))
-            |> map { projects, tasks in Results(projects: projects, tasks: tasks) }
+          return zip(request(.Project), request(.User), request(.Task), request(.Tag))
+            |> map { projects, users, tasks, tags in
+              Results(
+                projects: projects,
+                users: users,
+                tasks: tasks,
+                tags: tags)
+            }
         }
       }
       |> map { request in

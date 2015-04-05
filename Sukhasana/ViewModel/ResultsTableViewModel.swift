@@ -121,7 +121,7 @@ private struct ResultsTable {
   }
   
   init(results: Results) {
-    let sections: [[Row]] = [results.projects, results.tasks]
+    let sections: [[Row]] = [results.projects, results.users, results.tasks, results.tags]
       .filter { !$0.isEmpty }
       .map { section in
         section.map { result in

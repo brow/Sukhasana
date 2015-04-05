@@ -20,8 +20,10 @@ struct APIClient {
   }
   
   enum TypeaheadType: String {
-    case Task = "task"
     case Project = "project"
+    case User    = "user"
+    case Task    = "task"
+    case Tag     = "tag"
   }
 
   func requestTypeaheadResultsInWorkspace(workspaceID: String, ofType type: TypeaheadType, matchingQuery query: String) -> SignalProducer<NSDictionary, NSError> {
