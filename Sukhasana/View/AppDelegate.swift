@@ -79,6 +79,7 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
           let pasteboard = NSPasteboard.generalPasteboard()
           pasteboard.clearContents()
           pasteboard.writeObjects(objects)
+          _self.panel.close()
         }
       }
     }
