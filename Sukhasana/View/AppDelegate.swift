@@ -59,9 +59,12 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   
   func applicationDidFinishLaunching(notification: NSNotification) {
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
-    statusItem.title = "☀"
-    statusItem.target = self
-    statusItem.action = "didClickStatusItem:"
+    if let button = statusItem.button {
+      button.image = NSImage(named: "StatusItemIcon")
+      button.alternateImage = NSImage(named: "StatusItemIconHighlighted")
+      button.target = self
+      button.action = "didClickStatusItem:"
+    }
     
     panel.floatingPanel = true
     
