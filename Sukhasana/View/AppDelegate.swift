@@ -18,7 +18,17 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   }
   
   @IBAction func didClickStatusItem(sender: AnyObject) {
-    panel.makeKeyAndOrderFront(self)
+    if panel.keyWindow {
+      panel.close()
+    } else {
+      // Later in this event loop iteration, the highlight of the status item
+      // button is automatically set to false. So if we want to highlight the
+      // button, as we do in `windowDidBecomeKey`, we need to ensure that happens
+      // in a later iteration.
+      dispatch_async(dispatch_get_main_queue()) {
+        self.panel.makeKeyAndOrderFront(self)
+      }
+    }
   }
   
   // MARK: MainViewControllerDelegate
@@ -30,11 +40,19 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   // MARK: NSWindowDelegate
   
   func windowDidResignKey(notification: NSNotification) {
+    // windowDidResignKey is always called when the window is closed (e.g., by
+    // calling panel.close()), so it's a reliable place to un-highlight the 
+    // status item.
+    statusItem.button?.highlight(false)
+    
+    // However, the window isn't necessarily closed when it resigns key, so we
+    // must ensure here that it closes.
     panel.close()
   }
   
   func windowDidBecomeKey(notification: NSNotification) {
     displayingViewController?.viewDidDisplay()
+    self.statusItem.button?.highlight(true)
   }
   
   // MARK: NSApplicationDelegate
@@ -42,7 +60,6 @@ class AppDelegate: NSObject, MainViewControllerDelegate,  NSApplicationDelegate,
   func applicationDidFinishLaunching(notification: NSNotification) {
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2 /* NSSquareStatusItemLength */)
     statusItem.title = "☀"
-    statusItem.highlightMode = true
     statusItem.target = self
     statusItem.action = "didClickStatusItem:"
     
