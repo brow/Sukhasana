@@ -20,6 +20,6 @@ struct Result {
   let name, id: String
   var URL: NSURL {
     // FIXME: escape id
-    return NSURL(string: "https://app.asana.com/0/0/\(id)")!
+    return NSURL(string: "https://app.asana.com/0/\(id)/\(id)")!
   }
 }
