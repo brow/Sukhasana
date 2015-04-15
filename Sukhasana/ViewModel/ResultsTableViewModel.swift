@@ -53,29 +53,6 @@ struct ResultsTableViewModel {
     }
   }
   
-  func pasteboardObjectsForRow(row: Int) -> [NSPasteboardWriting]? {
-    switch resultsTable.rows[row] {
-      
-    case let .Item(text: text, clickURL: URL):
-      let hyperlink = NSAttributedString(
-        string: text,
-        attributes: [NSLinkAttributeName: URL])
-      let item = NSPasteboardItem()
-      item.setData(
-        hyperlink.RTFFromRange(
-          NSMakeRange(0, hyperlink.length),
-          documentAttributes: nil ),
-        forType: NSPasteboardTypeRTF)
-      item.setString(
-        URL.absoluteString,
-        forType: NSPasteboardTypeString)
-      return [item]
-      
-    case .Separator:
-      return nil
-    }
-  }
-  
   // MARK: private
   
   private let resultsTable: ResultsTable
