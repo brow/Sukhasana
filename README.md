@@ -1,3 +1,5 @@
+![icon](http://i.imgur.com/EnMyXQq.png)
+
 # Sukhasana
 Mac status item for searching Asana. An experiment with [MVVM](https://github.com/ReactiveCocoa/ReactiveViewModel) in [ReactiveCocoa 3](https://github.com/ReactiveCocoa/ReactiveCocoa/pull/1382).
 
